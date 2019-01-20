@@ -23,7 +23,7 @@
                   </Button>
                   <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../pics/MSC.PNG" />
+                        <Image url="@pic/MSC.PNG" />
                      </image>
                   </ImageView>
                </children>
