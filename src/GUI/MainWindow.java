@@ -1,11 +1,9 @@
 package GUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -35,7 +33,6 @@ public class MainWindow {
             Scene scene = new Scene(root,  this.window_width - 5,  this.window_height- 15);
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setResizable(false);
             stage.show();
         } catch(Exception e) {
             e.printStackTrace();
@@ -58,7 +55,6 @@ public class MainWindow {
             // set the window size
             Scene scene = new Scene(root,  this.window_width - 5,  this.window_height- 15);
             stage.setScene(scene);
-            stage.setResizable(false);
             stage.setResizable(false);
             stage.show();
         } catch(Exception e) {
