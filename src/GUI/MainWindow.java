@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.awt.*;
 
 public class MainWindow {
@@ -39,9 +38,7 @@ public class MainWindow {
         }
     }
 
-    /***
-     * Loading the Search window when the "start" button is clicked.
-     */
+
     @FXML
     protected void start() {
         try {

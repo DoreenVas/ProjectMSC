@@ -22,10 +22,11 @@ public class Main extends Application {
         //this.window_height = window.height;
         //this.window_width = window.width;
         // set the window size
-        setWindowSize();
+        //setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);
         primaryStage.setScene(main_window);
         primaryStage.setResizable(false);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
