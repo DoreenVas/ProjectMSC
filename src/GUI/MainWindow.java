@@ -29,9 +29,10 @@ public class MainWindow {
             this.window_height = window.height;
             this.window_width = window.width;
             // set the window size
-            Scene scene = new Scene(root,  this.window_width - 5,  this.window_height- 15);
+            Scene scene = new Scene(root,  this.window_width ,  this.window_height);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.setMaximized(true);
             stage.show();
         } catch(Exception e) {
             e.printStackTrace();
@@ -50,9 +51,10 @@ public class MainWindow {
             this.window_height = window.height;
             this.window_width = window.width;
             // set the window size
-            Scene scene = new Scene(root,  this.window_width - 5,  this.window_height- 15);
+            Scene scene = new Scene(root,  this.window_width,  this.window_height);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.setMaximized(true);
             stage.show();
         } catch(Exception e) {
             e.printStackTrace();
