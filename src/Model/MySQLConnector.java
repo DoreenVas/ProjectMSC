@@ -13,7 +13,7 @@ public class MySQLConnector {
     private Statement statement;
     private ResultSet resultSet;
 
-    private String[] patinetColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "patient_age"};
+    private String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "patient_age"};
     private String[] gameColumns = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
     private String[] shapesColumns = {"game_id", "arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
@@ -152,7 +152,7 @@ public class MySQLConnector {
             // execute the query
             this.resultSet = this.statement.executeQuery(command);
             // count the number of games
-            command = String.format("SELECT count(game_id) from game;");
+            command = "SELECT count(game_id) from game;";
             this.resultSet = this.statement.executeQuery(command);
             gameCount = this.resultSet.getInt(1);
 
@@ -202,8 +202,8 @@ public class MySQLConnector {
 
             // insert the game and the patient to patient_game table
             for (String k : shapesResults.keySet()) {
-                command1.append(k + ", ");
-                command2.append(shapesResults.get(k) + ", ");
+                command1.append(k).append(", ");
+                command2.append(shapesResults.get(k)).append(", ");
             }
             // add the game id
             command1 = command1.append("game_id").append(")");
