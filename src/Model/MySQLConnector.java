@@ -124,6 +124,20 @@ public class MySQLConnector {
         }
     }
 
+    public void getResultsByPatient(String p_id, String[] tables) {
+        try {
+            // create sql query
+            this.statement = this.conn.createStatement();
+            for (String table : tables) {
+                String command = String.format("Select * from %s, patient_game" +
+                        " where patient_game.p_id=%s and patient_game.g_id=%s.game_id;", table, p_id, table);
+                this.resultSet = this.statement.executeQuery(command);
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR executeQuery in get patient results - " + e.getMessage());
+        }
+    }
+
     public void insertNewPatient(PatientContainer patientInfo) {
         String p_id = patientInfo.getPatientID(), p_name = patientInfo.getPatientName(), p_age = patientInfo.getPatientAge();
         char p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender();

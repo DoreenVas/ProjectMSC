@@ -21,7 +21,7 @@ public class MainWindow {
     @FXML
     protected void instructions() {
         try {
-            Stage stage = (Stage) instructions.getScene().getWindow();
+            Stage stage = (Stage) this.instructions.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("InstructionsWindow.fxml"));
             stage.setTitle("Instructions");
             // get the size of the screen
@@ -43,7 +43,7 @@ public class MainWindow {
     @FXML
     protected void start() {
         try {
-            Stage stage = (Stage) start.getScene().getWindow();
+            Stage stage = (Stage) this.start.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("GameWindow.fxml"));
             stage.setTitle("Game");
             // get the size of the screen
@@ -66,7 +66,7 @@ public class MainWindow {
      */
     @FXML
     protected void exit() {
-        Stage stage = (Stage) exit.getScene().getWindow();
+        Stage stage = (Stage) this.exit.getScene().getWindow();
         stage.close();
     }
 }

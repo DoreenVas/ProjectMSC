@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -15,11 +16,7 @@
          <top>
             <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" text="חזרה" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
+                  <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" />
                   <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pic/MSC.PNG" />
