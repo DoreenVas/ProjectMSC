@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `patient` (
-  `patient_id` int(11) NOT NULL DEFAULT '0',
+  `patient_id` varchar(20) NOT NULL DEFAULT '0',
   `patient_name` varchar(100) DEFAULT NULL,
   `patient_gender` varchar(1) DEFAULT NULL,
   `dominant_hand` varchar(1) DEFAULT NULL,
@@ -75,9 +75,9 @@ DROP TABLE IF EXISTS `patient_game`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `patient_game` (
-  `patient_id` int(11) NOT NULL,
+  `patient_id` varchar(20) NOT NULL,
   `game_id` int(11) NOT NULL,
-  PRIMARY KEY (`game_id`),
+  KEY `game_id_fk_idx` (`game_id`),
   KEY `patient_id_fk_idx` (`patient_id`),
   CONSTRAINT `game_id_fk` FOREIGN KEY (`game_id`) REFERENCES `game` (`game_id`),
   CONSTRAINT `patient_id_fk` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-30 19:14:43
+-- Dump completed on 2019-02-17 14:29:42

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-public class SignUp {
+public class SignUpWindow {
 
     @FXML
     private Button back;

@@ -113,7 +113,7 @@ public class MySQLConnector {
         try {
             // create the sql query
             this.statement = this.conn.createStatement();
-            String command = "Select * from patient where patient_id=" + patientID + ";";
+            String command = "Select * from patient where patient_id=\"" + patientID + "\";";
             // execute the query
             this.resultSet = this.statement.executeQuery(command);
             while(this.resultSet.next()) {
@@ -130,7 +130,7 @@ public class MySQLConnector {
             this.statement = this.conn.createStatement();
             for (String table : tables) {
                 String command = String.format("Select * from %s, patient_game" +
-                        " where patient_game.p_id=%s and patient_game.g_id=%s.game_id;", table, p_id, table);
+                        " where patient_game.patient_id=\"%s\" and patient_game.game_id=%s.game_id;", table, p_id, table);
                 this.resultSet = this.statement.executeQuery(command);
             }
         } catch (SQLException e) {
@@ -145,7 +145,7 @@ public class MySQLConnector {
             // create the sql query
             this.statement = this.conn.createStatement();
             String command = String.format("INSERT INTO patient (patient_id, patient_name, patient_gender, dominant_hand, patient_age)" +
-                    " VALUES (%d, \"%s\", \"%c\", \"%c\", \"%s\")", Integer.getInteger(p_id), p_name, p_gender, p_hand, p_age);
+                    " VALUES (\"%s\", \"%s\", \"%c\", \"%c\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age);
             // execute the query
             this.resultSet = this.statement.executeQuery(command);
             this.conn.commit();
@@ -215,6 +215,7 @@ public class MySQLConnector {
             this.statement = this.conn.createStatement();
 
             // insert the game and the patient to patient_game table
+            // add te results for each shape
             for (String k : shapesResults.keySet()) {
                 command1.append(k).append(", ");
                 command2.append(shapesResults.get(k)).append(", ");
