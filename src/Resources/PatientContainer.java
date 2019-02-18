@@ -1,7 +1,7 @@
 package Resources;
 
 public class PatientContainer {
-    // memebers
+    // members
     private String patientName;
     private String patientID;
     private String patientAge;

@@ -6,14 +6,14 @@ import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 
-public class MySQLConnector {
+public class DBModel implements Model{
     // members
     private Connection conn;
     private String host, port, user, password, schema;
     private Statement statement;
     private ResultSet resultSet;
 
-    private String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "patient_age"};
+
     private String[] gameColumns = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
     private String[] shapesColumns = {"game_id", "arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
@@ -24,43 +24,43 @@ public class MySQLConnector {
     /****
      * Constructor
      */
-    public MySQLConnector() {
+    public DBModel() {
         this.conn = null;
     }
 
     /**
      *
-     * @return true if the connection was successfully set
+     * Opens a connection to the DB.
+     * @throws DBConnectionException thrown if there was an error connecting to the DB
      */
-    public boolean openConnection() {
-
+    public void openConnection() throws DBConnectionException {
         // creating the connection.
         parseInfo();
 
         try {
+            // start connection to DBConnection
             this.conn = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.schema
                     + "?useUnicode=true&characterEncoding=ISO8859_8&useLegacyDatetimeCode=false&serverTimezone=UTC", this.user, this.password);
-        } catch (SQLException e) {
-            System.out.println("Unable to connect - " + e.getMessage());
-            this.conn = null;
-            return false;
+            // create a statement
+            this.statement = this.conn.createStatement();
+        } catch (Exception e) {
+            throw new DBConnectionException(AlertMessages.failedConnection(), e);
         }
-        System.out.println("Connected!");
-        return true;
     }
 
-
     /**
-     * close the connection
+     *
+     * Closes the connection to the DB.
+     * @throws DBConnectionException thrown if there was an error disconnecting from the DB
      */
-    public void closeConnection() {
-        // closing the connection
+    public void closeConnection() throws DBConnectionException {
         try {
+            // close resources
+            this.statement.close();
             this.conn.close();
-        } catch (SQLException e) {
-            System.out.println("Unable to close the connection - " + e.getMessage());
+        } catch (Exception e) {
+            throw new DBConnectionException(AlertMessages.failedDisconnection(), e);
         }
-
     }
 
     /*****
@@ -105,36 +105,6 @@ public class MySQLConnector {
         } catch (IOException e) {
             System.out.println("Could not read from config file\n");
             e.printStackTrace();
-        }
-    }
-
-
-    public void getPatientInfo(String patientID) {
-        try {
-            // create the sql query
-            this.statement = this.conn.createStatement();
-            String command = "Select * from patient where patient_id=\"" + patientID + "\";";
-            // execute the query
-            this.resultSet = this.statement.executeQuery(command);
-            while(this.resultSet.next()) {
-
-            }
-        } catch (SQLException e) {
-            System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
-        }
-    }
-
-    public void getResultsByPatient(String p_id, String[] tables) {
-        try {
-            // create sql query
-            this.statement = this.conn.createStatement();
-            for (String table : tables) {
-                String command = String.format("Select * from %s, patient_game" +
-                        " where patient_game.patient_id=\"%s\" and patient_game.game_id=%s.game_id;", table, p_id, table);
-                this.resultSet = this.statement.executeQuery(command);
-            }
-        } catch (SQLException e) {
-            System.out.println("ERROR executeQuery in get patient results - " + e.getMessage());
         }
     }
 

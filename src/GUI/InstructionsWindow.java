@@ -1,11 +1,14 @@
 package GUI;
 
+import Resources.AlertMessages;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.awt.*;
 
 public class InstructionsWindow {
@@ -27,13 +30,13 @@ public class InstructionsWindow {
             this.window_height = window.height;
             this.window_width = window.width;
             // set the window size
-            Scene scene = new Scene(root,  this.window_width ,  this.window_height);
+            Scene scene = new Scene(root, this.window_width, this.window_height);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);
             stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
     }
 }

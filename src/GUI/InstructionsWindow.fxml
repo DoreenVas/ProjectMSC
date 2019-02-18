@@ -7,32 +7,33 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
-   <children>
-      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" />
-                  <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pic/MSC.PNG" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-         </top>
-         <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label text="הוראות">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה"/>
+                        <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pic/MSC.PNG"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label text="הוראות">
+                            <font>
+                                <Font size="30.0"/>
+                            </font>
+                        </Label>
+                        <TextArea prefHeight="200.0" prefWidth="200.0"/>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

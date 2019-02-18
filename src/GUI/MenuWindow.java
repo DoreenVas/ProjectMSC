@@ -1,7 +1,9 @@
 package GUI;
+import Resources.AlertMessages;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,7 +37,7 @@ public class MenuWindow {
             stage.setMaximized(true);
             stage.show();
         } catch(Exception e) {
-            e.printStackTrace();
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
     }
 
@@ -57,7 +59,7 @@ public class MenuWindow {
             stage.setMaximized(true);
             stage.show();
         } catch(Exception e) {
-            e.printStackTrace();
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
     }
 

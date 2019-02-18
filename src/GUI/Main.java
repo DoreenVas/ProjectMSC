@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javax.swing.*;
 import java.awt.*;
@@ -17,17 +18,41 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         primaryStage.setTitle("MSC");
-//         get the size of the screen
-//        Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-//        this.window_height = window.height;
-//        this.window_width = window.width;
-//         set the window size
         setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);
         primaryStage.setScene(main_window);
         primaryStage.setResizable(false);
         primaryStage.setMaximized(true);
         primaryStage.show();
+        Connection connection = null;
+        try {
+            connection = Connection.getInstance();
+        } catch (Exception e) {
+            Alerter.showAlert(e.getMessage(), Alert.AlertType.ERROR);
+            primaryStage.close();
+            stop();
+            return;
+        }
+        if(connection == null) {
+            primaryStage.close();
+            stop();
+            return;
+        }
+        boolean tryAgain = true;
+        while(tryAgain) {
+            // try to open a connection to the controller
+            try {
+                connection.OpenConnection();
+                tryAgain = false;
+            } catch (Exception e) {
+                // display appropriate message
+                tryAgain = Alerter.showAlert(e.getMessage(), Alert.AlertType.ERROR, "yesno");
+                // if user clicked no then close the application
+                if(!tryAgain) {
+                    primaryStage.close();
+                }
+            }
+        }
     }
 
     private void setWindowSize(){
@@ -41,6 +66,23 @@ public class Main extends Application {
         //available size of the screen
         this.window_width = screenSize.width - dialog.getWidth();
         this.window_height = screenSize.height - taskBarSize - dialog.getHeight();
+    }
+
+    /**
+     * Stopping the connection to the DB when the application is closed.
+     * @throws Exception
+     */
+    @Override
+    public void stop() throws Exception {
+        try {
+            Connection connection = Connection.getInstance();
+            // try to close the connection to the controller
+            connection.CloseConnection();
+        } catch (Exception e) {
+
+        }
+        // stop the application
+        super.stop();
     }
 
     public static void main(String[] args) {
