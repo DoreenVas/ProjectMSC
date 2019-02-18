@@ -1,5 +1,8 @@
 package Model;
 
+import Resources.GameContainer;
+import Resources.PatientContainer;
+
 import java.sql.SQLException;
 
 public interface Model {
@@ -17,4 +20,10 @@ public interface Model {
      * @throws SQLException thrown if unable to disconnect to the DB
      */
     void openConnection() throws SQLException;
+
+    PatientContainer getData(String id);
+
+    GameContainer getData(String id, GameQueries gameQueries);
+
+    void insertNewPatient(PatientContainer patientContainer);
 }

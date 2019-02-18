@@ -5,10 +5,10 @@ public class PatientContainer {
     private String patientName;
     private String patientID;
     private String patientAge;
-    private char patientGender;
-    private char patientDominantHand;
+    private String patientGender;
+    private String patientDominantHand;
 
-    public PatientContainer(String name, String id, String age, char gender, char hand) {
+    public PatientContainer(String name, String id, String age, String gender, String hand) {
         this.patientName = name;
         this.patientID = id;
         this.patientAge = age;
@@ -24,7 +24,7 @@ public class PatientContainer {
         return patientID;
     }
 
-    public char getPatientDominantHand() {
+    public String getPatientDominantHand() {
         return patientDominantHand;
     }
 
@@ -32,7 +32,7 @@ public class PatientContainer {
         return patientName;
     }
 
-    public char getPatientGender() {
+    public String getPatientGender() {
         return patientGender;
     }
 }

@@ -108,20 +108,28 @@ public class DBModel implements Model{
         }
     }
 
-    public void insertNewPatient(PatientContainer patientInfo) {
-        String p_id = patientInfo.getPatientID(), p_name = patientInfo.getPatientName(), p_age = patientInfo.getPatientAge();
-        char p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender();
-        try {
-            // create the sql query
-            this.statement = this.conn.createStatement();
-            String command = String.format("INSERT INTO patient (patient_id, patient_name, patient_gender, dominant_hand, patient_age)" +
-                    " VALUES (\"%s\", \"%s\", \"%c\", \"%c\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age);
-            // execute the query
-            this.resultSet = this.statement.executeQuery(command);
-            this.conn.commit();
-        } catch (SQLException e) {
-            System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
+    public PatientContainer getData(String id) {
+        String[] info = PatientQueries.getInstance(this.statement).getPatientInfo(id);
+        if (info[0].equals("")) {
+            return null;
+        } else {
+            String[] splitInfo = info[0].split(",");
+            String p_id = splitInfo[0];
+            String p_name = splitInfo[1];
+            String p_gender = splitInfo[2];
+            String dominant_hand = splitInfo[3];
+            String p_age = splitInfo[4];
+            return new PatientContainer(p_name, p_id, p_age, p_gender, dominant_hand);
         }
+    }
+
+    @Override
+    public GameContainer getData(String id, GameQueries gameQueries) {
+        return null;
+    }
+
+    public void insertNewPatient(PatientContainer patientInfo) {
+        PatientQueries.getInstance(statement).insertNewPatient(patientInfo);
     }
 
     public void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer) {

@@ -1,6 +1,7 @@
 package GUI;
 
 import Resources.AlertMessages;
+import Resources.PatientContainer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -52,7 +53,35 @@ public class MainWindow {
     @FXML
     protected void submit() {
         try {
-            Stage stage = (Stage) this.submit.getScene().getWindow();
+            // check validation of id number
+            int id = Integer.parseInt(this.id.getText());
+            if (id < 0 || id > 999999999) {
+                throw new NumberFormatException();
+            }
+            // get the information of the patient
+            String idString = this.id.getText();
+            Connection conn = Connection.getInstance();
+            PatientContainer p_info = conn.idQuery(idString);
+            // patient doesn't exist in the database
+            if (p_info == null) {
+                Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית או הירשם.", Alert.AlertType.WARNING);
+            } else {
+                Stage stage = (Stage) this.submit.getScene().getWindow();
+                AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
+                stage.setTitle("MSC");
+                // get the size of the screen
+                Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+                this.window_height = window.height;
+                this.window_width = window.width;
+                // set the window size
+                Scene scene = new Scene(root, this.window_width, this.window_height);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setMaximized(true);
+                stage.show();
+            }
+        } catch (NumberFormatException e) {
+            Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }

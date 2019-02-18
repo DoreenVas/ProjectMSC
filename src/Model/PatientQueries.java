@@ -1,5 +1,7 @@
 package Model;
 
+import Resources.PatientContainer;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -10,7 +12,7 @@ public class PatientQueries {
     // members
     private static PatientQueries ourInstance = new PatientQueries();
     private static Statement myStatement;
-    private static String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "patient_age"};
+    private static String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "birth_date"};
 
     /****
      * Constructor singleton
@@ -22,15 +24,16 @@ public class PatientQueries {
         return ourInstance;
     }
 
-    public void getPatientInfo(String patientID) {
+    public String[] getPatientInfo(String patientID) {
         try {
             String query = "Select * from patient where patient_id=\"" + patientID + "\";";
             // execute the query
             String[] resultSet = Executor.executeQuery(myStatement, query, patientColumns);
-
-            // TODO
+            return resultSet;
         } catch (SQLException e) {
+            //TODO change to alert
             System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
+            return null;
         }
     }
 
@@ -44,6 +47,19 @@ public class PatientQueries {
             }
         } catch (SQLException e) {
             System.out.println("ERROR executeQuery in get patient results - " + e.getMessage());
+        }
+    }
+
+    public void insertNewPatient(PatientContainer patientInfo) {
+        String p_id = patientInfo.getPatientID(), p_name = patientInfo.getPatientName(), p_age = patientInfo.getPatientAge();
+        String p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender();
+        try {
+            String command = String.format("insert into patient (patient_id, patient_name, patient_gender, dominant_hand," +
+                    " birth_date)values(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age);
+            // execute the query
+            String[] resultSet = Executor.executeQuery(myStatement, command, patientColumns);
+        } catch (SQLException e) {
+            System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
         }
     }
 }

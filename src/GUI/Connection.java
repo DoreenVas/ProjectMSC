@@ -1,7 +1,9 @@
 package GUI;
 
 import Controller.*;
-
+import Model.PatientQueries;
+import Resources.GameContainer;
+import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -10,8 +12,8 @@ import java.sql.SQLException;
  */
 public class Connection {
     private static Connection connection;
-    private ControllerInterface patientController;
-    private ControllerInterface gameController;
+    private PatientController patientController;
+    private GameController gameController;
 
     /**
      *
@@ -56,24 +58,23 @@ public class Connection {
         this.patientController.closeModelConnection();
     }
 
-    /**
-     *
-     * Send given information to the controllers.
-     * @param map the information for executing a query
-     * @param wanted the wanted table string
-     * @return the result of the query on given info
-     */
-//    public TableInfo query(Map<String, ArrayList<String>> map, String wanted) throws SQLException {
-//        TableInfo info = null;
-//        // check for wanted table
-//        switch(wanted) {
-//            case "patient":
-//                info = this.patientController.getInfoFromGUI(map);
-//                break;
-//            case "game":
-//                info = this.gameController.getInfoFromGUI(map);
-//                break;
-//        }
+
+    public PatientContainer idQuery(String patientId) throws SQLException {
+        PatientContainer info;
+        PatientQueries patientQueries = new PatientQueries();
+        info = this.patientController.getInfoFromGUI(patientId);
+        return info;
+    }
+
+    public void insertPatientQuery(PatientContainer patientContainer){
+        this.patientController.insertNewPatient(patientContainer);
+    }
+
+
+//    public GameContainer gameQuery(String patientId) throws SQLException {
+//        GameContainer info = null;
+//        info = this.gameController.getInfoFromGUI(map);
 //        return info;
 //    }
+
 }
