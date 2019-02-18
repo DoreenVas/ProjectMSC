@@ -1,5 +1,4 @@
 package GUI;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,12 +17,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         primaryStage.setTitle("MSC");
-        // get the size of the screen
-        //Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-        //this.window_height = window.height;
-        //this.window_width = window.width;
-        // set the window size
-        //setWindowSize();
+//         get the size of the screen
+//        Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+//        this.window_height = window.height;
+//        this.window_width = window.width;
+//         set the window size
+        setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);
         primaryStage.setScene(main_window);
         primaryStage.setResizable(false);
