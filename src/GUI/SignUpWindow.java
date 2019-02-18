@@ -12,10 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class SignUpWindow implements Initializable{
+public class SignUpWindow{
 
     @FXML
     private Button back;
@@ -23,20 +21,6 @@ public class SignUpWindow implements Initializable{
     private double window_height;
     private double window_width;
 
-    @FXML
-    private ComboBox<String> gender;
-
-    @FXML
-    private ComboBox<String> dominantHand;
-
-    private ObservableList<String> genderSet = FXCollections.observableArrayList("נקבה","זכר");
-    private ObservableList<String> handSet = FXCollections.observableArrayList("שמאל","ימין");
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        gender.setItems(genderSet);
-        dominantHand.setItems(handSet);
-    }
 
     @FXML
     protected void mainWindow() {

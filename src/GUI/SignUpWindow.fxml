@@ -14,6 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SignUpWindow">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.rightAnchor="0.0">
@@ -37,27 +39,27 @@
          <right>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <Label text=":שם פרטי">
+                  <Label text="שם פרטי:">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text=":שם משפחה">
+                  <Label text="שם משפחה:" nodeOrientation="RIGHT_TO_LEFT">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text=":מין">
+                  <Label text="מין:" nodeOrientation="RIGHT_TO_LEFT">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text=":תאריך לידה">
+                  <Label text="תאריך לידה:" nodeOrientation="RIGHT_TO_LEFT">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text=":יד דומיננטית">
+                  <Label text="יד דומיננטית:" nodeOrientation="RIGHT_TO_LEFT">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
@@ -71,7 +73,7 @@
          <center>
             <VBox alignment="TOP_RIGHT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <JFXTextField alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT">
+                  <JFXTextField alignment="CENTER_RIGHT">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -88,6 +90,12 @@
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="זכר" />
+                           <String fx:value="נקבה" />
+                        </FXCollections>
+                     </items>
                   </JFXComboBox>
                   <DatePicker nodeOrientation="RIGHT_TO_LEFT">
                      <VBox.margin>
@@ -98,6 +106,12 @@
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="ימין" />
+                           <String fx:value="שמאל" />
+                        </FXCollections>
+                     </items>
                   </JFXComboBox>
                </children>
             </VBox>
