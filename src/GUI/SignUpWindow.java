@@ -1,13 +1,9 @@
 package GUI;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -26,7 +22,7 @@ public class SignUpWindow{
     protected void mainWindow() {
         try {
             Stage stage = (Stage) this.back.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

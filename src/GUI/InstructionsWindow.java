@@ -20,7 +20,7 @@ public class InstructionsWindow {
     protected void mainWindow() {
         try {
             Stage stage = (Stage) this.back.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
