@@ -34,6 +34,23 @@ class Executor {
 
     /**
      *
+     * Executes given query and returns an array of all the lines of the result.
+     * @param myStatement The sql statement
+     * @param query The sql query
+     * @param columns The wanted columns from the table
+     * @return A string array of all the lines from the query's answer
+     *
+     */
+    static void executeInsertQuery(Statement myStatement, String query, String[] columns) throws SQLException {
+        try {
+            // execute insert query
+            myStatement.executeUpdate(query);
+        } catch (Exception e) {
+            throw new SQLException(AlertMessages.queryExecutionFailure(), e);
+        }
+    }
+    /**
+     *
      * Executes given query from a prepared statement, and returns an array of all the lines of the result.
      * @param myStatement The sql statement
      * @param columns The wanted columns from the table

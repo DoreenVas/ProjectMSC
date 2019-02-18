@@ -57,7 +57,7 @@ public class PatientQueries {
             String command = String.format("insert into patient (patient_id, patient_name, patient_gender, dominant_hand," +
                     " birth_date)values(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age);
             // execute the query
-            String[] resultSet = Executor.executeQuery(myStatement, command, patientColumns);
+            Executor.executeInsertQuery(myStatement, command, patientColumns);
         } catch (SQLException e) {
             System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
         }
