@@ -7,15 +7,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.awt.*;
 
-public class MenuWindow {
+public class MenuWindow extends BasicWindow{
     @FXML
     private Button start;
     @FXML
     private Button instructions;
-    @FXML
-    private Button exit;
 
     private double window_height;
     private double window_width;
@@ -63,12 +62,15 @@ public class MenuWindow {
         }
     }
 
+    public void logout() {
+        super.logout();
+    }
+
     /***
      * Exiting the application.
      */
     @FXML
     protected void exit() {
-        Stage stage = (Stage) this.exit.getScene().getWindow();
-        stage.close();
+        super.exit();
     }
 }

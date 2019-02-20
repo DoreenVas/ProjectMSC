@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.time.LocalDate;
 
-public class SignUpWindow {
+public class SignUpWindow extends BasicWindow{
 
     @FXML
     private Button home;
@@ -74,7 +74,10 @@ public class SignUpWindow {
                         break;
                 }
                 Connection conn = Connection.getInstance();
-                conn.insertPatientQuery(new PatientContainer(name, id, date.toString(), gender, dominant_hand));
+                conn.insertPatientQuery(PatientContainer.getInstance().setPatientAge(date.toString())
+                        .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name));
+                //TODO fix here
+                super.menuWindow();
             }
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
@@ -85,7 +88,7 @@ public class SignUpWindow {
     protected void mainWindow() {
         try {
             Stage stage = (Stage) this.home.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

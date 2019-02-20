@@ -61,7 +61,6 @@ public class Connection {
 
     public PatientContainer idQuery(String patientId) throws SQLException {
         PatientContainer info;
-        PatientQueries patientQueries = new PatientQueries();
         info = this.patientController.getInfoFromGUI(patientId);
         return info;
     }

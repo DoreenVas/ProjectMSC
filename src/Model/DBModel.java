@@ -119,7 +119,8 @@ public class DBModel implements Model{
             String p_gender = splitInfo[2];
             String dominant_hand = splitInfo[3];
             String p_age = splitInfo[4];
-            return new PatientContainer(p_name, p_id, p_age, p_gender, dominant_hand);
+            return PatientContainer.getInstance().setPatientAge(p_age).setPatientDominantHand(dominant_hand)
+                    .setPatientGender(p_gender).setPatientID(p_id).setPatientName(p_name);
         }
     }
 
