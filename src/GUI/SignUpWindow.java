@@ -51,10 +51,10 @@ public class SignUpWindow extends BasicWindow{
                 Alerter.showAlert("יש להזין תעודת זהות תקינה בעלת 9 ספרות", Alert.AlertType.ERROR);
             } else if(gender == null) {
                 Alerter.showAlert("יש להזין את מין המשתמש/ת", Alert.AlertType.ERROR);
-            } else if(dominant_hand == null) {
-                Alerter.showAlert("ש להזין יד דומיננטית", Alert.AlertType.ERROR);
             } else if(date == null || date.compareTo(LocalDate.now()) > 0) {
                 Alerter.showAlert("יש להזין תאריך לידה תקין", Alert.AlertType.ERROR);
+            }else if(dominant_hand == null) {
+                    Alerter.showAlert("ש להזין יד דומיננטית", Alert.AlertType.ERROR);
             } else {
                 switch (gender) {
                     case "זכר":
