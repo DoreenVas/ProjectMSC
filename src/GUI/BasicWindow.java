@@ -71,9 +71,9 @@ public class BasicWindow implements Initializable{
     }
 
     @FXML
-    protected void menuWindow() {
+    protected void menuWindow(Button button) {
         try {
-            Stage stage = (Stage) this.back.getScene().getWindow();
+            Stage stage = (Stage) button.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen

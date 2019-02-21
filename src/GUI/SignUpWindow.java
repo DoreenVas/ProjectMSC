@@ -76,8 +76,7 @@ public class SignUpWindow extends BasicWindow{
                 Connection conn = Connection.getInstance();
                 conn.insertPatientQuery(PatientContainer.getInstance().setPatientAge(date.toString())
                         .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name));
-                //TODO fix here
-                super.menuWindow();
+                super.menuWindow(this.submit);
             }
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
