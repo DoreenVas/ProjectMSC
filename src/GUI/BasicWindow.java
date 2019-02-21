@@ -22,8 +22,6 @@ import java.util.ResourceBundle;
 
 public class BasicWindow implements Initializable{
     @FXML
-    private Button back = new Button();
-    @FXML
     private Button exit = new Button();
     @FXML
     private Hyperlink logoutLabel = new Hyperlink();

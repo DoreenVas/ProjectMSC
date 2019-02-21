@@ -1,39 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InstructionsWindow">
     <children>
-        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
-            <top>
-                <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
-                    <children>
-                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה"/>
-                        <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@pic/MSC.PNG"/>
-                            </image>
-                        </ImageView>
-                    </children>
-                </HBox>
-            </top>
-            <center>
-                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label text="הוראות">
-                            <font>
-                                <Font size="30.0"/>
-                            </font>
+      <VBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+         <children>
+            <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox>
+                     <children>
+                        <Label text="שלום: ">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Label>
-                        <TextArea prefHeight="200.0" prefWidth="200.0"/>
-                    </children>
-                </VBox>
-            </center>
-        </BorderPane>
+                        <Label fx:id="patientName">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1" />
+                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </GridPane>
+              <BorderPane>
+                  <top>
+                      <HBox nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
+                          <children>
+                              <ImageView fitHeight="125.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@pic/MSC.PNG" />
+                                  </image>
+                              </ImageView>
+                          </children>
+                      </HBox>
+                  </top>
+                  <center>
+                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                          <children>
+                              <Label text="הוראות">
+                                  <font>
+                                      <Font size="30.0" />
+                                  </font>
+                              </Label>
+                              <TextArea fx:id="instructionsText" editable="false" nodeOrientation="RIGHT_TO_LEFT" />
+                          </children>
+                      </VBox>
+                  </center>
+              </BorderPane>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
