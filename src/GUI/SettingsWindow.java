@@ -14,7 +14,8 @@ public class SettingsWindow extends BasicWindow {
         super.menuWindow(this.home);
     }
 
-    public void logout() {
+    @FXML
+    protected void logout() {
         super.logout();
     }
 }

@@ -1,16 +1,22 @@
 package GUI;
 
 import Resources.AlertMessages;
+import Resources.PatientContainer;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MenuWindow extends BasicWindow{
+public class MenuWindow extends BasicWindow implements Initializable{
     @FXML
     private Button start;
     @FXML
@@ -20,6 +26,28 @@ public class MenuWindow extends BasicWindow{
 
     private double window_height;
     private double window_width;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        this.start.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                start();
+            }
+        });
+
+        this.instructions.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                instructions();
+            }
+        });
+
+        this.settings.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                settings();
+            }
+        });
+    }
 
     @FXML
     protected void instructions() {
@@ -85,7 +113,8 @@ public class MenuWindow extends BasicWindow{
         }
     }
 
-    public void logout() {
+    @FXML
+    protected void logout() {
         super.logout();
     }
 

@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -34,7 +35,14 @@ public class BasicWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // show the patient name
         this.patientName.textProperty().bind(Bindings.convert(PatientContainer.getInstance().valueProperty()));
+        // allow enter key press
+        this.exit.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                exit();
+            }
+        });
     }
 
     /****

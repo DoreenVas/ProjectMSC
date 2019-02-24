@@ -1,6 +1,8 @@
 package GUI;
 
+import Resources.PatientContainer;
 import javafx.animation.AnimationTimer;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -24,6 +26,8 @@ public class GameWindow extends BasicWindow implements Initializable{
     private Button home = new Button();
     @FXML
     private Label timerLabel = new Label();
+    @FXML
+    private Label patientName = new Label();
     @FXML
     private ImageView image = new ImageView();
 
@@ -59,6 +63,7 @@ public class GameWindow extends BasicWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.patientName.textProperty().bind(Bindings.convert(PatientContainer.getInstance().valueProperty()));
         // initialize the shapes and textures map
         this.readImagesFromDir(this.picturesDirPath);
         // bind the label to the time left
@@ -108,7 +113,8 @@ public class GameWindow extends BasicWindow implements Initializable{
         super.menuWindow(this.home);
     }
 
-    public void logout() {
+    @FXML
+    protected void logout() {
         super.logout();
     }
 }
