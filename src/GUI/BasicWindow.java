@@ -37,11 +37,16 @@ public class BasicWindow implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         // show the patient name
         this.patientName.textProperty().bind(Bindings.convert(PatientContainer.getInstance().valueProperty()));
+
         // allow enter key press
         this.exit.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
                 exit();
             }
+        });
+        // allow mouse key click
+        this.exit.setOnMouseClicked(event -> {
+            exit();
         });
     }
 

@@ -1,8 +1,6 @@
 package GUI;
 
 import Resources.AlertMessages;
-import Resources.PatientContainer;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,23 +27,42 @@ public class MenuWindow extends BasicWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // show patient name
         super.initialize(location, resources);
+
+        // allow enter press on start button
         this.start.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
                 start();
             }
         });
+        // allow mouse key click
+        this.start.setOnMouseClicked(event -> {
+                start();
+        });
 
+
+        // allow enter press on instructions button
         this.instructions.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
                 instructions();
             }
         });
+        // allow mouse key click
+        this.instructions.setOnMouseClicked(event -> {
+            instructions();
+        });
 
+
+        // allow enter press on settings button
         this.settings.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
                 settings();
             }
+        });
+        // allow mouse key click
+        this.settings.setOnMouseClicked(event -> {
+            settings();
         });
     }
 

@@ -1,10 +1,7 @@
 package GUI;
 
-import Resources.PatientContainer;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,14 +17,12 @@ public class InstructionsWindow extends BasicWindow{
     private Button back = new Button();
     @FXML
     private TextArea instructionsText = new TextArea();
-    @FXML
-    private Label patientName = new Label();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String fileContent = parseInstructions();
         this.instructionsText.setText(fileContent);
-        this.patientName.textProperty().bind(Bindings.convert(PatientContainer.getInstance().valueProperty()));
+        super.initialize(location, resources);
     }
 
     /*****
