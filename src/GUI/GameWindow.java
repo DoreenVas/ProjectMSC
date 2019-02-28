@@ -48,8 +48,9 @@ public class GameWindow extends BasicWindow implements Initializable {
     private String redXImagePath = "src/GUI/pic/Red_X.png";
 
     private String currentImage = "";
-    private boolean nextImage = false;
+    private Set imagesSet;
     private boolean timerInitialized = false;
+    private boolean nextImage = false;
 
     /******
      * The function handles the input key from the user
@@ -57,13 +58,21 @@ public class GameWindow extends BasicWindow implements Initializable {
      */
     @FXML
     private void handle(KeyEvent event) {
-        if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
-            this.nextImage = true;
-            System.out.println("Correct Key!");
-            pauseTimer(this.tickImagePath);
-        } else {
-            System.out.println("Wrong Key...try again");
-            pauseTimer(this.redXImagePath);
+        // check if the input is a letter
+        if (event.getText().matches("[a-zA-Z';./,]")) {
+            // check if the key that was pressed is the correct key for the image
+            if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
+                System.out.println("Correct Key!");
+                // set timer initialized to false (for the next image)
+                this.timerInitialized = false;
+                this.nextImage = true;
+                // pause the timer and show proper indication image
+                pauseTimer(this.tickImagePath);
+            } else { // the key that was pressed is the wrong key
+                System.out.println("Wrong Key...try again");
+                // pause the timer and show proper indication image
+                pauseTimer(this.redXImagePath);
+            }
         }
     }
 
@@ -79,9 +88,22 @@ public class GameWindow extends BasicWindow implements Initializable {
         this.indicationImage.setImage(img);
         Platform.runLater(() -> {
             try {
-                Thread.sleep(2000);
+                // show the image for 1 seconds
+                Thread.sleep(1000);
+                // reset the indication image
                 this.indicationImage.imageProperty().set(null);
+                if (this.nextImage) {
+                    // switch to the next image
+                    switchImage();
+                    // set next image to false
+                    this.nextImage = false;
+                    /////// reset the timer limit
+                    this.timeLimit = 10;
+                }
+                // restart the timer
                 timer.start();
+                // set timer initialized to false (for the next image)
+                this.timerInitialized = true;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -130,36 +152,50 @@ public class GameWindow extends BasicWindow implements Initializable {
                 // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
                 timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
                 if (timeLeft.getValue() <= 0) {
+                    // when the time's up - show indication image, reset timer and switch to next image
                     stop();
                     nextImage = true;
+                    timerInitialized = false;
+                    pauseTimer(redXImagePath);
                 }
             }
         };
-        Platform.runLater(()-> startGame());
+        Platform.runLater(()-> {
+            // initialize the set of images
+            this.imagesSet = this.shapesAndTexturesMap.keySet();
+            // set the first image
+            switchImage();
+            resetTimer();
+        });
     }
 
-    private void startGame() {
-        Image img;
-//        String pic = "";
-        Iterator picsSetIterator = this.shapesAndTexturesMap.keySet().iterator();
+    /*****
+     * the function resets the timer
+     */
+    private void resetTimer() {
+        this.timeLimit = 10;
+        this.timerInitialized = false;
+        // start the timer
+        this.timer.start();
+        // set the timer as initialized
+        this.timerInitialized = true;
+    }
 
-        for (String pic : this.shapesAndTexturesMap.keySet()) {
-//        pic = (String) picsSetIterator.next();
-//        while (pic != null) {
-            this.timerInitialized = false;
-            // set the current image
-            this.currentImage = pic;
+    /*****
+     * the function switches between the images.
+     * when the images end (pic == null) goes to the results window.
+     */
+    private void switchImage() {
+        Image img;
+        Iterator<String> iter = this.imagesSet.iterator();
+        String pic = iter.next();
+        if (pic != null) {
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
-            // start the timer
-            this.timer.start();
-            this.timerInitialized = true;
-            //TODO fix showing the pictures
-
-
-            // reset the next image to false
-            this.nextImage = false;
-//            pic = (String) picsSetIterator.next();
+            this.currentImage = pic;
+            this.imagesSet.remove(pic);
+        } else {
+            // TODO go to results window
         }
     }
 

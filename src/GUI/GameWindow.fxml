@@ -69,7 +69,7 @@
                         <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
-                <ImageView fx:id="image" disable="true" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="image" disable="true" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
