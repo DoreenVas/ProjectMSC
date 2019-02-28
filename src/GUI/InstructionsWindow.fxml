@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GUI.InstructionsWindow">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,7 +53,7 @@
                     <children>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@pic/MSC.PNG"/>
+                                <Image url="@pic/misc/MSC.PNG"/>
                             </image>
                         </ImageView>
                     </children>

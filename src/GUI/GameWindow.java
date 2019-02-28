@@ -44,8 +44,8 @@ public class GameWindow extends BasicWindow implements Initializable {
     private String picturesDirPath = "src/GUI/pic";
     private String shapesToKeysFilePath = "src/GUI/shapesToKeys";
     private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
-    private String tickImagePath = "src/GUI/pic/Tick.png";
-    private String redXImagePath = "src/GUI/pic/Red_X.png";
+    private String tickImagePath = "src/GUI/pic/misc/Tick.png";
+    private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
 
     private String currentImage = "";
     private Set imagesSet;

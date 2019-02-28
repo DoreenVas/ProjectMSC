@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MenuWindow">
     <children>
         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@pic/MSC.PNG" />
+                        <Image url="@pic/misc/MSC.PNG" />
                     </image>
                 </ImageView>
                 <JFXButton fx:id="instructions" mnemonicParsing="false" onKeyPressed="#instructions" text="הוראות">
