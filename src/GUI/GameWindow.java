@@ -1,31 +1,27 @@
 package GUI;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-public class GameWindow extends BasicWindow implements Initializable{
+public class GameWindow extends BasicWindow implements Initializable {
     // members
     @FXML
     private Button home = new Button();
@@ -38,20 +34,22 @@ public class GameWindow extends BasicWindow implements Initializable{
 
     private AnimationTimer timer;
     private double timeLimit = 10;
+    private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
     private BooleanProperty running = new SimpleBooleanProperty();
 
     private HashMap<String, String> shapesAndTexturesMap = new HashMap<>();
     private HashMap<String, String> shapesAndKeysMap = new HashMap<>();
 
-    private String picturesDirPath = "projectmsc/src/GUI/pic";
-    private String shapesToKeysFilePath = "projectmsc/src/GUI/shapesToKeys";
-    private String texturesToKeysFilePath = "projectmsc/src/GUI/texturesToKeys";
-    private String tickImagePath = "projectmsc/src/GUI/pic/Tick.png";
-    private String redXImagePath = "projectmsc/src/GUI/pic/Red_X.png";
+    private String picturesDirPath = "src/GUI/pic";
+    private String shapesToKeysFilePath = "src/GUI/shapesToKeys";
+    private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
+    private String tickImagePath = "src/GUI/pic/Tick.png";
+    private String redXImagePath = "src/GUI/pic/Red_X.png";
 
     private String currentImage = "";
     private boolean nextImage = false;
+    private boolean timerInitialized = false;
 
     /******
      * The function handles the input key from the user
@@ -60,6 +58,7 @@ public class GameWindow extends BasicWindow implements Initializable{
     @FXML
     private void handle(KeyEvent event) {
         if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
+            this.nextImage = true;
             System.out.println("Correct Key!");
             pauseTimer(this.tickImagePath);
         } else {
@@ -68,6 +67,10 @@ public class GameWindow extends BasicWindow implements Initializable{
         }
     }
 
+    /****
+     * the function pauses the timer, shows a proper indication image and continues the timer.
+     * @param indicationImagePath the path to the indication image
+     */
     public void pauseTimer(String indicationImagePath) {
         this.timer.stop();
         Image img;
@@ -98,17 +101,25 @@ public class GameWindow extends BasicWindow implements Initializable{
         // create the timer
         this.timer = new AnimationTimer() {
 
-            private long startTime ;
+            private long startTime;
 
             @Override
             public void start() {
                 this.startTime = System.currentTimeMillis();
+                // if the timer was already initialized, it means the timer was paused and we want to return to the
+                // current time count.
+                if (timerInitialized) {
+                    timeLimit = currTime;
+                }
                 running.set(true);
                 super.start();
             }
 
             @Override
             public void stop() {
+                long now = System.currentTimeMillis();
+                // save the time that passed
+                currTime = timeLimit - ((now - this.startTime) / 1000.0);
                 running.set(false);
                 super.stop();
             }
@@ -124,24 +135,31 @@ public class GameWindow extends BasicWindow implements Initializable{
                 }
             }
         };
-        startGame();
+        Platform.runLater(()-> startGame());
     }
 
     private void startGame() {
         Image img;
+//        String pic = "";
+        Iterator picsSetIterator = this.shapesAndTexturesMap.keySet().iterator();
+
         for (String pic : this.shapesAndTexturesMap.keySet()) {
+//        pic = (String) picsSetIterator.next();
+//        while (pic != null) {
+            this.timerInitialized = false;
             // set the current image
             this.currentImage = pic;
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
             // start the timer
             this.timer.start();
+            this.timerInitialized = true;
             //TODO fix showing the pictures
-//            while(!this.nextImage) {
-//
-//            }
+
+
             // reset the next image to false
             this.nextImage = false;
+//            pic = (String) picsSetIterator.next();
         }
     }
 
@@ -177,7 +195,7 @@ public class GameWindow extends BasicWindow implements Initializable{
             BufferedReader reader = new BufferedReader(new FileReader(keysFilePath));
             // read the info from the config file
             row = reader.readLine();
-            while(row != null) {
+            while (row != null) {
 
                 info = row.split(":");
                 this.shapesAndKeysMap.put(info[0].toLowerCase() + ".png", info[1].toLowerCase());

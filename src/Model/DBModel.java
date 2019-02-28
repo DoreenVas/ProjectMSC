@@ -71,7 +71,7 @@ public class DBModel implements Model{
         String[] info;
         // Current working directory is ProjectMSC
         // the path to the config file
-        String configFilePath = "projectmsc/src/Model/config";
+        String configFilePath = "src/Model/config";
         try {
             BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
             // read the info from the config file
