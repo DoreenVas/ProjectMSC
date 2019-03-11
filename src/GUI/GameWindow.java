@@ -151,7 +151,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 long now = System.currentTimeMillis();
                 // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
                 timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
-                if (timeLeft.getValue() <= 0) {
+                if (timeLeft.getValue() <= 0.1) {
                     // when the time's up - show indication image, reset timer and switch to next image
                     stop();
                     nextImage = true;
@@ -187,8 +187,8 @@ public class GameWindow extends BasicWindow implements Initializable {
      */
     private void switchImage() {
         Image img;
-        Iterator<String> iter = this.imagesSet.iterator();
-        String pic = iter.next();
+        Iterator iter = this.imagesSet.iterator();
+        String pic = (String) iter.next();
         if (pic != null) {
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
