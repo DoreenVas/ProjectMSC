@@ -16,10 +16,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class GameWindow extends BasicWindow implements Initializable {
     // members
@@ -51,6 +48,7 @@ public class GameWindow extends BasicWindow implements Initializable {
     private Set imagesSet;
     private boolean timerInitialized = false;
     private boolean nextImage = false;
+    private boolean locker = false;
 
     /******
      * The function handles the input key from the user
@@ -58,6 +56,9 @@ public class GameWindow extends BasicWindow implements Initializable {
      */
     @FXML
     private void handle(KeyEvent event) {
+        if (this.locker == true)
+            return;
+        this.locker = true;
         // check if the input is a letter
         if (event.getText().matches("[a-zA-Z';./,]")) {
             // check if the key that was pressed is the correct key for the image
@@ -74,6 +75,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 pauseTimer(this.redXImagePath);
             }
         }
+        this.locker = false;
     }
 
     /****
@@ -187,13 +189,15 @@ public class GameWindow extends BasicWindow implements Initializable {
      */
     private void switchImage() {
         Image img;
-        Iterator iter = this.imagesSet.iterator();
+        List<String> listOfImg = new ArrayList<>(this.imagesSet);
+        Collections.shuffle(listOfImg);
+        Iterator iter = listOfImg.iterator();
         String pic = (String) iter.next();
         if (pic != null) {
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
             this.currentImage = pic;
-            this.imagesSet.remove(pic);
+            listOfImg.remove(pic);
         } else {
             // TODO go to results window
         }
