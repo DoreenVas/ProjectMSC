@@ -214,12 +214,14 @@ public class GameWindow extends BasicWindow implements Initializable {
         File[] listOfFiles = folder.listFiles();
         // go over the files
         for (File file : listOfFiles) {
-            if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
-                if (!this.shapesAndTexturesMap.containsKey(file.getName()) && !file.getName().equals("MSC.PNG")) {
-                    this.shapesAndTexturesMap.put(file.getName().toLowerCase(), file.getAbsolutePath());
+            if (!file.getName().equals("misc")) {
+                if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
+                    if (!this.shapesAndTexturesMap.containsKey(file.getName())) {
+                        this.shapesAndTexturesMap.put(file.getName().toLowerCase(), file.getAbsolutePath());
+                    }
+                } else { // if it is a directory we will go over the file inside of it
+                    readImagesFromDir(file.getAbsolutePath());
                 }
-            } else { // if it is a directory we will go over the file inside of it
-                readImagesFromDir(file.getAbsolutePath());
             }
         }
     }
