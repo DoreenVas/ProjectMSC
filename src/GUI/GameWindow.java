@@ -6,6 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,6 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import jdk.nashorn.internal.objects.Global;
+import sun.awt.Mutex;
 
 import java.io.*;
 import java.net.URL;
@@ -20,6 +24,8 @@ import java.util.*;
 
 public class GameWindow extends BasicWindow implements Initializable {
     // members
+    @FXML
+    private AnchorPane ap = new AnchorPane();
     @FXML
     private Button home = new Button();
     @FXML
@@ -49,33 +55,54 @@ public class GameWindow extends BasicWindow implements Initializable {
     private boolean timerInitialized = false;
     private boolean nextImage = false;
     private boolean locker = false;
+    private Mutex mutex = new Mutex();
+
+    //private Scanner scan = new Scanner(new FileInputStream(FileDescriptor.in));
+
+
+    /******
+     * The function handles the input key from the user
+     * @param event the key released of the user
+     */
+    @FXML
+    private void handleRelease(KeyEvent event) {
+    }
 
     /******
      * The function handles the input key from the user
      * @param event the key press of the user
      */
     @FXML
-    private void handle(KeyEvent event) {
-        if (this.locker == true)
-            return;
-        this.locker = true;
-        // check if the input is a letter
-        if (event.getText().matches("[a-zA-Z';./,]")) {
-            // check if the key that was pressed is the correct key for the image
-            if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
-                System.out.println("Correct Key!");
-                // set timer initialized to false (for the next image)
-                this.timerInitialized = false;
-                this.nextImage = true;
-                // pause the timer and show proper indication image
-                pauseTimer(this.tickImagePath);
-            } else { // the key that was pressed is the wrong key
-                System.out.println("Wrong Key...try again");
-                // pause the timer and show proper indication image
-                pauseTimer(this.redXImagePath);
+    private void handlePress(KeyEvent event) {
+        new Thread(() -> {
+            this.mutex.lock();
+            if (locker) {
+                //event.consume();
+                System.out.println("Discarded");
+                this.mutex.unlock();
+            } else {
+                locker = true;
+                this.mutex.unlock();
+
+                // check if the input is a letter
+                if (event.getText().matches("[a-zA-Z';./,]")) {
+                    // check if the key that was pressed is the correct key for the image
+                    if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
+                        System.out.println("Correct Key!");
+                        // set timer initialized to false (for the next image)
+                        this.timerInitialized = false;
+                        this.nextImage = true;
+                        // pause the timer and show proper indication image
+                        pauseTimer(this.tickImagePath);
+                    } else { // the key that was pressed is the wrong key
+                        System.out.println("Wrong Key...try again");
+                        // pause the timer and show proper indication image
+                        pauseTimer(this.redXImagePath);
+                    }
+                }
+                locker = false;
             }
-        }
-        this.locker = false;
+        }).start();
     }
 
     /****
@@ -106,6 +133,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 timer.start();
                 // set timer initialized to false (for the next image)
                 this.timerInitialized = true;
+                //this.ap.setOnKeyPressed(this::handlePress);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -162,7 +190,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 }
             }
         };
-        Platform.runLater(()-> {
+        Platform.runLater(() -> {
             // initialize the set of images
             this.imagesSet = this.shapesAndTexturesMap.keySet();
             // set the first image
