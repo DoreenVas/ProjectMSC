@@ -77,7 +77,6 @@ public class GameWindow extends BasicWindow implements Initializable {
         new Thread(() -> {
             this.mutex.lock();
             if (locker) {
-                //event.consume();
                 System.out.println("Discarded");
                 this.mutex.unlock();
             } else {
@@ -115,29 +114,27 @@ public class GameWindow extends BasicWindow implements Initializable {
         // set the indication image
         img = new Image(new File(indicationImagePath).toURI().toString());
         this.indicationImage.setImage(img);
-        Platform.runLater(() -> {
-            try {
-                // show the image for 1 seconds
-                Thread.sleep(1000);
-                // reset the indication image
-                this.indicationImage.imageProperty().set(null);
-                if (this.nextImage) {
-                    // switch to the next image
-                    switchImage();
-                    // set next image to false
-                    this.nextImage = false;
-                    /////// reset the timer limit
-                    this.timeLimit = 10;
-                }
-                // restart the timer
-                timer.start();
-                // set timer initialized to false (for the next image)
-                this.timerInitialized = true;
-                //this.ap.setOnKeyPressed(this::handlePress);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            // show the image for 1 seconds
+            Thread.sleep(1000);
+            // reset the indication image
+            this.indicationImage.imageProperty().set(null);
+            if (this.nextImage) {
+                // switch to the next image
+                switchImage();
+                // set next image to false
+                this.nextImage = false;
+                /////// reset the timer limit
+                this.timeLimit = 10;
             }
-        });
+            // restart the timer
+            timer.start();
+            // set timer initialized to false (for the next image)
+            this.timerInitialized = true;
+            //this.ap.setOnKeyPressed(this::handlePress);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
