@@ -26,4 +26,6 @@ public interface Model {
     GameContainer getData(String id, GameQueries gameQueries);
 
     void insertNewPatient(PatientContainer patientContainer);
+
+    void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer);
 }

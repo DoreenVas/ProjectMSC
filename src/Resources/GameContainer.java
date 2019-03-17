@@ -19,22 +19,22 @@ public class GameContainer {
     }
 
     public HashMap<String, Double> getShapesReactionTime() {
-        return shapesReactionTime;
+        return this.shapesReactionTime;
     }
 
     public HashMap<String, Double> getTexturesReactionTime() {
-        return texturesReactionTime;
+        return this.texturesReactionTime;
     }
 
     public int getNumOfRecginizedButtons() {
-        return numOfRecginizedButtons;
+        return this.numOfRecginizedButtons;
     }
 
     public int getTimeLimit() {
-        return timeLimit;
+        return this.timeLimit;
     }
 
     public String getGameType() {
-        return gameType;
+        return this.gameType;
     }
 }

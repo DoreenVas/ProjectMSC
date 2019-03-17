@@ -6,6 +6,7 @@ import Resources.GameContainer;
 import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  * In charge of holding the connections to the controller.
@@ -47,6 +48,7 @@ public class Connection {
      */
     public void OpenConnection() throws SQLException {
         this.patientController.openModelConnection();
+        this.gameController.openModelConnection();
     }
 
     /**
@@ -58,17 +60,33 @@ public class Connection {
         this.patientController.closeModelConnection();
     }
 
-
+    /****
+     * get information of a patient from the database
+     * @param patientId
+     * @return
+     * @throws SQLException
+     */
     public PatientContainer idQuery(String patientId) throws SQLException {
         PatientContainer info;
         info = this.patientController.getInfoFromGUI(patientId);
         return info;
     }
 
+    /****
+     * insert a new game to the data base
+     * @param gameContainer the game info
+     */
+    public void insertNewGameQuery(GameContainer gameContainer) {
+        this.gameController.insertNewGame(gameContainer);
+    }
+
+    /****
+     * insert a new patient to the data base
+     * @param patientContainer the patient info
+     */
     public void insertPatientQuery(PatientContainer patientContainer){
         this.patientController.insertNewPatient(patientContainer);
     }
-
 
 //    public GameContainer gameQuery(String patientId) throws SQLException {
 //        GameContainer info = null;

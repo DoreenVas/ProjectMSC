@@ -1,12 +1,12 @@
 package GUI;
 
+import Resources.GameContainer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,18 +14,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import jdk.nashorn.internal.objects.Global;
 import sun.awt.Mutex;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
+
+import Model.GameQueries;
 
 public class GameWindow extends BasicWindow implements Initializable {
     // members
-    @FXML
-    private AnchorPane ap = new AnchorPane();
     @FXML
     private Button home = new Button();
     @FXML
@@ -35,15 +34,23 @@ public class GameWindow extends BasicWindow implements Initializable {
     @FXML
     private ImageView indicationImage = new ImageView();
 
+    // timer members
     private AnimationTimer timer;
+    // time limit = the initial time limit for each image
+    private double initialTimeLimit = 10;
     private double timeLimit = 10;
+    //
     private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
     private BooleanProperty running = new SimpleBooleanProperty();
 
+    // shapes and textures
     private HashMap<String, String> shapesAndTexturesMap = new HashMap<>();
     private HashMap<String, String> shapesAndKeysMap = new HashMap<>();
+    private HashMap<String, Double> shapesReactionTimes = new HashMap<>();
+    private HashMap<String, Double> texturesReactionTimes = new HashMap<>();
 
+    // files and paths
     private String picturesDirPath = "src/GUI/pic";
     private String shapesToKeysFilePath = "src/GUI/shapesToKeys";
     private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
@@ -56,9 +63,8 @@ public class GameWindow extends BasicWindow implements Initializable {
     private boolean nextImage = false;
     private boolean locker = false;
     private Mutex mutex = new Mutex();
-
-    //private Scanner scan = new Scanner(new FileInputStream(FileDescriptor.in));
-
+    private int numberOfRecognizedImages = 0;
+    private String gameType;
 
     /******
      * The function handles the input key from the user
@@ -76,6 +82,7 @@ public class GameWindow extends BasicWindow implements Initializable {
     private void handlePress(KeyEvent event) {
         new Thread(() -> {
             this.mutex.lock();
+            // if locker is locked, we already have a key press in handle
             if (locker) {
                 System.out.println("Discarded");
                 this.mutex.unlock();
@@ -88,6 +95,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                     // check if the key that was pressed is the correct key for the image
                     if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
                         System.out.println("Correct Key!");
+                        this.numberOfRecognizedImages++;
                         // set timer initialized to false (for the next image)
                         this.timerInitialized = false;
                         this.nextImage = true;
@@ -124,14 +132,13 @@ public class GameWindow extends BasicWindow implements Initializable {
                 switchImage();
                 // set next image to false
                 this.nextImage = false;
-                /////// reset the timer limit
+                /////// reset the timer limit. TODO initialize from settings
                 this.timeLimit = 10;
             }
             // restart the timer
             timer.start();
             // set timer initialized to false (for the next image)
             this.timerInitialized = true;
-            //this.ap.setOnKeyPressed(this::handlePress);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -213,18 +220,50 @@ public class GameWindow extends BasicWindow implements Initializable {
      * when the images end (pic == null) goes to the results window.
      */
     private void switchImage() {
+        // initialize the number of recognized images
+        this.numberOfRecognizedImages = 0;
+        if (this.currentImage != null) {
+            String imageType = GameQueries.getImageType(this.currentImage);
+            // insert the reaction time
+            if (imageType.equals("Shapes")) {
+                this.shapesReactionTimes.put(this.currentImage, this.initialTimeLimit - this.currTime);
+            } else if (imageType.equals("Textures")) {
+                this.texturesReactionTimes.put(this.currentImage, this.initialTimeLimit - this.currTime);
+            }
+        }
         Image img;
+        // make a list from the images set
         List<String> listOfImg = new ArrayList<>(this.imagesSet);
+        // shuffle the list
         Collections.shuffle(listOfImg);
+        // mae an iterator
         Iterator iter = listOfImg.iterator();
+        // go over the list
         String pic = (String) iter.next();
         if (pic != null) {
+            // change to the next image
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
             this.currentImage = pic;
+            // remove the image from the list
             listOfImg.remove(pic);
         } else {
             // TODO go to results window
+            showResultsWindow();
+        }
+    }
+
+    private void showResultsWindow() {
+        try {
+            Connection conn = Connection.getInstance();
+            GameContainer gameContainer = new GameContainer(this.shapesReactionTimes, this.texturesReactionTimes,
+                    this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType );
+            // insert the results of the current game into the database
+            conn.insertNewGameQuery(gameContainer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -238,16 +277,20 @@ public class GameWindow extends BasicWindow implements Initializable {
         // get all the files in the directory
         File[] listOfFiles = folder.listFiles();
         // go over the files
-        for (File file : listOfFiles) {
-            if (!file.getName().equals("misc")) {
-                if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
-                    if (!this.shapesAndTexturesMap.containsKey(file.getName())) {
-                        this.shapesAndTexturesMap.put(file.getName().toLowerCase(), file.getAbsolutePath());
+        if(listOfFiles != null) {
+            for (File file : listOfFiles) {
+                if (!file.getName().equals("misc")) {
+                    if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
+                        if (!this.shapesAndTexturesMap.containsKey(file.getName())) {
+                            this.shapesAndTexturesMap.put(file.getName().toLowerCase(), file.getAbsolutePath());
+                        }
+                    } else { // if it is a directory we will go over the file inside of it
+                        readImagesFromDir(file.getAbsolutePath());
                     }
-                } else { // if it is a directory we will go over the file inside of it
-                    readImagesFromDir(file.getAbsolutePath());
                 }
             }
+        } else {
+            System.out.println("Not More Files!");
         }
     }
 
