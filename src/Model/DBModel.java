@@ -124,6 +124,7 @@ public class DBModel implements Model{
         return null;
     }
 
+    @Override
     public void insertNewPatient(PatientContainer patientInfo) {
         PatientQueries.getInstance(statement).insertNewPatient(patientInfo);
     }

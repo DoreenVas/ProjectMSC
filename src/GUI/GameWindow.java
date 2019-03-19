@@ -19,6 +19,7 @@ import sun.awt.Mutex;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import Model.GameQueries;
@@ -64,7 +65,8 @@ public class GameWindow extends BasicWindow implements Initializable {
     private boolean locker = false;
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
-    private String gameType;
+    private String gameType = "Both";
+    private boolean resultsWindow;
 
     /******
      * The function handles the input key from the user
@@ -151,7 +153,7 @@ public class GameWindow extends BasicWindow implements Initializable {
         this.readImagesFromDir(this.picturesDirPath);
         this.initializeKeysMap(this.shapesToKeysFilePath);
         this.initializeKeysMap(this.texturesToKeysFilePath);
-
+        this.resultsWindow = false;
         //bind the label to the time left
         this.timerLabel.textProperty().bind(this.timeLeft.asString("%.0f "));
         // create the timer
@@ -186,11 +188,15 @@ public class GameWindow extends BasicWindow implements Initializable {
                 // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
                 timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
                 if (timeLeft.getValue() <= 0.1) {
-                    // when the time's up - show indication image, reset timer and switch to next image
-                    stop();
-                    nextImage = true;
-                    timerInitialized = false;
-                    pauseTimer(redXImagePath);
+                    new Thread(()-> {
+                        mutex.lock();
+                        // when the time's up - show indication image, reset timer and switch to next image
+                        stop();
+                        nextImage = true;
+                        timerInitialized = false;
+                        pauseTimer(redXImagePath);
+                        mutex.unlock();
+                    }).start();
                 }
             }
         };
@@ -223,12 +229,24 @@ public class GameWindow extends BasicWindow implements Initializable {
         // initialize the number of recognized images
         this.numberOfRecognizedImages = 0;
         if (this.currentImage != null) {
-            String imageType = GameQueries.getImageType(this.currentImage);
-            // insert the reaction time
-            if (imageType.equals("Shapes")) {
-                this.shapesReactionTimes.put(this.currentImage, this.initialTimeLimit - this.currTime);
-            } else if (imageType.equals("Textures")) {
-                this.texturesReactionTimes.put(this.currentImage, this.initialTimeLimit - this.currTime);
+            String imageType = GameQueries.getImageType(this.currentImage.replace(".png", ""));
+            if (imageType != null) {
+                // calculate the reaction time
+                DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                Double reactionTime = Double.valueOf(decimalFormat.format(this.initialTimeLimit - this.currTime));
+                // insert the reaction time
+                switch (imageType){
+                    case "Shapes":
+                        this.shapesReactionTimes.put(this.currentImage, reactionTime);
+                        break;
+                    case "Textures":
+                        this.texturesReactionTimes.put(this.currentImage, reactionTime);
+                        break;
+                    case "Both":
+                        this.shapesReactionTimes.put(this.currentImage, reactionTime);
+                        this.texturesReactionTimes.put(this.currentImage, reactionTime);
+                        break;
+                }
             }
         }
         Image img;
@@ -236,20 +254,30 @@ public class GameWindow extends BasicWindow implements Initializable {
         List<String> listOfImg = new ArrayList<>(this.imagesSet);
         // shuffle the list
         Collections.shuffle(listOfImg);
-        // mae an iterator
-        Iterator iter = listOfImg.iterator();
-        // go over the list
-        String pic = (String) iter.next();
+        // take the first image in the list
+        String pic;
+        if (listOfImg.size() > 0) {
+            pic = listOfImg.get(0);
+        } else {
+            pic = null;
+        }
         if (pic != null) {
             // change to the next image
             img = new Image(new File(this.shapesAndTexturesMap.get(pic)).toURI().toString());
             this.image.setImage(img);
             this.currentImage = pic;
-            // remove the image from the list
-            listOfImg.remove(pic);
+            // remove the image from the set
+            this.imagesSet.remove(pic);
         } else {
-            // TODO go to results window
-            showResultsWindow();
+            // check if the images set is empty and we finished with the last image
+            if (this.imagesSet.isEmpty()) {
+                this.resultsWindow = true;
+                // if the images set is empty -  move to the results page
+                if (this.resultsWindow){
+                    // TODO go to results window
+                    showResultsWindow();
+                }
+            }
         }
     }
 
@@ -257,7 +285,7 @@ public class GameWindow extends BasicWindow implements Initializable {
         try {
             Connection conn = Connection.getInstance();
             GameContainer gameContainer = new GameContainer(this.shapesReactionTimes, this.texturesReactionTimes,
-                    this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType );
+                    this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType);
             // insert the results of the current game into the database
             conn.insertNewGameQuery(gameContainer);
         } catch (IOException e) {

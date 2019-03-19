@@ -45,13 +45,14 @@ public class GameQueries {
         int gameCount;
         try {
             String command = String.format("insert into game (game_type, num_recognized_buttons, game_date, time_limit)" +
-                    "values (\"%s\", %d, now(), %d);", game_type, numOfRecognizedButtons, timeLimit);
+                    "values (\"%s\", %d, now(), %d)", game_type, numOfRecognizedButtons, timeLimit);
             // execute the query
-            this.resultSet = myStatement.executeQuery(command);
+            myStatement.execute(command);
             // count the number of games
-            command = "SELECT count(game_id) from game;";
+            command = "SELECT count(game_id) from game";
             this.resultSet = myStatement.executeQuery(command);
-            gameCount = this.resultSet.getInt(1);
+            this.resultSet.next();
+            gameCount = this.resultSet.getInt("count(game_id)");
 
             insertNewGameResults(patientContainer, gameContainer, gameCount);
         } catch (SQLException e) {
@@ -72,16 +73,16 @@ public class GameQueries {
             String command = String.format("insert into patient_game (patient_id, game_id) values (\"%s\", %d);"
                     , patientContainer.getPatientID(), game_id);
             // execute the query
-            this.resultSet = myStatement.executeQuery(command);
+            myStatement.execute(command);
             // check what type of game it is, and insert to the corresponding tables
             switch (gameContainer.getGameType()) {
-                case "shapes":
+                case "Shapes":
                     insertResultsIntoTables(game_id, gameContainer, "shapes");
                     break;
-                case "textures":
+                case "Textures":
                     insertResultsIntoTables(game_id, gameContainer, "textures");
                     break;
-                case "both":
+                case "Both":
                     insertResultsIntoTables(game_id, gameContainer, "shapes");
                     insertResultsIntoTables(game_id, gameContainer, "textures");
                     break;
@@ -104,19 +105,28 @@ public class GameQueries {
 
         HashMap<String, Double> shapesResults = gameContainer.getShapesReactionTime();
         try {
-
             // insert the game and the patient to patient_game table
-            // add te results for each shape
-            for (String k : shapesResults.keySet()) {
-                command1.append(k).append(", ");
-                command2.append(shapesResults.get(k)).append(", ");
+            // add te results for each shape/texture
+            switch (table) {
+                case "shapes":
+                    for (String k : shapesResults.keySet()) {
+                        command1.append(k.replace(".png", "")).append(", ");
+                        command2.append(shapesResults.get(k)).append(", ");
+                    }
+                    break;
+                case "textures":
+                    for (String k : shapesResults.keySet()) {
+                        command1.append(k.replace(".png", "")).append(", ");
+                        command2.append(shapesResults.get(k)).append(", ");
+                    }
+                    break;
             }
             // add the game id
             command1 = command1.append("game_id").append(")");
             command2 = command2.append(game_id).append(");");
             command1.append(command2.toString());
             // execute the query
-            this.resultSet = myStatement.executeQuery(command1.toString());
+            myStatement.execute(command1.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
