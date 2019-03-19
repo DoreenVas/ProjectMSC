@@ -40,6 +40,7 @@ public class GameWindow extends BasicWindow implements Initializable {
     // time limit = the initial time limit for each image
     private double initialTimeLimit = 10;
     private double timeLimit = 10;
+    private String gameType = "Both";
     //
     private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
@@ -65,7 +66,6 @@ public class GameWindow extends BasicWindow implements Initializable {
     private boolean locker = false;
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
-    private String gameType = "Both";
     private boolean resultsWindow;
 
     /******
@@ -135,7 +135,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 // set next image to false
                 this.nextImage = false;
                 /////// reset the timer limit. TODO initialize from settings
-                this.timeLimit = 10;
+                this.timeLimit = this.initialTimeLimit;
             }
             // restart the timer
             timer.start();
@@ -187,7 +187,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                 long now = System.currentTimeMillis();
                 // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
                 timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
-                if (timeLeft.getValue() <= 0.1) {
+                if (timeLeft.getValue() <= 0.01) {
                     new Thread(()-> {
                         mutex.lock();
                         // when the time's up - show indication image, reset timer and switch to next image
@@ -213,7 +213,7 @@ public class GameWindow extends BasicWindow implements Initializable {
      * the function resets the timer
      */
     private void resetTimer() {
-        this.timeLimit = 10;
+        this.timeLimit = this.initialTimeLimit;
         this.timerInitialized = false;
         // start the timer
         this.timer.start();
@@ -274,7 +274,6 @@ public class GameWindow extends BasicWindow implements Initializable {
                 this.resultsWindow = true;
                 // if the images set is empty -  move to the results page
                 if (this.resultsWindow){
-                    // TODO go to results window
                     showResultsWindow();
                 }
             }
@@ -288,6 +287,7 @@ public class GameWindow extends BasicWindow implements Initializable {
                     this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType);
             // insert the results of the current game into the database
             conn.insertNewGameQuery(gameContainer);
+            // TODO go to results window
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
