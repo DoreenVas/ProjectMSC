@@ -19,8 +19,6 @@ public class MenuWindow extends BasicWindow implements Initializable{
     private Button start;
     @FXML
     private Button instructions;
-    @FXML
-    private Button settings;
 
     private double window_height;
     private double window_width;
@@ -52,18 +50,6 @@ public class MenuWindow extends BasicWindow implements Initializable{
         this.instructions.setOnMouseClicked(event -> {
             instructions();
         });
-
-
-        // allow enter press on settings button
-        this.settings.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ENTER){
-                settings();
-            }
-        });
-        // allow mouse key click
-        this.settings.setOnMouseClicked(event -> {
-            settings();
-        });
     }
 
     @FXML
@@ -92,27 +78,6 @@ public class MenuWindow extends BasicWindow implements Initializable{
     protected void start() {
         try {
             Stage stage = (Stage) this.start.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("GameWindow.fxml"));
-            stage.setTitle("Game");
-            // get the size of the screen
-            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-            this.window_height = window.height;
-            this.window_width = window.width;
-            // set the window size
-            Scene scene = new Scene(root,  this.window_width,  this.window_height);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setMaximized(true);
-            stage.show();
-        } catch(Exception e) {
-            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    protected void settings() {
-        try {
-            Stage stage = (Stage) this.settings.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("SettingsWindow.fxml"));
             stage.setTitle("Settings");
             // get the size of the screen
@@ -128,6 +93,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
         } catch(Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
+
     }
 
     @FXML

@@ -17,15 +17,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.SettingsWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SettingsWindow">
     <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
                <columnConstraints>
-                  <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -138,18 +138,10 @@
                 </VBox>
             <HBox alignment="CENTER">
                <children>
-                  <JFXButton fx:id="confirm" mnemonicParsing="false" text="אישור">
+                  <JFXButton fx:id="confirm" mnemonicParsing="false" onAction="#confirm" text="אישור">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="apply" mnemonicParsing="false" text="החל">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
                   </JFXButton>
                </children>
             </HBox>
