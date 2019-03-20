@@ -103,21 +103,23 @@ public class GameQueries {
         command1 = new StringBuilder("insert into ").append(table).append(" (");
         command2 = new StringBuilder(" values(");
 
-        HashMap<String, Double> shapesResults = gameContainer.getShapesReactionTime();
+
         try {
             // insert the game and the patient to patient_game table
             // add te results for each shape/texture
             switch (table) {
                 case "shapes":
+                    HashMap<String, Double> shapesResults = gameContainer.getShapesReactionTime();
                     for (String k : shapesResults.keySet()) {
                         command1.append(k.replace(".png", "")).append(", ");
                         command2.append(shapesResults.get(k)).append(", ");
                     }
                     break;
                 case "textures":
-                    for (String k : shapesResults.keySet()) {
+                    HashMap<String, Double> texturesResults = gameContainer.getTexturesReactionTime();
+                    for (String k : texturesResults.keySet()) {
                         command1.append(k.replace(".png", "")).append(", ");
-                        command2.append(shapesResults.get(k)).append(", ");
+                        command2.append(texturesResults.get(k)).append(", ");
                     }
                     break;
             }
