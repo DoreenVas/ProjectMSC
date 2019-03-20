@@ -102,6 +102,9 @@
                                        <String fx:value="משולב" />
                                    </FXCollections>
                                </items>
+                                  <value>
+                                      <String fx:value="צורות" />
+                                  </value>
                                  <GridPane.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </GridPane.margin>
@@ -115,6 +118,9 @@
                                           <String fx:value="60" />
                                       </FXCollections>
                                   </items>
+                                  <value>
+                                      <String fx:value="10" />
+                                  </value>
                                  <GridPane.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </GridPane.margin>
@@ -126,6 +132,9 @@
                                           <String fx:value="2" />
                                       </FXCollections>
                                   </items>
+                                  <value>
+                                      <String fx:value="1" />
+                                  </value>
                                  <GridPane.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </GridPane.margin>

@@ -1,6 +1,8 @@
 package GUI;
 
 import Resources.AlertMessages;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +19,12 @@ public class SettingsWindow extends BasicWindow {
     private Button home;
     @FXML
     private Button confirm;
+    @FXML
+    private JFXComboBox gameType;
+    @FXML
+    private JFXComboBox  timeLimit;
+    @FXML
+    private JFXComboBox  keyboard;
 
     private double window_height;
     private double window_width;
