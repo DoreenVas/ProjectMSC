@@ -318,7 +318,7 @@ public class GameWindow extends BasicWindow {
             // switch to results window
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("ResutlsWindow.fxml"));
+                loader.setLocation(getClass().getResource("ResultsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
                 ResultsWindow resultsWindow= loader.getController();
                 resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecognizedButtons());
