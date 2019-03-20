@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -30,6 +32,14 @@ public class SettingsWindow extends BasicWindow {
     private double window_width;
 
     private String c_gameType;
+
+    @FXML
+    private void handle(KeyEvent event) {
+    // allow enter press on submit button
+        if (event.getCode() == KeyCode.ENTER) {
+            this.confirm();
+        }
+    }
 
     @FXML
     protected void confirm() {

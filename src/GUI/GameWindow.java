@@ -81,7 +81,7 @@ public class GameWindow extends BasicWindow {
     private boolean locker = false;
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
-    private boolean resultsWindow;
+    private boolean resultsWindow = false;
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard) {
         this.gameType = c_gameType;
@@ -228,9 +228,11 @@ public class GameWindow extends BasicWindow {
             if (this.nextImage) {
                 // switch to the next image
                 switchImage();
+                // ends the game when the images set is empty
+                if (this.resultsWindow) { return; }
                 // set next image to false
                 this.nextImage = false;
-                /////// reset the timer limit. TODO initialize from settings
+                // reset the timer limit.
                 this.timeLimit = this.initialTimeLimit;
             }
             // restart the timer
@@ -307,7 +309,7 @@ public class GameWindow extends BasicWindow {
                 this.resultsWindow = true;
                 // if the images set is empty -  move to the results page
                 if (this.resultsWindow){
-                    showResultsWindow();
+                    Platform.runLater(()->showResultsWindow());
                 }
             }
         }
@@ -320,7 +322,6 @@ public class GameWindow extends BasicWindow {
                     this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType);
             // insert the results of the current game into the database
             conn.insertNewGameQuery(gameContainer);
-
             // switch to results window
             try {
                 FXMLLoader loader = new FXMLLoader();

@@ -12,63 +12,84 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ResultsWindow">
-   <children>
-      <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT">
-         <children>
-            <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox>
-                     <children>
-                        <Label text="שלום: ">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.ResultsWindow">
+    <children>
+        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <HBox>
+                            <children>
+                                <Label text="שלום: ">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="patientName">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true"
+                                   GridPane.columnIndex="1"/>
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" onAction="#mainWindow" ripplerFill="#d3d3d3"
+                                   text="חזרה" GridPane.columnIndex="2"/>
+                    </children>
+                </GridPane>
+                <Label text="תוצאות">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <GridPane alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label text="Label" GridPane.rowIndex="2"/>
+                        <Label text="מספר צורות שנוחשו נכון:" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="patientName">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
+                        <Label fx:id="avgTime" text="Label" GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
                         </Label>
-                     </children>
-                  </HBox>
-                  <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1" />
-                  <JFXButton fx:id="home" alignment="TOP_LEFT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2" />
-               </children>
-            </GridPane>
-            <Label text="תוצאות">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <GridPane alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Label" GridPane.rowIndex="2" />
-                  <Label text="מספר צורות שנוחשו נכון:" GridPane.rowIndex="1" />
-                  <Label fx:id="avgTime" text="Label" GridPane.columnIndex="1" />
-                  <Label fx:id="numOfRecognizedImages" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="ממוצע זמן תגובה:" />
-               </children>
-            </GridPane>
-         </children>
-      </VBox>
-   </children>
+                        <Label fx:id="numOfRecognizedImages" text="Label" GridPane.columnIndex="1"
+                               GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Label>
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="ממוצע זמן תגובה:">
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Label>
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
