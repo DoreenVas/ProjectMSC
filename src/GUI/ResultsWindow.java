@@ -21,7 +21,7 @@ public class ResultsWindow extends BasicWindow{
     @FXML
     private Label numOfRecognizedImages = new Label();
 
-    public void initialize(HashMap shapesTimes, HashMap texturesTimes, int numOfImages) {
+    public void initialize(HashMap<String, Double> shapesTimes, HashMap<String, Double> texturesTimes, int numOfImages) {
         super.initialize(null, null);
         double avgTime = calculateAvgReactionTime(shapesTimes, texturesTimes);
         this.avgTime.setText(Double.toString(avgTime));

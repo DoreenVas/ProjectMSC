@@ -51,6 +51,9 @@ public class GameWindow extends BasicWindow {
     private double timeLimit;
     private String gameType;
     private String keyboard;
+
+    private double window_height;
+    private double window_width;
     //
     private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
@@ -85,6 +88,9 @@ public class GameWindow extends BasicWindow {
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
         this.keyboard = c_keyboard;
+
+        this.initialTimeLimit =1;
+        this.timeLimit = 1;
 
         super.initialize(null, null);
         // initialize the map
@@ -318,16 +324,18 @@ public class GameWindow extends BasicWindow {
             // switch to results window
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("ResutlsWindow.fxml"));
+                loader.setLocation(getClass().getResource("ResultsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
-                ResultsWindow resultsWindow= loader.getController();
-                resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecognizedButtons());
                 Stage stage = (Stage)this.home.getScene().getWindow();
-                stage.setTitle("Results");
                 // get the size of the screen
                 Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-                // set the window size
+                this.window_height = window.height;
+                this.window_width = window.width;
                 Scene scene = new Scene(root, window.width, window.height);
+                ResultsWindow resultsWindow= loader.getController();
+                resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecognizedButtons());
+                stage.setTitle("Results");
+                // set the window size
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.setMaximized(true);
