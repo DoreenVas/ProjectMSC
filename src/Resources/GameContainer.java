@@ -6,13 +6,13 @@ public class GameContainer {
     // members
     private HashMap<String, Double> shapesReactionTime;
     private HashMap<String, Double> texturesReactionTime;
-    private int numOfRecginizedButtons, timeLimit;
+    private int numOfRecognizedButtons, timeLimit;
     private String gameType;
 
     public GameContainer(HashMap<String, Double> shapesReactionTime, HashMap<String, Double> texturesReactionTime,
-                         int numOfRecginizedButtons, int timeLimit, String gameType) {
+                         int numOfRecognizedButtons, int timeLimit, String gameType) {
         this.gameType = gameType;
-        this.numOfRecginizedButtons = numOfRecginizedButtons;
+        this.numOfRecognizedButtons = numOfRecognizedButtons;
         this.shapesReactionTime = shapesReactionTime;
         this.texturesReactionTime = texturesReactionTime;
         this.timeLimit = timeLimit;
@@ -26,8 +26,8 @@ public class GameContainer {
         return this.texturesReactionTime;
     }
 
-    public int getNumOfRecginizedButtons() {
-        return this.numOfRecginizedButtons;
+    public int getNumOfRecognizedButtons() {
+        return this.numOfRecognizedButtons;
     }
 
     public int getTimeLimit() {

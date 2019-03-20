@@ -321,7 +321,7 @@ public class GameWindow extends BasicWindow {
                 loader.setLocation(getClass().getResource("ResutlsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
                 ResultsWindow resultsWindow= loader.getController();
-                resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecginizedButtons());
+                resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecognizedButtons());
                 Stage stage = (Stage)this.home.getScene().getWindow();
                 stage.setTitle("Results");
                 // get the size of the screen

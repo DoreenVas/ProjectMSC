@@ -41,7 +41,7 @@ public class GameQueries {
      */
     public void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer) {
         String game_type = gameContainer.getGameType();
-        int timeLimit = gameContainer.getTimeLimit(), numOfRecognizedButtons = gameContainer.getNumOfRecginizedButtons();
+        int timeLimit = gameContainer.getTimeLimit(), numOfRecognizedButtons = gameContainer.getNumOfRecognizedButtons();
         int gameCount;
         try {
             String command = String.format("insert into game (game_type, num_recognized_buttons, game_date, time_limit)" +
