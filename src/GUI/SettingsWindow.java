@@ -29,18 +29,25 @@ public class SettingsWindow extends BasicWindow {
     private double window_height;
     private double window_width;
 
+    private String c_gameType;
+
     @FXML
     protected void confirm() {
         try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("GameWindow.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
             Stage stage = (Stage) this.confirm.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("GameWindow.fxml"));
-            stage.setTitle("Game");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
             this.window_height = window.height;
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
+            GameWindow gameWindow = loader.getController();
+            convertData();
+            gameWindow.initialize(c_gameType,(String)timeLimit.getValue(),(String)keyboard.getValue());
+            stage.setTitle("Game");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);
@@ -49,6 +56,21 @@ public class SettingsWindow extends BasicWindow {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
     }
+
+    private void convertData(){
+        switch((String)gameType.getValue()){
+            case("צורות"):
+                this.c_gameType="Shapes";
+                break;
+            case("מרקמים"):
+                this.c_gameType="Textures";
+                break;
+            case("משולב"):
+                this.c_gameType="Both";
+                break;
+        }
+    }
+
 
     @FXML
     protected void mainWindow() {

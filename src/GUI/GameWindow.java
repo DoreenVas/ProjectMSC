@@ -7,6 +7,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ import java.util.*;
 
 import Model.GameQueries;
 
-public class GameWindow extends BasicWindow implements Initializable {
+public class GameWindow extends BasicWindow {
     // members
     @FXML
     private Button home = new Button();
@@ -38,9 +39,10 @@ public class GameWindow extends BasicWindow implements Initializable {
     // timer members
     private AnimationTimer timer;
     // time limit = the initial time limit for each image
-    private double initialTimeLimit = 10;
-    private double timeLimit = 10;
-    private String gameType = "Both";
+    private double initialTimeLimit;
+    private double timeLimit;
+    private String gameType;
+    private String keyboard;
     //
     private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
@@ -53,7 +55,9 @@ public class GameWindow extends BasicWindow implements Initializable {
     private HashMap<String, Double> texturesReactionTimes = new HashMap<>();
 
     // files and paths
-    private String picturesDirPath = "src/GUI/pic";
+    private String picturesDirPath= "src/GUI/pic";
+    private String shapesDirPath = "src/GUI/pic/shapes";
+    private String texturesDirPath = "src/GUI/pic/textures";
     private String shapesToKeysFilePath = "src/GUI/shapesToKeys";
     private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
     private String tickImagePath = "src/GUI/pic/misc/Tick.png";
@@ -67,6 +71,74 @@ public class GameWindow extends BasicWindow implements Initializable {
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow;
+
+    public void initialize(String c_gameType,String c_timeLimit,String c_keyboard) {
+        this.gameType = c_gameType;
+        this.initialTimeLimit = Double.parseDouble(c_timeLimit);
+        this.timeLimit = Double.parseDouble(c_timeLimit);
+        this.keyboard = c_keyboard;
+
+        super.initialize(null, null);
+        // initialize the shapes and textures map
+        this.readImagesFromDir(this.picturesDirPath);
+        this.initializeKeysMap(this.shapesToKeysFilePath);
+        this.initializeKeysMap(this.texturesToKeysFilePath);
+        this.resultsWindow = false;
+        //bind the label to the time left
+        this.timerLabel.textProperty().bind(this.timeLeft.asString("%.0f "));
+        // create the timer
+        this.timer = new AnimationTimer() {
+
+            private long startTime;
+
+            @Override
+            public void start() {
+                this.startTime = System.currentTimeMillis();
+                // if the timer was already initialized, it means the timer was paused and we want to return to the
+                // current time count.
+                if (timerInitialized) {
+                    timeLimit = currTime;
+                }
+                running.set(true);
+                super.start();
+            }
+
+            @Override
+            public void stop() {
+                long now = System.currentTimeMillis();
+                // save the time that passed
+                currTime = timeLimit - ((now - this.startTime) / 1000.0);
+                running.set(false);
+                super.stop();
+            }
+
+            @Override
+            public void handle(long timestamp) {
+                long now = System.currentTimeMillis();
+                // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
+                timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
+                if (timeLeft.getValue() <= 0.01) {
+                    new Thread(()-> {
+                        mutex.lock();
+                        // when the time's up - show indication image, reset timer and switch to next image
+                        stop();
+                        nextImage = true;
+                        timerInitialized = false;
+                        pauseTimer(redXImagePath);
+                        mutex.unlock();
+                    }).start();
+                }
+            }
+        };
+        Platform.runLater(() -> {
+            // initialize the set of images
+            this.imagesSet = this.shapesAndTexturesMap.keySet();
+            // set the first image
+            switchImage();
+            resetTimer();
+        });
+    }
+
 
     /******
      * The function handles the input key from the user
@@ -144,69 +216,6 @@ public class GameWindow extends BasicWindow implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
-        // initialize the shapes and textures map
-        this.readImagesFromDir(this.picturesDirPath);
-        this.initializeKeysMap(this.shapesToKeysFilePath);
-        this.initializeKeysMap(this.texturesToKeysFilePath);
-        this.resultsWindow = false;
-        //bind the label to the time left
-        this.timerLabel.textProperty().bind(this.timeLeft.asString("%.0f "));
-        // create the timer
-        this.timer = new AnimationTimer() {
-
-            private long startTime;
-
-            @Override
-            public void start() {
-                this.startTime = System.currentTimeMillis();
-                // if the timer was already initialized, it means the timer was paused and we want to return to the
-                // current time count.
-                if (timerInitialized) {
-                    timeLimit = currTime;
-                }
-                running.set(true);
-                super.start();
-            }
-
-            @Override
-            public void stop() {
-                long now = System.currentTimeMillis();
-                // save the time that passed
-                currTime = timeLimit - ((now - this.startTime) / 1000.0);
-                running.set(false);
-                super.stop();
-            }
-
-            @Override
-            public void handle(long timestamp) {
-                long now = System.currentTimeMillis();
-                // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
-                timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
-                if (timeLeft.getValue() <= 0.01) {
-                    new Thread(()-> {
-                        mutex.lock();
-                        // when the time's up - show indication image, reset timer and switch to next image
-                        stop();
-                        nextImage = true;
-                        timerInitialized = false;
-                        pauseTimer(redXImagePath);
-                        mutex.unlock();
-                    }).start();
-                }
-            }
-        };
-        Platform.runLater(() -> {
-            // initialize the set of images
-            this.imagesSet = this.shapesAndTexturesMap.keySet();
-            // set the first image
-            switchImage();
-            resetTimer();
-        });
     }
 
     /*****
