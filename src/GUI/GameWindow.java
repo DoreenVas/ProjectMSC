@@ -49,8 +49,8 @@ public class GameWindow extends BasicWindow {
     private BooleanProperty running = new SimpleBooleanProperty();
 
     // shapes and textures
-    private HashMap<String, String> picMap = new HashMap<>();
-    private HashMap<String, String> shapesAndKeysMap = new HashMap<>();
+    private HashMap<String, String> picToPath = new HashMap<>();
+    private HashMap<String, String> picToKey = new HashMap<>();
     private HashMap<String, Double> shapesReactionTimes = new HashMap<>();
     private HashMap<String, Double> texturesReactionTimes = new HashMap<>();
 
@@ -142,7 +142,7 @@ public class GameWindow extends BasicWindow {
         };
         Platform.runLater(() -> {
             // initialize the set of images
-            this.imagesSet = this.picMap.keySet();
+            this.imagesSet = this.picToPath.keySet();
             // set the first image
             switchImage();
             resetTimer();
@@ -177,7 +177,7 @@ public class GameWindow extends BasicWindow {
                 // check if the input is a letter
                 if (event.getText().matches("[a-zA-Z';./,]")) {
                     // check if the key that was pressed is the correct key for the image
-                    if (event.getText().equals(this.shapesAndKeysMap.get(this.currentImage))) {
+                    if (event.getText().equals(this.picToKey.get(this.currentImage))) {
                         System.out.println("Correct Key!");
                         this.numberOfRecognizedImages++;
                         // set timer initialized to false (for the next image)
@@ -282,7 +282,7 @@ public class GameWindow extends BasicWindow {
         }
         if (pic != null) {
             // change to the next image
-            img = new Image(new File(this.picMap.get(pic)).toURI().toString());
+            img = new Image(new File(this.picToPath.get(pic)).toURI().toString());
             this.image.setImage(img);
             this.currentImage = pic;
             // remove the image from the set
@@ -328,8 +328,8 @@ public class GameWindow extends BasicWindow {
             for (File file : listOfFiles) {
                 if (!file.getName().equals("misc")) {
                     if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
-                        if (!this.picMap.containsKey(file.getName())) {
-                            this.picMap.put(file.getName().toLowerCase(), file.getAbsolutePath());
+                        if (!this.picToPath.containsKey(file.getName())) {
+                            this.picToPath.put(file.getName().toLowerCase(), file.getAbsolutePath());
                         }
                     } else { // if it is a directory we will go over the file inside of it
                         readImagesFromDir(file.getAbsolutePath());
@@ -355,7 +355,7 @@ public class GameWindow extends BasicWindow {
             while (row != null) {
 
                 info = row.split(":");
-                this.shapesAndKeysMap.put(info[0].toLowerCase() + ".png", info[1].toLowerCase());
+                this.picToKey.put(info[0].toLowerCase() + ".png", info[1].toLowerCase());
                 row = reader.readLine();
             }
             reader.close();
