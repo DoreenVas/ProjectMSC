@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.ResultsWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GraphsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -44,44 +48,32 @@
                         <JFXButton fx:id="home" alignment="TOP_LEFT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2" />
                     </children>
                 </GridPane>
-                <Label text="תוצאות">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Label>
-                <GridPane alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label text="מספר צורות שנוחשו נכון:" GridPane.rowIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                        </Label>
-                        <Label fx:id="avgTime" text="Label" GridPane.columnIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                        </Label>
-                        <Label fx:id="numOfRecognizedImages" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                        </Label>
-                        <Label text="ממוצע זמן תגובה:">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                        </Label>
-                    </children>
-                </GridPane>
+            <TabPane nodeOrientation="RIGHT_TO_LEFT" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="תוצאות אחרונות">
+                  <content>
+                    <AnchorPane />
+                  </content>
+                </Tab>
+                <Tab text="גרף התקדמות">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <LineChart fx:id="lineChart" nodeOrientation="LEFT_TO_RIGHT" title="תוצאות">
+                                <xAxis>
+                                  <NumberAxis fx:id="game_id" label="משחקים" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis fx:id="avgReactionTime" label="זמני תגובה" side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <JFXCheckBox nodeOrientation="LEFT_TO_RIGHT" fx:id="showGlobalAvgAverage" mnemonicParsing="false" onAction="#getGlobalAvgGraph" text="הצג ממוצע כללי" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
             </children>
         </VBox>
     </children>

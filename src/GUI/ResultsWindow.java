@@ -1,16 +1,9 @@
 package GUI;
 
-import Resources.PatientContainer;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 public class ResultsWindow extends BasicWindow{
     // members
@@ -24,8 +17,9 @@ public class ResultsWindow extends BasicWindow{
     public void initialize(HashMap<String, Double> shapesTimes, HashMap<String, Double> texturesTimes, int numOfImages) {
         super.initialize(null, null);
         double avgTime = calculateAvgReactionTime(shapesTimes, texturesTimes);
+        int size = shapesTimes.size() + texturesTimes.size();
         this.avgTime.setText(Double.toString(avgTime));
-        this.numOfRecognizedImages.setText(Integer.toString(numOfImages));
+        this.numOfRecognizedImages.setText(Integer.toString(numOfImages) + "/" + size);
     }
 
     private double calculateAvgReactionTime(HashMap<String, Double> shapesTimes, HashMap<String, Double> textuesTimes) {

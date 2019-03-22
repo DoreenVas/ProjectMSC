@@ -121,17 +121,19 @@ public class DBModel implements Model{
 
     @Override
     public GameContainer getData(String id, GameQueries gameQueries) {
-        return null;
+        GameContainer gameContainer = null;
+        String[] games = GameQueries.getInstance(this.statement).getPatientGames(id);
+        return gameContainer;
     }
 
     @Override
     public void insertNewPatient(PatientContainer patientInfo) {
-        PatientQueries.getInstance(statement).insertNewPatient(patientInfo);
+        PatientQueries.getInstance(this.statement).insertNewPatient(patientInfo);
     }
 
     @Override
     public void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer) {
-        GameQueries.getInstance(statement).insertNewGame(patientContainer, gameContainer);
+        GameQueries.getInstance(this.statement).insertNewGame(patientContainer, gameContainer);
     }
 
 

@@ -16,7 +16,7 @@ public class GameQueries {
     // members
     private static GameQueries ourInstance = new GameQueries();
     private static Statement myStatement;
-    private static String[] allGameFields = {/*"artist.artist_id", */"artist.artist_name", "artist.hotness"};
+    private static String[] allGameFields = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
     private static String[] shapesColumns = {"game_id", "arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"game_id", "four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
@@ -32,6 +32,32 @@ public class GameQueries {
     static GameQueries getInstance(Statement statement) {
         myStatement = statement;
         return ourInstance;
+    }
+
+    /*****
+     * the function returns all the games of a patient, given an ID
+     * @param patientID a patient id
+     * @return
+     */
+    public String[] getPatientGames(String patientID) {
+        try {
+            String query = "Select ";
+            for(int i = 0; i < allGameFields.length; i++) {
+                query = query + allGameFields[i];
+                if (i < allGameFields.length - 1) {
+                    query = query + ",";
+                }
+            }
+            query = query + " from game, patient_game, patient where patient_id=\"" + patientID +
+                    "\" and patient.patient_id=patient_game.patient_id and patient_game.game_id=game.game_id;";
+            // execute the query
+            String[] resultSet = Executor.executeQuery(myStatement, query, allGameFields);
+            return resultSet;
+        } catch (SQLException e) {
+            //TODO change to alert
+            System.out.println("ERROR executeQuery in get game info - " + e.getMessage());
+            return null;
+        }
     }
 
     /******
