@@ -89,8 +89,8 @@ public class GameWindow extends BasicWindow {
         this.timeLimit = Double.parseDouble(c_timeLimit);
         this.keyboard = c_keyboard;
 
-        this.initialTimeLimit =1;
-        this.timeLimit = 1;
+        //this.initialTimeLimit =1;
+        //this.timeLimit = 1;
 
         super.initialize(null, null);
         // initialize the map
