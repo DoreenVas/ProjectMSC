@@ -4,6 +4,7 @@ import Resources.GameContainer;
 import Resources.PatientContainer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface Model {
 
@@ -23,7 +24,7 @@ public interface Model {
 
     PatientContainer getData(String id);
 
-    GameContainer getData(String id, GameQueries gameQueries);
+    ArrayList<GameContainer> getData(String id, GameQueries gameQueries);
 
     void insertNewPatient(PatientContainer patientContainer);
 

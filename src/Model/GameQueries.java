@@ -29,7 +29,7 @@ public class GameQueries {
      * @param statement a statement
      * @return his instance of artistQueries
      */
-    static GameQueries getInstance(Statement statement) {
+    public static GameQueries getInstance(Statement statement) {
         myStatement = statement;
         return ourInstance;
     }
@@ -43,12 +43,12 @@ public class GameQueries {
         try {
             String query = "Select ";
             for(int i = 0; i < allGameFields.length; i++) {
-                query = query + allGameFields[i];
+                query = query + "game." + allGameFields[i];
                 if (i < allGameFields.length - 1) {
                     query = query + ",";
                 }
             }
-            query = query + " from game, patient_game, patient where patient_id=\"" + patientID +
+            query = query + " from game, patient_game, patient where patient.patient_id=\"" + patientID +
                     "\" and patient.patient_id=patient_game.patient_id and patient_game.game_id=game.game_id;";
             // execute the query
             String[] resultSet = Executor.executeQuery(myStatement, query, allGameFields);

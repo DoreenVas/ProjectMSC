@@ -4,6 +4,7 @@ import Resources.*;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DBModel implements Model{
@@ -120,10 +121,20 @@ public class DBModel implements Model{
     }
 
     @Override
-    public GameContainer getData(String id, GameQueries gameQueries) {
+    public ArrayList<GameContainer> getData(String id, GameQueries gameQueries) {
         GameContainer gameContainer = null;
         String[] games = GameQueries.getInstance(this.statement).getPatientGames(id);
-        return gameContainer;
+        return parseGames(games);
+    }
+
+    private ArrayList<GameContainer> parseGames(String[] games) {
+        String[] game;
+        int gameId;
+        for (String g : games) {
+            game = g.split(",");
+            gameId = Integer.parseInt(game[0]);
+        }
+        return null;
     }
 
     @Override
