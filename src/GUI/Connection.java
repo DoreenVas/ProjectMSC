@@ -6,6 +6,7 @@ import Resources.GameContainer;
 import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -70,6 +71,10 @@ public class Connection {
         PatientContainer info;
         info = this.patientController.getInfoFromGUI(patientId);
         return info;
+    }
+
+    public ArrayList<GameContainer> getGames(String patientId) {
+        return this.gameController.getGames(patientId);
     }
 
     /****

@@ -67,7 +67,7 @@
                                   <NumberAxis fx:id="avgReactionTime" label="זמני תגובה" side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <JFXCheckBox nodeOrientation="LEFT_TO_RIGHT" fx:id="showGlobalAvgAverage" mnemonicParsing="false" onAction="#getGlobalAvgGraph" text="הצג ממוצע כללי" />
+                              <JFXCheckBox nodeOrientation="RIGHT_TO_LEFT" fx:id="showGlobalAverage" mnemonicParsing="false" onAction="#getGlobalAvgGraph" text="הצג ממוצע כללי" />
                            </children>
                         </AnchorPane>
                   </content>

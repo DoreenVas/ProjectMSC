@@ -1,18 +1,20 @@
 package GUI;
 
-import com.jfoenix.controls.JFXComboBox;
+import Resources.GameContainer;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GraphsWindow extends BasicWindow implements Initializable{
@@ -20,16 +22,28 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private Button home = new Button();
     @FXML
-    private LineChart<Number, Number> lineChart;
+    private LineChart<?, ?> lineChart;
     @FXML
     private NumberAxis game_id;
     @FXML
     private NumberAxis avgReactionTime;
     @FXML
-    private JFXComboBox<String> showGlobalAverage = new JFXComboBox();
+    private JFXCheckBox showGlobalAverage = new JFXCheckBox();
+
+    private ArrayList<XYChart.Series> allPatientsRegressionLine;
+    private ArrayList<XYChart.Series> myReactionTimes;
+    private HashMap<String, ArrayList<XYChart.Series>> timesToSeriesMap;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // initialize lists and checkbox
+        this.allPatientsRegressionLine = new ArrayList<>();
+        this.myReactionTimes = new ArrayList<>();
+        this.timesToSeriesMap = new HashMap<>();
+        this.showGlobalAverage.setSelected(false);
+
+        loadChartData();
+
         this.game_id.setAutoRanging(false);
         this.game_id.setLowerBound(1);
         this.game_id.setUpperBound(10);
@@ -40,26 +54,41 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.avgReactionTime.setUpperBound(70);
         this.avgReactionTime.setTickUnit(10);
 
-        loadChartData();
+
     }
 
     @FXML
     private void loadChartData() {
         //Creating the line chart
-        XYChart.Series<Number, Number> series = new XYChart.Series();
+        XYChart.Series series = new XYChart.Series();
         series.setName("ההתקדמות שלי");
         series.getData().add(new XYChart.Data<>(1, 23.4));
         series.getData().add(new XYChart.Data<>(2, 11.4));
         series.getData().add(new XYChart.Data<>(3, 30.4));
-
+//        try {
+//            Connection conn = Connection.getInstance();
+//            conn.OpenConnection();
+//            ArrayList<GameContainer> games = conn.getGames("2");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         this.lineChart.getData().add(series);
     }
 
     @FXML
     private void getGlobalAvgGraph() {
-        String select = this.showGlobalAverage.getSelectionModel().getSelectedItem().toString();
-        System.out.println(select);
+        boolean select = this.showGlobalAverage.isSelected();
+        // if the checkbox is selected - get all information of games from the DB
+        if (select) {
 
+        } else { // leave only the patient's results
+            for (XYChart.Series s : this.allPatientsRegressionLine) {
+                this.lineChart.getData().remove(s);
+            }
+        }
     }
 
     @FXML

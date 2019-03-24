@@ -1,10 +1,12 @@
 package Controller;
 
+import Model.GameQueries;
 import Resources.GameContainer;
 import Resources.PatientContainer;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /***
  * A class for artist controller
@@ -25,5 +27,9 @@ public class GameController extends ControllerAbstract {
      */
     public void insertNewGame(GameContainer gameContainer) {
         model.insertNewGame(PatientContainer.getInstance(), gameContainer);
+    }
+
+    public ArrayList<GameContainer> getGames(String patientId) {
+        return model.getData(patientId, null);
     }
 }

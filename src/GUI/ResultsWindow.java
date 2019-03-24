@@ -22,6 +22,13 @@ public class ResultsWindow extends BasicWindow{
         this.numOfRecognizedImages.setText(Integer.toString(numOfImages) + "/" + size);
     }
 
+    /*****
+     * the function get maps of all the images to reactions times in a specific game,
+     * and calculates the average reaction time of that game
+     * @param shapesTimes reaction times for shapes images
+     * @param textuesTimes reaction times for texture images
+     * @return the average time
+     */
     private double calculateAvgReactionTime(HashMap<String, Double> shapesTimes, HashMap<String, Double> textuesTimes) {
         int size = shapesTimes.size() + textuesTimes.size();
         double avg = 0;
