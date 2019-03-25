@@ -36,6 +36,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // show patient name
+        super.initialize(location, resources);
+
         // initialize lists and checkbox
         this.allPatientsRegressionLine = new ArrayList<>();
         this.myReactionTimes = new ArrayList<>();
