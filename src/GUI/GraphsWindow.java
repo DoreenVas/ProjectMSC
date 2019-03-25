@@ -1,23 +1,27 @@
 package GUI;
 
+import Resources.AlertMessages;
 import Resources.GameContainer;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,7 +33,7 @@ import java.util.ResourceBundle;
 public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
-    private Button home = new Button();
+    private Button back;
     @FXML
     private LineChart<?, ?> lineChart;
     @FXML
@@ -45,10 +49,18 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     private ArrayList<XYChart.Series> myReactionTimes;
     private HashMap<String, ArrayList<XYChart.Series>> timesToSeriesMap;
 
+    private String previousScene;
+    private double window_height;
+    private double window_width;
+
     private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
             , "dollar", "net", "note", "arcs", "monitor", "sad_smiley", "strudel", "four_bubbles", "spiral", "squares"};
+
+    public void setPreviousScene(String prevScene){
+        this.previousScene = prevScene;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,16 +97,16 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 //        series.getData().add(new XYChart.Data<>(1, 23.4));
 //        series.getData().add(new XYChart.Data<>(2, 11.4));
 //        series.getData().add(new XYChart.Data<>(3, 30.4));
-        try {
-            Connection conn = Connection.getInstance();
-            conn.OpenConnection();
-            ArrayList<GameContainer> games = conn.getGames("2");
-            createTable(games);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Connection conn = Connection.getInstance();
+//            conn.OpenConnection();
+//            ArrayList<GameContainer> games = conn.getGames("2");
+//            createTable(games);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 //        this.lineChart.getData().add(series);
     }
 
@@ -139,8 +151,24 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     @FXML
-    protected void mainWindow() {
-        super.menuWindow(this.home);
+    protected void back() {
+        try {
+            Stage stage = (Stage) this.back.getScene().getWindow();
+            AnchorPane root = FXMLLoader.load(getClass().getResource(previousScene));
+            stage.setTitle("MSC");
+            // get the size of the screen
+            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            this.window_height = window.height;
+            this.window_width = window.width;
+            // set the window size
+            Scene scene = new Scene(root, this.window_width, this.window_height);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML

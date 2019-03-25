@@ -18,6 +18,8 @@ public class AdminWindow {
     private JFXButton submit;
     @FXML
     private JFXTextField id;
+    @FXML
+    private JFXButton exit;
 
     private double window_height;
     private double window_width;
@@ -36,17 +38,21 @@ public class AdminWindow {
             PatientContainer p_info = conn.idQuery(idString);
             // patient doesn't exist in the database
             if (p_info == null) {
-                Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית או הירשם.", Alert.AlertType.WARNING);
+                Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
             } else {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("GraphsWindow.fxml"));
+                AnchorPane root = (AnchorPane) loader.load();
                 Stage stage = (Stage) this.submit.getScene().getWindow();
-                AnchorPane root = FXMLLoader.load(getClass().getResource("GraphsWindow.fxml"));
-                stage.setTitle("Patient Data");
                 // get the size of the screen
                 Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
                 this.window_height = window.height;
                 this.window_width = window.width;
                 // set the window size
                 Scene scene = new Scene(root,  this.window_width,  this.window_height);
+                GraphsWindow graphsWindow = loader.getController();
+                graphsWindow.setPreviousScene("AdminWindow.fxml");
+                stage.setTitle("Patient Data");
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.setMaximized(true);
@@ -57,5 +63,14 @@ public class AdminWindow {
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
+    }
+
+    /***
+     * Exiting the application.
+     */
+    @FXML
+    protected void exit() {
+        Stage stage = (Stage) this.exit.getScene().getWindow();
+        stage.close();
     }
 }

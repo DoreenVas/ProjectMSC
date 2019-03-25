@@ -58,6 +58,11 @@
                   </JFXTextField>
                </children>
             </GridPane>
+            <JFXButton fx:id="exit" onAction="#exit" text="יציאה">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
          </children>
       </VBox>
    </children>

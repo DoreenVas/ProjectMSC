@@ -100,15 +100,19 @@ public class MenuWindow extends BasicWindow implements Initializable{
     @FXML
     protected void results() {
         try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("GraphsWindow.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
             Stage stage = (Stage) this.results.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("GraphsWindow.fxml"));
-            stage.setTitle("Patient Data");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
             this.window_height = window.height;
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
+            GraphsWindow graphsWindow = loader.getController();
+            graphsWindow.setPreviousScene("MenuWindow.fxml");
+            stage.setTitle("Patient Data");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);
