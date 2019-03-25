@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DBModel implements Model{
+public class DBModel implements Model {
     // members
     private Connection conn;
     private String host, port, user, password, schema;
@@ -25,8 +25,8 @@ public class DBModel implements Model{
     }
 
     /**
-     *
      * Opens a connection to the DB.
+     *
      * @throws DBConnectionException thrown if there was an error connecting to the DB
      */
     public void openConnection() throws DBConnectionException {
@@ -45,8 +45,8 @@ public class DBModel implements Model{
     }
 
     /**
-     *
      * Closes the connection to the DB.
+     *
      * @throws DBConnectionException thrown if there was an error disconnecting from the DB
      */
     public void closeConnection() throws DBConnectionException {
@@ -72,10 +72,10 @@ public class DBModel implements Model{
             BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
             // read the info from the config file
             row = reader.readLine();
-            while(row != null) {
+            while (row != null) {
 
-                info = row.replace(" ","").split("=");
-                switch(info[0]) {
+                info = row.replace(" ", "").split("=");
+                switch (info[0]) {
                     case "host":
                         this.host = info[1];
                         break;
@@ -122,19 +122,50 @@ public class DBModel implements Model{
 
     @Override
     public ArrayList<GameContainer> getData(String id, GameQueries gameQueries) {
-        GameContainer gameContainer = null;
         String[] games = GameQueries.getInstance(this.statement).getPatientGames(id);
         return parseGames(games);
     }
 
+    /*****
+     * The function gets an array of games and returns a list of game containers of those games
+     * @param games an array of games
+     * @return a list of game containers
+     */
     private ArrayList<GameContainer> parseGames(String[] games) {
         String[] game;
-        int gameId;
+        String gameType;
+        int gameId, numOfRecognizedButtons, timeLimit;
+        HashMap<String, Double> shapesReactionTimes, texturesReactionTimes;
+        ArrayList<GameContainer> gamesList = new ArrayList<>();
+        // go over the games info
         for (String g : games) {
+            // parse the game info into fields
             game = g.split(",");
             gameId = Integer.parseInt(game[0]);
+            gameType = game[1];
+            numOfRecognizedButtons = Integer.parseInt(game[2]);
+            timeLimit = Integer.parseInt(game[4]);
+            // if game type is both - add shapes and textures maps
+            if (gameType.equals("Both")) {
+                shapesReactionTimes = GameQueries.getInstance(this.statement).getTimesOfGame(gameId, "Shapes");
+                texturesReactionTimes = GameQueries.getInstance(this.statement).getTimesOfGame(gameId, "Textures");
+            } else {
+                // add only shapes map
+                if (gameType.equals("Shapes")) {
+                    shapesReactionTimes = GameQueries.getInstance(this.statement).getTimesOfGame(gameId, gameType);
+                    texturesReactionTimes = new HashMap<>();
+                } else {
+                    // add only textures map
+                    texturesReactionTimes = GameQueries.getInstance(this.statement).getTimesOfGame(gameId, gameType);
+                    shapesReactionTimes = new HashMap<>();
+                }
+            }
+            // create the game container
+            GameContainer gameContainer = new GameContainer(shapesReactionTimes,
+                    texturesReactionTimes, numOfRecognizedButtons, timeLimit, gameType);
+            gamesList.add(gameContainer);
         }
-        return null;
+        return gamesList;
     }
 
     @Override

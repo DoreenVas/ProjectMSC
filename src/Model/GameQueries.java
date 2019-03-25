@@ -60,6 +60,55 @@ public class GameQueries {
         }
     }
 
+    /*****
+     * the function reads the info of a specific game from the DB and inserts it into a map
+     * @param gameId the game id
+     * @param table the table name
+     * @return a hash map of reaction times
+     */
+    public HashMap<String, Double> getTimesOfGame(int gameId, String table) {
+        String query = "select * from " + table + " where game_id=" + gameId;
+        String[] results;
+        HashMap<String, Double> reactionTimes = null;
+        try {
+            switch (table) {
+                case "Shapes":
+                    results = Executor.executeQuery(myStatement, query, shapesColumns);
+                    reactionTimes = insertReactionTimesToMaps(results, shapesColumns);
+                    break;
+                case "Textures":
+                    results = Executor.executeQuery(myStatement, query, texturesColumns);
+                    reactionTimes = insertReactionTimesToMaps(results, texturesColumns);
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reactionTimes;
+    }
+
+    /****
+     * insert the data into maps from image to reaction time
+     * @param results the reaction times
+     * @param columns the images
+     * @return a hash map
+     */
+    private HashMap<String, Double> insertReactionTimesToMaps(String[] results, String[] columns) {
+        HashMap<String, Double> reactionTimes = new HashMap<>();
+        String[] r;
+        for (String s : results) {
+            r = s.split(",");
+            for (int i = 0; i < r.length; i++) {
+                // skip the "game_id" column
+                if (columns[i].equals("game_id")) {
+                    continue;
+                }
+                reactionTimes.put(columns[i], Double.parseDouble(r[i]));
+            }
+        }
+        return reactionTimes;
+    }
+
     /******
      * insert a new game into the game table
      * @param patientContainer the info of the patient

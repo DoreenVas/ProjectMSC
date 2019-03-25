@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -16,7 +17,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GraphsWindow">
+<?import javafx.scene.control.TableView?>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GraphsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -52,7 +54,10 @@
               <tabs>
                 <Tab text="תוצאות אחרונות">
                   <content>
-                    <AnchorPane />
+                    <AnchorPane>
+                           <children>
+                              <TableView fx:id="resultsTable" layoutX="126.0" />
+                           </children></AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="גרף התקדמות">
@@ -67,7 +72,7 @@
                                   <NumberAxis fx:id="avgReactionTime" label="זמני תגובה" side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <JFXCheckBox nodeOrientation="RIGHT_TO_LEFT" fx:id="showGlobalAverage" mnemonicParsing="false" onAction="#getGlobalAvgGraph" text="הצג ממוצע כללי" />
+                              <JFXCheckBox fx:id="showGlobalAverage" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#getGlobalAvgGraph" text="הצג ממוצע כללי" />
                            </children>
                         </AnchorPane>
                   </content>
