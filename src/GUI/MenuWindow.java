@@ -19,6 +19,8 @@ public class MenuWindow extends BasicWindow implements Initializable{
     private Button start;
     @FXML
     private Button instructions;
+    @FXML
+    private Button results;
 
     private double window_height;
     private double window_width;
@@ -93,7 +95,27 @@ public class MenuWindow extends BasicWindow implements Initializable{
         } catch(Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
+    }
 
+    @FXML
+    protected void results() {
+        try {
+            Stage stage = (Stage) this.results.getScene().getWindow();
+            AnchorPane root = FXMLLoader.load(getClass().getResource("GraphsWindow.fxml"));
+            stage.setTitle("Graphs");
+            // get the size of the screen
+            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            this.window_height = window.height;
+            this.window_width = window.width;
+            // set the window size
+            Scene scene = new Scene(root,  this.window_width,  this.window_height);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setMaximized(true);
+            stage.show();
+        } catch(Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML

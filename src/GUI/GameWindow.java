@@ -141,7 +141,7 @@ public class GameWindow extends BasicWindow {
                 long now = System.currentTimeMillis();
                 // calculate the reminding time: tileLeft = timeLimit - (currentSystemTime - startSystemTime)
                 timeLeft.set(timeLimit - ((now - this.startTime) / 1000.0));
-                if (timeLeft.getValue() <= 0.01) {
+                if (timeLeft.getValue() <= 0.05) {
                     new Thread(()-> {
                         mutex.lock();
                         // when the time's up - show indication image, reset timer and switch to next image
