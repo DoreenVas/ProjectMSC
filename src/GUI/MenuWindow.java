@@ -102,7 +102,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
         try {
             Stage stage = (Stage) this.results.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("GraphsWindow.fxml"));
-            stage.setTitle("Graphs");
+            stage.setTitle("Patient Data");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
             this.window_height = window.height;

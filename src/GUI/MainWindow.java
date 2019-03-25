@@ -15,6 +15,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,10 +28,17 @@ public class MainWindow implements Initializable{
     @FXML
     private JFXButton signUp;
     @FXML
+    private JFXButton admin_submit;
+    @FXML
     private JFXTextField id;
+    @FXML
+    private JFXTextField admin_user;
+    @FXML
+    private JFXTextField admin_password;
     @FXML
     private Button exit;
 
+    private String user, password;
     private double window_height;
     private double window_width;
 
@@ -98,6 +109,73 @@ public class MainWindow implements Initializable{
             Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    protected void admin_submit() {
+        try {
+            // get the entered information
+            String admin_user = this.admin_user.getText();
+            String admin_password = this.admin_password.getText();
+            // get the correct information from file
+            parseInfo();
+            // check validation of user and password
+            if (!admin_user.equals(this.user) || !admin_password.equals(this.password) ) { // wrong details
+                Alerter.showAlert("הפרטים שהוזנו אינם נכונים.", Alert.AlertType.WARNING);
+            } else { //forward to admin page
+                Stage stage = (Stage) this.admin_submit.getScene().getWindow();
+                AnchorPane root = FXMLLoader.load(getClass().getResource("AdminWindow.fxml"));
+                stage.setTitle("Admin");
+                // get the size of the screen
+                Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+                this.window_height = window.height;
+                this.window_width = window.width;
+                // set the window size
+                Scene scene = new Scene(root, this.window_width, this.window_height);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setMaximized(true);
+                stage.show();
+            }
+        }catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
+    }
+
+    /*****
+     * Parse the information of the admin_details file
+     */
+    private void parseInfo() {
+        String row;
+        String[] info;
+        // Current working directory is ProjectMSC
+        // the path to the config file
+        String filePath = "src/Resources/admin_details";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            // read the info from the config file
+            row = reader.readLine();
+            while(row != null) {
+
+                info = row.replace(" ","").split("=");
+                switch(info[0]) {
+                    case "user":
+                        this.user = info[1];
+                        break;
+                    case "password":
+                        this.password = info[1];
+                        break;
+                }
+                row = reader.readLine();
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open config file reader\n");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Could not read from config file\n");
+            e.printStackTrace();
         }
     }
 
