@@ -1,27 +1,24 @@
 package GUI;
 
-import Resources.AlertMessages;
 import Resources.GameContainer;
+import Resources.TableInfoContainer;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,7 +30,7 @@ import java.util.ResourceBundle;
 public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
-    private Button back;
+    private Button home = new Button();
     @FXML
     private LineChart<?, ?> lineChart;
     @FXML
@@ -43,24 +40,16 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private JFXCheckBox showGlobalAverage = new JFXCheckBox();
     @FXML
-    private TableView<GameContainer> resultsTable = new TableView();
+    private TableView<TableInfoContainer> resultsTable = new TableView();
 
     private ArrayList<XYChart.Series> allPatientsRegressionLine;
     private ArrayList<XYChart.Series> myReactionTimes;
     private HashMap<String, ArrayList<XYChart.Series>> timesToSeriesMap;
 
-    private String previousScene;
-    private double window_height;
-    private double window_width;
-
     private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
             , "dollar", "net", "note", "arcs", "monitor", "sad_smiley", "strudel", "four_bubbles", "spiral", "squares"};
-
-    public void setPreviousScene(String prevScene){
-        this.previousScene = prevScene;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,44 +86,156 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 //        series.getData().add(new XYChart.Data<>(1, 23.4));
 //        series.getData().add(new XYChart.Data<>(2, 11.4));
 //        series.getData().add(new XYChart.Data<>(3, 30.4));
-//        try {
-//            Connection conn = Connection.getInstance();
-//            conn.OpenConnection();
-//            ArrayList<GameContainer> games = conn.getGames("2");
-//            createTable(games);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Connection conn = Connection.getInstance();
+            conn.OpenConnection();
+            ArrayList<GameContainer> games = conn.getGames("2");
+            createTable(games);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 //        this.lineChart.getData().add(series);
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
-        TableColumn<GameContainer, String> gameTypeCol = new TableColumn<>("סוג משחק");
+        TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("סוג משחק");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameType"));
-        TableColumn<GameContainer, Integer> timeLimitCol = new TableColumn<>("זמן המשחק");
+        TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("זמן המשחק");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory("timeLimit"));
-        TableColumn<GameContainer, Integer> recognizedCol = new TableColumn<>("מספר תמונות שזוהו");
+        TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("מספר תמונות שזוהו");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory("numOfRecognizedButtons"));
 //        TableColumn<GameContainer, String> dateCol = new TableColumn<>("תאריך המשחק");
 //        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameDate"));
 
-        // add columns to the table
-        this.resultsTable.setItems(getGames(gamesList));
-        //this.resultsTable.getColumns().addAll(gameTypeCol, timeLimitCol, recognizedCol);
+        this.resultsTable.getColumns().addAll(gameTypeCol, timeLimitCol, recognizedCol);
 
         for (String s : shapesColumns) {
-            TableColumn<Map, Double> shapesColumn = new TableColumn<>(s);
-            shapesColumn.setCellValueFactory(new MapValueFactory(s));
+            TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
+            shapesColumn.setCellValueFactory(new PropertyValueFactory(s));
+        }
+        for (String s : texturesColumns) {
+            TableColumn<TableInfoContainer, String> texturesColumn = new TableColumn<>(s);
+            texturesColumn.setCellValueFactory(new PropertyValueFactory(s));
         }
 
+        // add columns to the table
+        this.resultsTable.setItems(getGames(gamesList));
     }
 
-    private ObservableList<GameContainer> getGames(ArrayList<GameContainer> list) {
-        ObservableList<GameContainer> games = FXCollections.observableArrayList();
-        games.addAll(list);
+    private ObservableList<TableInfoContainer> getGames(ArrayList<GameContainer> list) {
+        ObservableList<TableInfoContainer> games = FXCollections.observableArrayList();
+        for (GameContainer g : list) {
+            TableInfoContainer t = new TableInfoContainer();
+            t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit()))
+                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons()));
+            for (String s : shapesColumns) {
+                insertInfoToTableContainer(t, g, s);
+            }
+            for (String s : texturesColumns) {
+                insertInfoToTableContainer(t, g, s);
+            }
+            games.add(t);
+        }
         return games;
+    }
+
+    private void insertInfoToTableContainer(TableInfoContainer t, GameContainer g, String field) {
+        switch (field) {
+            case "arrow":
+                t.setArrow(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "rectangle":
+                t.setRectangle(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "diamond":
+                t.setDiamond(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "pie":
+                t.setPie(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "triangle":
+                t.setTriangle(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "heart":
+                t.setHeart(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "flower":
+                t.setFlower(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "hexagon":
+                t.setHexagon(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "moon":
+                t.setMoon(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "plus":
+                t.setPlus(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "oval":
+                t.setOval(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "two_triangles":
+                t.setTwo_triangles(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "circle":
+                t.setCircle(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+            case "star":
+                t.setStar(String.valueOf(g.getShapesReactionTime().get(field)));
+                break;
+
+            case "four_dots":
+                t.setFour_dots(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "waves":
+                t.setWaves(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "arrow_head":
+                t.setArrow_head(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "strips":
+                t.setStrips(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "happy_smiley":
+                t.setHappy_smiley(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "spikes":
+                t.setSpikes(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "dollar":
+                t.setDollar(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "net":
+                t.setNet(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "note":
+                t.setNote(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "arcs":
+                t.setArcs(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "monitor":
+                t.setMonitor(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "sad_smiley":
+                t.setSad_smiley(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "strudel":
+                t.setStrudel(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "four_bubbles":
+                t.setFour_bubbles(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "spiral":
+                t.setSpiral(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+            case "squares":
+                t.setSquares(String.valueOf(g.getTexturesReactionTime().get(field)));
+                break;
+        }
+        //return t;
     }
 
     @FXML
@@ -151,24 +252,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     @FXML
-    protected void back() {
-        try {
-            Stage stage = (Stage) this.back.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource(previousScene));
-            stage.setTitle("MSC");
-            // get the size of the screen
-            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-            this.window_height = window.height;
-            this.window_width = window.width;
-            // set the window size
-            Scene scene = new Scene(root, this.window_width, this.window_height);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setMaximized(true);
-            stage.show();
-        } catch (Exception e) {
-            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
-        }
+    protected void mainWindow() {
+        super.menuWindow(this.home);
     }
 
     @FXML

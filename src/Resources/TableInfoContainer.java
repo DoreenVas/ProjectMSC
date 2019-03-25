@@ -1,0 +1,339 @@
+package Resources;
+
+public class TableInfoContainer {
+    // members
+    private String gameType;
+    private String numOfRecognizedButtons;
+    private String timeLimit;
+    //    private String gameDate;
+    private String arrow;
+    private String rectangle;
+    private String diamond;
+    private String pie;
+    private String triangle;
+    private String heart;
+    private String flower;
+    private String hexagon;
+    private String moon;
+    private String plus;
+    private String oval;
+    private String two_triangles;
+    private String circle;
+    private String star;
+    private String four_dots;
+    private String waves;
+    private String arrow_head;
+    private String strips;
+    private String happy_smiley;
+    private String spikes;
+    private String dollar;
+    private String net;
+    private String note;
+    private String arcs;
+    private String monitor;
+    private String sad_smiley;
+    private String strudel;
+    private String four_bubbles;
+    private String spiral;
+    private String squares;
+
+
+    public TableInfoContainer setGameType(String gameType) {
+        this.gameType = gameType;
+        return this;
+    }
+
+    public TableInfoContainer setNumOfRecognizedButtons(String numOfRecognizedButtons) {
+        this.numOfRecognizedButtons = numOfRecognizedButtons;
+        return this;
+    }
+
+    public TableInfoContainer setTimeLimit(String timeLimit) {
+        this.timeLimit = timeLimit;
+        return this;
+    }
+
+    public TableInfoContainer setArrow(String arrow) {
+        this.arrow = arrow;
+        return this;
+    }
+
+    public TableInfoContainer setRectangle(String rectangle) {
+        this.rectangle = rectangle;
+        return this;
+    }
+
+    public TableInfoContainer setDiamond(String diamond) {
+        this.diamond = diamond;
+        return this;
+    }
+
+    public TableInfoContainer setPie(String pie) {
+        this.pie = pie;
+        return this;
+    }
+
+    public TableInfoContainer setTriangle(String triangle) {
+        this.triangle = triangle;
+        return this;
+    }
+
+    public TableInfoContainer setHeart(String heart) {
+        this.heart = heart;
+        return this;
+    }
+
+    public TableInfoContainer setFlower(String flower) {
+        this.flower = flower;
+        return this;
+    }
+
+    public TableInfoContainer setHexagon(String hexagon) {
+        this.hexagon = hexagon;
+        return this;
+    }
+
+    public TableInfoContainer setMoon(String moon) {
+        this.moon = moon;
+        return this;
+    }
+
+    public TableInfoContainer setPlus(String plus) {
+        this.plus = plus;
+        return this;
+    }
+
+    public TableInfoContainer setOval(String oval) {
+        this.oval = oval;
+        return this;
+    }
+
+    public TableInfoContainer setTwo_triangles(String two_triangles) {
+        this.two_triangles = two_triangles;
+        return this;
+    }
+
+    public TableInfoContainer setCircle(String circle) {
+        this.circle = circle;
+        return this;
+    }
+
+    public TableInfoContainer setStar(String star) {
+        this.star = star;
+        return this;
+    }
+
+    public TableInfoContainer setFour_dots(String four_dots) {
+        this.four_dots = four_dots;
+        return this;
+    }
+
+    public TableInfoContainer setWaves(String waves) {
+        this.waves = waves;
+        return this;
+    }
+
+    public TableInfoContainer setArrow_head(String arrow_head) {
+        this.arrow_head = arrow_head;
+        return this;
+    }
+
+    public TableInfoContainer setStrips(String strips) {
+        this.strips = strips;
+        return this;
+    }
+
+    public TableInfoContainer setHappy_smiley(String happy_smiley) {
+        this.happy_smiley = happy_smiley;
+        return this;
+    }
+
+    public TableInfoContainer setSpikes(String spikes) {
+        this.spikes = spikes;
+        return this;
+    }
+
+    public TableInfoContainer setDollar(String dollar) {
+        this.dollar = dollar;
+        return this;
+    }
+
+    public TableInfoContainer setNet(String net) {
+        this.net = net;
+        return this;
+    }
+
+    public TableInfoContainer setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
+    public TableInfoContainer setArcs(String arcs) {
+        this.arcs = arcs;
+        return this;
+    }
+
+    public TableInfoContainer setMonitor(String monitor) {
+        this.monitor = monitor;
+        return this;
+    }
+
+    public TableInfoContainer setSad_smiley(String sad_smiley) {
+        this.sad_smiley = sad_smiley;
+        return this;
+    }
+
+    public TableInfoContainer setStrudel(String strudel) {
+        this.strudel = strudel;
+        return this;
+    }
+
+    public TableInfoContainer setFour_bubbles(String four_bubbles) {
+        this.four_bubbles = four_bubbles;
+        return this;
+    }
+
+    public TableInfoContainer setSpiral(String spiral) {
+        this.spiral = spiral;
+        return this;
+    }
+
+    public TableInfoContainer setSquares(String squares) {
+        this.squares = squares;
+        return this;
+    }
+
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public String getNumOfRecognizedButtons() {
+        return numOfRecognizedButtons;
+    }
+
+    public String getTimeLimit() {
+        return timeLimit;
+    }
+
+    public String getArrow() {
+        return arrow;
+    }
+
+    public String getRectangle() {
+        return rectangle;
+    }
+
+    public String getDiamond() {
+        return diamond;
+    }
+
+    public String getPie() {
+        return pie;
+    }
+
+    public String getTriangle() {
+        return triangle;
+    }
+
+    public String getHeart() {
+        return heart;
+    }
+
+    public String getFlower() {
+        return flower;
+    }
+
+    public String getHexagon() {
+        return hexagon;
+    }
+
+    public String getMoon() {
+        return moon;
+    }
+
+    public String getPlus() {
+        return plus;
+    }
+
+    public String getOval() {
+        return oval;
+    }
+
+    public String getTwo_triangles() {
+        return two_triangles;
+    }
+
+    public String getCircle() {
+        return circle;
+    }
+
+    public String getStar() {
+        return star;
+    }
+
+    public String getFour_dots() {
+        return four_dots;
+    }
+
+    public String getWaves() {
+        return waves;
+    }
+
+    public String getArrow_head() {
+        return arrow_head;
+    }
+
+    public String getStrips() {
+        return strips;
+    }
+
+    public String getHappy_smiley() {
+        return happy_smiley;
+    }
+
+    public String getSpikes() {
+        return spikes;
+    }
+
+    public String getDollar() {
+        return dollar;
+    }
+
+    public String getNet() {
+        return net;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public String getArcs() {
+        return arcs;
+    }
+
+    public String getMonitor() {
+        return monitor;
+    }
+
+    public String getSad_smiley() {
+        return sad_smiley;
+    }
+
+    public String getStrudel() {
+        return strudel;
+    }
+
+    public String getFour_bubbles() {
+        return four_bubbles;
+    }
+
+    public String getSpiral() {
+        return spiral;
+    }
+
+    public String getSquares() {
+        return squares;
+    }
+
+}
