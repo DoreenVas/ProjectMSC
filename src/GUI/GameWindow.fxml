@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#handlePress" onKeyReleased="#handleRelease" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.GameWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#handlePress" onKeyReleased="#handleRelease" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GameWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -69,7 +69,7 @@
                         <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
-                <ImageView fx:id="image" disable="true" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="image" disable="true" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>

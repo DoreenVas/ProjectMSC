@@ -38,7 +38,13 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </JFXButton>
-            <JFXButton fx:id="results" onAction="#results" text="אזור אישי" />
+            <JFXButton fx:id="results" onAction="#results" text="אזור אישי">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></JFXButton>
                 <JFXButton fx:id="exit" mnemonicParsing="false" onAction="#exit" text="יציאה">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
