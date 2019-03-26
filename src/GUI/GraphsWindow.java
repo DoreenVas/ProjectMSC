@@ -1,36 +1,38 @@
 package GUI;
 
+import Resources.AlertMessages;
 import Resources.GameContainer;
+import Resources.PatientContainer;
 import Resources.TableInfoContainer;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
-    private Button home = new Button();
+    private Button back;
     @FXML
     private LineChart<?, ?> lineChart;
     @FXML
@@ -46,10 +48,18 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     private ArrayList<XYChart.Series> myReactionTimes;
     private HashMap<String, ArrayList<XYChart.Series>> timesToSeriesMap;
 
+    private String previousScene;
+    private double window_height;
+    private double window_width;
+
     private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
             , "dollar", "net", "note", "arcs", "monitor", "sad_smiley", "strudel", "four_bubbles", "spiral", "squares"};
+
+    public void setPreviousScene(String prevScene){
+        this.previousScene = prevScene;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,7 +70,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.allPatientsRegressionLine = new ArrayList<>();
         this.myReactionTimes = new ArrayList<>();
         this.timesToSeriesMap = new HashMap<>();
-        this.resultsTable = new TableView();
         this.showGlobalAverage.setSelected(false);
 
         loadChartData();
@@ -74,8 +83,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.avgReactionTime.setLowerBound(0);
         this.avgReactionTime.setUpperBound(70);
         this.avgReactionTime.setTickUnit(10);
-
-
     }
 
     @FXML
@@ -88,8 +95,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 //        series.getData().add(new XYChart.Data<>(3, 30.4));
         try {
             Connection conn = Connection.getInstance();
-            conn.OpenConnection();
-            ArrayList<GameContainer> games = conn.getGames("2");
+            ArrayList<GameContainer> games = conn.getGames(PatientContainer.getInstance().getPatientID());
             createTable(games);
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,28 +106,40 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
-        TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("סוג משחק");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameType"));
-        TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("זמן המשחק");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("timeLimit"));
-        TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("מספר תמונות שזוהו");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("numOfRecognizedButtons"));
+//        TableColumn<SongDisplayData, String> column = new TableColumn<>(field);
+//        column.setCellValueFactory(new PropertyValueFactory<>(field));
+
+        TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("gameType");
+        gameTypeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
+        gameTypeCol.setText("סוג משחק");
+        this.resultsTable.getColumns().add(gameTypeCol);
+
+        TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("timeLimit");
+        timeLimitCol.setCellValueFactory(new PropertyValueFactory<>("timeLimit"));
+        timeLimitCol.setText("מגבלת הזמן");
+        this.resultsTable.getColumns().add(timeLimitCol);
+
+        TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("numOfRecognizedButtons");
+        recognizedCol.setCellValueFactory(new PropertyValueFactory<>("numOfRecognizedButtons"));
+        recognizedCol.setText("מספר התמונות שזוהו");
+        this.resultsTable.getColumns().add(recognizedCol);
+
 //        TableColumn<GameContainer, String> dateCol = new TableColumn<>("תאריך המשחק");
 //        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameDate"));
 
-        this.resultsTable.getColumns().addAll(gameTypeCol, timeLimitCol, recognizedCol);
-
         for (String s : shapesColumns) {
             TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
-            shapesColumn.setCellValueFactory(new PropertyValueFactory(s));
+            shapesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            this.resultsTable.getColumns().add(shapesColumn);
         }
         for (String s : texturesColumns) {
             TableColumn<TableInfoContainer, String> texturesColumn = new TableColumn<>(s);
-            texturesColumn.setCellValueFactory(new PropertyValueFactory(s));
+            texturesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            this.resultsTable.getColumns().add(texturesColumn);
         }
 
         // add columns to the table
-        this.resultsTable.setItems(getGames(gamesList));
+        this.resultsTable.getItems().addAll(getGames(gamesList));
     }
 
     private ObservableList<TableInfoContainer> getGames(ArrayList<GameContainer> list) {
@@ -252,8 +270,24 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     @FXML
-    protected void mainWindow() {
-        super.menuWindow(this.home);
+    protected void back() {
+        try {
+            Stage stage = (Stage) this.back.getScene().getWindow();
+            AnchorPane root = FXMLLoader.load(getClass().getResource(previousScene));
+            stage.setTitle("MSC");
+            // get the size of the screen
+            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            this.window_height = window.height;
+            this.window_width = window.width;
+            // set the window size
+            Scene scene = new Scene(root, this.window_width, this.window_height);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
