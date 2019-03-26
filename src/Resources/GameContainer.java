@@ -7,7 +7,7 @@ public class GameContainer {
     private HashMap<String, Double> shapesReactionTime;
     private HashMap<String, Double> texturesReactionTime;
     private int numOfRecognizedButtons, timeLimit;
-    private String gameType;
+    private String gameType, gameDate = null;
 
     public GameContainer(HashMap<String, Double> shapesReactionTime, HashMap<String, Double> texturesReactionTime,
                          int numOfRecognizedButtons, int timeLimit, String gameType) {
@@ -36,5 +36,13 @@ public class GameContainer {
 
     public String getGameType() {
         return this.gameType;
+    }
+
+    public String getGameDate() {
+        return this.gameDate;
+    }
+
+    public void setGameDate(String gameDate) {
+        this.gameDate = gameDate;
     }
 }

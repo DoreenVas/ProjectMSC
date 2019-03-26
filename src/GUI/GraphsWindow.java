@@ -108,27 +108,31 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
-//        TableColumn<SongDisplayData, String> column = new TableColumn<>(field);
-//        column.setCellValueFactory(new PropertyValueFactory<>(field));
-
+        // create game type column
         TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("gameType");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
         gameTypeCol.setText("סוג משחק");
         this.resultsTable.getColumns().add(gameTypeCol);
 
+        // create time limit column
         TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("timeLimit");
         timeLimitCol.setCellValueFactory(new PropertyValueFactory<>("timeLimit"));
         timeLimitCol.setText("מגבלת הזמן");
         this.resultsTable.getColumns().add(timeLimitCol);
 
+        // create number of recognized images column
         TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("numOfRecognizedButtons");
         recognizedCol.setCellValueFactory(new PropertyValueFactory<>("numOfRecognizedButtons"));
         recognizedCol.setText("מספר התמונות שזוהו");
         this.resultsTable.getColumns().add(recognizedCol);
 
-//        TableColumn<GameContainer, String> dateCol = new TableColumn<>("תאריך המשחק");
-//        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameDate"));
+        // create game date column
+        TableColumn<TableInfoContainer, String> dateCol = new TableColumn<>("gameDate");
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("gameDate"));
+        dateCol.setText("תאריך המשחק");
+        this.resultsTable.getColumns().add(dateCol);
 
+        // create column for every image
         for (String s : shapesColumns) {
             TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
             shapesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
@@ -144,23 +148,39 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.resultsTable.getItems().addAll(getGames(gamesList));
     }
 
+    /****
+     * the function makes an observable list of table info container (for the table view)
+     * @param list a list of game containers
+     * @return an observable list
+     */
     private ObservableList<TableInfoContainer> getGames(ArrayList<GameContainer> list) {
         ObservableList<TableInfoContainer> games = FXCollections.observableArrayList();
+        // go over the games
         for (GameContainer g : list) {
             TableInfoContainer t = new TableInfoContainer();
-            t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit()))
+            // set the game info
+            t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit())).setGameDate(g.getGameDate())
                     .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons()));
+            // add the shapes times
             for (String s : shapesColumns) {
                 insertInfoToTableContainer(t, g, s);
             }
+            // add the textures times
             for (String s : texturesColumns) {
                 insertInfoToTableContainer(t, g, s);
             }
+            // add to the list
             games.add(t);
         }
         return games;
     }
 
+    /*****
+     * insert the reaction time to the tableInfoContainer
+     * @param t the tableInfoContainer
+     * @param g the gameContainer
+     * @param field the image
+     */
     private void insertInfoToTableContainer(TableInfoContainer t, GameContainer g, String field) {
         switch (field) {
             case "arrow":

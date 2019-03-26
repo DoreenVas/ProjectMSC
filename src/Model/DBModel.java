@@ -133,7 +133,7 @@ public class DBModel implements Model {
      */
     private ArrayList<GameContainer> parseGames(String[] games) {
         String[] game;
-        String gameType;
+        String gameType, gameDate;
         int gameId, numOfRecognizedButtons, timeLimit;
         HashMap<String, Double> shapesReactionTimes, texturesReactionTimes;
         ArrayList<GameContainer> gamesList = new ArrayList<>();
@@ -144,6 +144,7 @@ public class DBModel implements Model {
             gameId = Integer.parseInt(game[0]);
             gameType = game[1];
             numOfRecognizedButtons = Integer.parseInt(game[2]);
+            gameDate = game[3];
             timeLimit = Integer.parseInt(game[4]);
             // if game type is both - add shapes and textures maps
             if (gameType.equals("Both")) {
@@ -163,6 +164,7 @@ public class DBModel implements Model {
             // create the game container
             GameContainer gameContainer = new GameContainer(shapesReactionTimes,
                     texturesReactionTimes, numOfRecognizedButtons, timeLimit, gameType);
+            gameContainer.setGameDate(gameDate);
             gamesList.add(gameContainer);
         }
         return gamesList;

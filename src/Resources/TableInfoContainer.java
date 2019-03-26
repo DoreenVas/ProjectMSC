@@ -5,7 +5,7 @@ public class TableInfoContainer {
     private String gameType;
     private String timeLimit;
     private String numOfRecognizedButtons;
-    //    private String gameDate;
+    private String gameDate;
     private String arrow;
     private String rectangle;
     private String diamond;
@@ -60,6 +60,11 @@ public class TableInfoContainer {
 
     public TableInfoContainer setNumOfRecognizedButtons(String numOfRecognizedButtons) {
         this.numOfRecognizedButtons = numOfRecognizedButtons;
+        return this;
+    }
+
+    public TableInfoContainer setGameDate(String gameDate) {
+        this.gameDate = gameDate;
         return this;
     }
 
@@ -344,6 +349,10 @@ public class TableInfoContainer {
 
     public String getNumOfRecognizedButtons() {
         return numOfRecognizedButtons;
+    }
+
+    public String getGameDate() {
+        return gameDate;
     }
 
     public String getArrow() {
