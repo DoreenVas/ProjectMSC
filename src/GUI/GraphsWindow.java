@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.awt.*;
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private JFXCheckBox showGlobalAverage = new JFXCheckBox();
     @FXML
-    private TableView<TableInfoContainer> resultsTable = new TableView();
+    private TableView<TableInfoContainer> resultsTable;
 
     private ArrayList<XYChart.Series> allPatientsRegressionLine;
     private ArrayList<XYChart.Series> myReactionTimes;
