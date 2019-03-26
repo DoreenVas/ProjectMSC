@@ -27,6 +27,8 @@ public class SettingsWindow extends BasicWindow {
     private JFXComboBox  timeLimit;
     @FXML
     private JFXComboBox  keyboard;
+    @FXML
+    private JFXComboBox  dominantHand;
 
     private double window_height;
     private double window_width;
@@ -56,7 +58,7 @@ public class SettingsWindow extends BasicWindow {
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
             GameWindow gameWindow = loader.getController();
             convertData();
-            gameWindow.initialize(c_gameType,(String)timeLimit.getValue(),(String)keyboard.getValue());
+            gameWindow.initialize(c_gameType,(String)timeLimit.getValue(),(String)keyboard.getValue(),(String)dominantHand.getValue());
             stage.setTitle("Game");
             stage.setScene(scene);
             stage.setResizable(false);

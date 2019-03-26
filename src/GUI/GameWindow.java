@@ -51,6 +51,7 @@ public class GameWindow extends BasicWindow {
     private double timeLimit;
     private String gameType;
     private String keyboard;
+    private String dominantHand;
 
     private double window_height;
     private double window_width;
@@ -83,11 +84,12 @@ public class GameWindow extends BasicWindow {
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow = false;
 
-    public void initialize(String c_gameType,String c_timeLimit,String c_keyboard) {
+    public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
         this.keyboard = c_keyboard;
+        this.dominantHand = c_dominantHand;
 
         //this.initialTimeLimit =1;
         //this.timeLimit = 1;
