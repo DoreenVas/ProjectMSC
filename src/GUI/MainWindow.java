@@ -3,6 +3,7 @@ package GUI;
 import Resources.AlertMessages;
 import Resources.PatientContainer;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ public class MainWindow implements Initializable{
     @FXML
     private JFXTextField admin_user;
     @FXML
-    private JFXTextField admin_password;
+    private JFXPasswordField admin_password;
     @FXML
     private Button exit;
 
@@ -50,6 +51,28 @@ public class MainWindow implements Initializable{
             if(event.getCode() == KeyCode.ENTER){
                 submit();
             }
+        });
+
+        // allow enter press on admin button
+        this.admin_submit.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                admin_submit();
+            }
+        });
+        // allow mouse key click
+        this.admin_submit.setOnMouseClicked(event -> {
+            admin_submit();
+        });
+
+        // allow enter press on admin button
+        this.admin_password.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                admin_submit();
+            }
+        });
+        // allow mouse key click
+        this.admin_password.setOnMouseClicked(event -> {
+            admin_submit();
         });
     }
 

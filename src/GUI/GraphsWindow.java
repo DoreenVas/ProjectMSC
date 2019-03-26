@@ -1,9 +1,6 @@
 package GUI;
 
-import Resources.AlertMessages;
-import Resources.GameContainer;
-import Resources.PatientContainer;
-import Resources.TableInfoContainer;
+import Resources.*;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,12 +45,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private NumberAxis textures_avgReactionTime;
     @FXML
-    private JFXCheckBox showGlobalAverage = new JFXCheckBox();
-    @FXML
     private TableView<TableInfoContainer> resultsTable;
 
-//    private ArrayList<XYChart.Series> allPatientsRegressionLine;
-//    private ArrayList<XYChart.Series> myReactionTimes;
     private HashMap<String, XYChart.Series> shapesSeries;
     private HashMap<String, XYChart.Series> texturesSeries;
 
@@ -75,12 +68,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         // show patient name
         super.initialize(location, resources);
         int index[];
-        // initialize lists and checkbox
-//        this.allPatientsRegressionLine = new ArrayList<>();
-//        this.myReactionTimes = new ArrayList<>();
+        // initialize maps
         this.shapesSeries = new HashMap<>();
         this.texturesSeries = new HashMap<>();
-        this.showGlobalAverage.setSelected(false);
 
         index = loadChartData();
 
@@ -116,58 +106,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             ArrayList<GameContainer> games = conn.getGames(PatientContainer.getInstance().getPatientID());
             // create the reaction times table of the patient
             createTable(games);
-            double avg;
             for (GameContainer g : games) {
                 switch (g.getGameType()) {
                     case "Shapes":
-                        avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
-                        if (!this.shapesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
-                            this.shapesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        } else {
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        }
+                        shapesReactionTimesCounter = insertToSeries(g, shapesReactionTimesCounter, imageTypeEnum.SHAPES.getType());
                         break;
                     case "Textures":
-                        avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
-                        if (!this.texturesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
-                            this.texturesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        } else {
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        }
+                        texturesReactionTimesCounter = insertToSeries(g, texturesReactionTimesCounter, imageTypeEnum.TEXTURES.getType());
                         break;
                     case "Both":
-                        avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
-                        if (!this.shapesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
-                            this.shapesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        } else {
-                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        }
-                        avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
-                        if (!this.texturesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
-                            this.texturesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        } else {
-                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
-                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
-                        }
+                        shapesReactionTimesCounter = insertToSeries(g, shapesReactionTimesCounter, imageTypeEnum.SHAPES.getType());
+                        texturesReactionTimesCounter = insertToSeries(g, texturesReactionTimesCounter, imageTypeEnum.TEXTURES.getType());
                         break;
                 }
             }
@@ -187,6 +136,35 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         i[0] = max(shapesReactionTimesCounter);
         i[1] = max(texturesReactionTimesCounter);
         return i;
+    }
+
+    private HashMap<String, Integer> insertToSeries(GameContainer g,
+                                                   HashMap<String, Integer> timesCounterMap, String gType) {
+        String timeLimit = String.valueOf(g.getTimeLimit());
+        double avg;
+
+        switch (gType) {
+            case "Shapes":
+                if (!timesCounterMap.containsKey(timeLimit)) {
+                    timesCounterMap.put(timeLimit, 1);
+                    this.shapesSeries.put(timeLimit, new XYChart.Series());
+                    this.shapesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
+                }
+                avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
+                this.shapesSeries.get(timeLimit).getData().add(new XYChart.Data<>(timesCounterMap.get(timeLimit), avg));
+                break;
+            case "Textures":
+                if (!timesCounterMap.containsKey(timeLimit)) {
+                    timesCounterMap.put(timeLimit, 1);
+                    this.texturesSeries.put(timeLimit, new XYChart.Series());
+                    this.texturesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
+                }
+                avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
+                this.texturesSeries.get(timeLimit).getData().add(new XYChart.Data<>(timesCounterMap.get(timeLimit), avg));
+                break;
+        }
+        timesCounterMap.put(timeLimit, timesCounterMap.get(timeLimit) + 1);
+        return timesCounterMap;
     }
 
     /****
@@ -237,6 +215,12 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         dateCol.setCellValueFactory(new PropertyValueFactory<>("gameDate"));
         dateCol.setText("תאריך המשחק");
         this.resultsTable.getColumns().add(dateCol);
+
+        // create game date column
+        TableColumn<TableInfoContainer, String> dominantHandCol = new TableColumn<>("dominantHand");
+        dominantHandCol.setCellValueFactory(new PropertyValueFactory<>("dominantHand"));
+        dominantHandCol.setText("יד דומיננטית");
+        this.resultsTable.getColumns().add(dominantHandCol);
 
         // create column for every image
         for (String s : shapesColumns) {
@@ -383,19 +367,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         }
         //return t;
     }
-
-//    @FXML
-//    private void getGlobalAvgGraph() {
-//        boolean select = this.showGlobalAverage.isSelected();
-//        // if the checkbox is selected - get all information of games from the DB
-//        if (select) {
-//
-//        } else { // leave only the patient's results
-//            for (XYChart.Series s : this.allPatientsRegressionLine) {
-//                this.lineChart.getData().remove(s);
-//            }
-//        }
-//    }
 
     @FXML
     protected void back() {

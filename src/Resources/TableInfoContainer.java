@@ -6,6 +6,7 @@ public class TableInfoContainer {
     private String timeLimit;
     private String numOfRecognizedButtons;
     private String gameDate;
+    private String dominantHand;
     private String arrow;
     private String rectangle;
     private String diamond;
@@ -66,6 +67,10 @@ public class TableInfoContainer {
     public TableInfoContainer setGameDate(String gameDate) {
         this.gameDate = gameDate;
         return this;
+    }
+
+    public void setDominantHand(String dominantHand) {
+        this.dominantHand = dominantHand;
     }
 
     public TableInfoContainer setArrow(String arrow) {
@@ -354,6 +359,8 @@ public class TableInfoContainer {
     public String getGameDate() {
         return gameDate;
     }
+
+    public String getDominantHand() { return dominantHand; }
 
     public String getArrow() {
         return arrow;
