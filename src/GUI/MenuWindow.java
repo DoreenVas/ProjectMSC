@@ -111,7 +111,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
             // set the window size
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
             GraphsWindow graphsWindow = loader.getController();
-            graphsWindow.setPreviousScene("MenuWindow.fxml");
+//            graphsWindow.setPreviousScene("MenuWindow.fxml");
             stage.setTitle("Patient Data");
             stage.setScene(scene);
             stage.setResizable(false);

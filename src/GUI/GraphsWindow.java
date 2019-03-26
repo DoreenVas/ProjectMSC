@@ -1,6 +1,7 @@
 package GUI;
 
 import Resources.GameContainer;
+import Resources.PatientContainer;
 import Resources.TableInfoContainer;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
@@ -12,19 +13,15 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GraphsWindow extends BasicWindow implements Initializable{
@@ -40,7 +37,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private JFXCheckBox showGlobalAverage = new JFXCheckBox();
     @FXML
-    private TableView<TableInfoContainer> resultsTable = new TableView();
+    private TableView<TableInfoContainer> resultsTable;
 
     private ArrayList<XYChart.Series> allPatientsRegressionLine;
     private ArrayList<XYChart.Series> myReactionTimes;
@@ -60,7 +57,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.allPatientsRegressionLine = new ArrayList<>();
         this.myReactionTimes = new ArrayList<>();
         this.timesToSeriesMap = new HashMap<>();
-        this.resultsTable = new TableView();
         this.showGlobalAverage.setSelected(false);
 
         loadChartData();
@@ -88,8 +84,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 //        series.getData().add(new XYChart.Data<>(3, 30.4));
         try {
             Connection conn = Connection.getInstance();
-            conn.OpenConnection();
-            ArrayList<GameContainer> games = conn.getGames("2");
+            ArrayList<GameContainer> games = conn.getGames(PatientContainer.getInstance().getPatientID());
             createTable(games);
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,28 +95,40 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
-        TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("סוג משחק");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameType"));
-        TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("זמן המשחק");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("timeLimit"));
-        TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("מספר תמונות שזוהו");
-        gameTypeCol.setCellValueFactory(new PropertyValueFactory("numOfRecognizedButtons"));
+//        TableColumn<SongDisplayData, String> column = new TableColumn<>(field);
+//        column.setCellValueFactory(new PropertyValueFactory<>(field));
+
+        TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("gameType");
+        gameTypeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
+        gameTypeCol.setText("סוג משחק");
+        this.resultsTable.getColumns().add(gameTypeCol);
+
+        TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("timeLimit");
+        timeLimitCol.setCellValueFactory(new PropertyValueFactory<>("timeLimit"));
+        timeLimitCol.setText("מגבלת הזמן");
+        this.resultsTable.getColumns().add(timeLimitCol);
+
+        TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("numOfRecognizedButtons");
+        recognizedCol.setCellValueFactory(new PropertyValueFactory<>("numOfRecognizedButtons"));
+        recognizedCol.setText("מספר התמונות שזוהו");
+        this.resultsTable.getColumns().add(recognizedCol);
+
 //        TableColumn<GameContainer, String> dateCol = new TableColumn<>("תאריך המשחק");
 //        gameTypeCol.setCellValueFactory(new PropertyValueFactory("gameDate"));
 
-        this.resultsTable.getColumns().addAll(gameTypeCol, timeLimitCol, recognizedCol);
-
         for (String s : shapesColumns) {
             TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
-            shapesColumn.setCellValueFactory(new PropertyValueFactory(s));
+            shapesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            this.resultsTable.getColumns().add(shapesColumn);
         }
         for (String s : texturesColumns) {
             TableColumn<TableInfoContainer, String> texturesColumn = new TableColumn<>(s);
-            texturesColumn.setCellValueFactory(new PropertyValueFactory(s));
+            texturesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            this.resultsTable.getColumns().add(texturesColumn);
         }
 
         // add columns to the table
-        this.resultsTable.setItems(getGames(gamesList));
+        this.resultsTable.getItems().addAll(getGames(gamesList));
     }
 
     private ObservableList<TableInfoContainer> getGames(ArrayList<GameContainer> list) {
