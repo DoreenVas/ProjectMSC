@@ -51,7 +51,7 @@ public class AdminWindow {
                 // set the window size
                 Scene scene = new Scene(root,  this.window_width,  this.window_height);
                 GraphsWindow graphsWindow = loader.getController();
-                graphsWindow.setPreviousScene("AdminWindow.fxml");
+//                graphsWindow.setPreviousScene("AdminWindow.fxml");
                 stage.setTitle("Patient Data");
                 stage.setScene(scene);
                 stage.setResizable(false);
