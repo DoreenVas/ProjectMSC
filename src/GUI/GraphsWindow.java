@@ -36,19 +36,26 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private Button back;
     @FXML
-    private LineChart<?, ?> lineChart;
+    private LineChart<?, ?> shapesLineChart;
     @FXML
-    private NumberAxis game_id;
+    private NumberAxis shapes_game_id;
     @FXML
-    private NumberAxis avgReactionTime;
+    private NumberAxis shapes_avgReactionTime;
+    @FXML
+    private LineChart<?, ?> texturesLineChart;
+    @FXML
+    private NumberAxis textures_game_id;
+    @FXML
+    private NumberAxis textures_avgReactionTime;
     @FXML
     private JFXCheckBox showGlobalAverage = new JFXCheckBox();
     @FXML
     private TableView<TableInfoContainer> resultsTable;
 
-    private ArrayList<XYChart.Series> allPatientsRegressionLine;
-    private ArrayList<XYChart.Series> myReactionTimes;
-    private HashMap<String, ArrayList<XYChart.Series>> timesToSeriesMap;
+//    private ArrayList<XYChart.Series> allPatientsRegressionLine;
+//    private ArrayList<XYChart.Series> myReactionTimes;
+    private HashMap<String, XYChart.Series> shapesSeries;
+    private HashMap<String, XYChart.Series> texturesSeries;
 
     private String previousScene;
     private double window_height;
@@ -67,44 +74,143 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         // show patient name
         super.initialize(location, resources);
-
+        int index[];
         // initialize lists and checkbox
-        this.allPatientsRegressionLine = new ArrayList<>();
-        this.myReactionTimes = new ArrayList<>();
-        this.timesToSeriesMap = new HashMap<>();
+//        this.allPatientsRegressionLine = new ArrayList<>();
+//        this.myReactionTimes = new ArrayList<>();
+        this.shapesSeries = new HashMap<>();
+        this.texturesSeries = new HashMap<>();
         this.showGlobalAverage.setSelected(false);
 
-        loadChartData();
+        index = loadChartData();
 
-        this.game_id.setAutoRanging(false);
-        this.game_id.setLowerBound(1);
-        this.game_id.setUpperBound(10);
-        this.game_id.setTickUnit(1);
+        this.shapes_game_id.setAutoRanging(false);
+        this.shapes_game_id.setLowerBound(1);
+        this.shapes_game_id.setUpperBound(index[0]);
+        this.shapes_game_id.setTickUnit(1);
 
-        this.avgReactionTime.setAutoRanging(false);
-        this.avgReactionTime.setLowerBound(0);
-        this.avgReactionTime.setUpperBound(70);
-        this.avgReactionTime.setTickUnit(10);
+        this.shapes_avgReactionTime.setAutoRanging(false);
+        this.shapes_avgReactionTime.setLowerBound(0);
+        this.shapes_avgReactionTime.setUpperBound(70);
+        this.shapes_avgReactionTime.setTickUnit(10);
+
+        this.textures_game_id.setAutoRanging(false);
+        this.textures_game_id.setLowerBound(1);
+        this.textures_game_id.setUpperBound(index[1]);
+        this.textures_game_id.setTickUnit(1);
+
+        this.textures_avgReactionTime.setAutoRanging(false);
+        this.textures_avgReactionTime.setLowerBound(0);
+        this.textures_avgReactionTime.setUpperBound(70);
+        this.textures_avgReactionTime.setTickUnit(10);
     }
 
     @FXML
-    private void loadChartData() {
-        //Creating the line chart
-//        XYChart.Series series = new XYChart.Series();
-//        series.setName("ההתקדמות שלי");
-//        series.getData().add(new XYChart.Data<>(1, 23.4));
-//        series.getData().add(new XYChart.Data<>(2, 11.4));
-//        series.getData().add(new XYChart.Data<>(3, 30.4));
+    private int[] loadChartData() {
+        HashMap<String, Integer> shapesReactionTimesCounter = new HashMap<>();
+        HashMap<String, Integer> texturesReactionTimesCounter = new HashMap<>();
+        int i[] = new int[2];
         try {
             Connection conn = Connection.getInstance();
+            // get all the games info
             ArrayList<GameContainer> games = conn.getGames(PatientContainer.getInstance().getPatientID());
+            // create the reaction times table of the patient
             createTable(games);
+            double avg;
+            for (GameContainer g : games) {
+                switch (g.getGameType()) {
+                    case "Shapes":
+                        avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
+                        if (!this.shapesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
+                            this.shapesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        } else {
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        }
+                        break;
+                    case "Textures":
+                        avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
+                        if (!this.texturesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
+                            this.texturesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        } else {
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        }
+                        break;
+                    case "Both":
+                        avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
+                        if (!this.shapesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
+                            this.shapesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        } else {
+                            this.shapesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            shapesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), shapesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        }
+                        avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
+                        if (!this.texturesSeries.containsKey(String.valueOf(g.getTimeLimit()))) {
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), 1);
+                            this.texturesSeries.put(String.valueOf(g.getTimeLimit()), new XYChart.Series());
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).setName(g.getTimeLimit() + " שניות");
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        } else {
+                            this.texturesSeries.get(String.valueOf(g.getTimeLimit())).getData().add(new XYChart.Data<>(texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())), avg));
+                            texturesReactionTimesCounter.put(String.valueOf(g.getTimeLimit()), texturesReactionTimesCounter.get(String.valueOf(g.getTimeLimit())) + 1);
+                        }
+                        break;
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        this.lineChart.getData().add(series);
+        // add the series to the charts
+        for (XYChart.Series s : this.shapesSeries.values()) {
+            this.shapesLineChart.getData().addAll(s);
+        }
+        for (XYChart.Series s : this.texturesSeries.values()) {
+            this.texturesLineChart.getData().addAll(s);
+        }
+        // calculate the xAxis size of the charts
+        i[0] = max(shapesReactionTimesCounter);
+        i[1] = max(texturesReactionTimesCounter);
+        return i;
+    }
+
+    /****
+     * the function returns the max value in a map
+     * @param map a map
+     * @return a max integer in the map
+     */
+    private int max(HashMap<String, Integer> map) {
+        int max = Integer.MIN_VALUE;
+        for(Integer i : map.values()) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        return max;
+    }
+
+    private double calculateAvgReactionTimeForGraph(HashMap<String, Double> map) {
+        double avg = 0;
+        for (Double d : map.values()) {
+            avg += d;
+        }
+        avg = avg / map.values().size();
+        return avg;
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
@@ -278,18 +384,18 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         //return t;
     }
 
-    @FXML
-    private void getGlobalAvgGraph() {
-        boolean select = this.showGlobalAverage.isSelected();
-        // if the checkbox is selected - get all information of games from the DB
-        if (select) {
-
-        } else { // leave only the patient's results
-            for (XYChart.Series s : this.allPatientsRegressionLine) {
-                this.lineChart.getData().remove(s);
-            }
-        }
-    }
+//    @FXML
+//    private void getGlobalAvgGraph() {
+//        boolean select = this.showGlobalAverage.isSelected();
+//        // if the checkbox is selected - get all information of games from the DB
+//        if (select) {
+//
+//        } else { // leave only the patient's results
+//            for (XYChart.Series s : this.allPatientsRegressionLine) {
+//                this.lineChart.getData().remove(s);
+//            }
+//        }
+//    }
 
     @FXML
     protected void back() {

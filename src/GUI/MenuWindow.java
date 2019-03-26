@@ -52,6 +52,17 @@ public class MenuWindow extends BasicWindow implements Initializable{
         this.instructions.setOnMouseClicked(event -> {
             instructions();
         });
+
+        // allow enter press on instructions button
+        this.results.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                results();
+            }
+        });
+        // allow mouse key click
+        this.results.setOnMouseClicked(event -> {
+            results();
+        });
     }
 
     @FXML
