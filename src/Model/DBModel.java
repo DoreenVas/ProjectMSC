@@ -1,6 +1,8 @@
 package Model;
 
+import GUI.Alerter;
 import Resources.*;
+import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.sql.*;
@@ -123,6 +125,10 @@ public class DBModel implements Model {
     @Override
     public ArrayList<GameContainer> getData(String id, GameQueries gameQueries) {
         String[] games = GameQueries.getInstance(this.statement).getPatientGames(id);
+        // check if we received any games
+        if (games[0].equals("")) {
+            return null;
+        }
         return parseGames(games);
     }
 

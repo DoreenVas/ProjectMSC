@@ -120,7 +120,7 @@ public class GameQueries {
         int gameCount;
         try {
             String command = String.format("insert into game (game_type, num_recognized_buttons, game_date, time_limit, dominant_hand)" +
-                    "values (\"%s\", %d, now(), %d)", game_type, numOfRecognizedButtons, timeLimit, dominantHand);
+                    "values (\"%s\", %d, now(), %d, \"%s\")", game_type, numOfRecognizedButtons, timeLimit, dominantHand);
             // execute the query
             myStatement.execute(command);
             // count the number of games
@@ -182,18 +182,18 @@ public class GameQueries {
             // insert the game and the patient to patient_game table
             // add te results for each shape/texture
             switch (table) {
-                case "shapes":
+                case "Shapes":
                     HashMap<String, Double> shapesResults = gameContainer.getShapesReactionTime();
                     for (String k : shapesResults.keySet()) {
                         command1.append(k.replace(".png", "")).append(", ");
-                        command2.append(shapesResults.get(k)).append(", ");
+                        command2.append(Math.abs(shapesResults.get(k))).append(", ");
                     }
                     break;
-                case "textures":
+                case "Textures":
                     HashMap<String, Double> texturesResults = gameContainer.getTexturesReactionTime();
                     for (String k : texturesResults.keySet()) {
                         command1.append(k.replace(".png", "")).append(", ");
-                        command2.append(texturesResults.get(k)).append(", ");
+                        command2.append(Math.abs(texturesResults.get(k))).append(", ");
                     }
                     break;
             }

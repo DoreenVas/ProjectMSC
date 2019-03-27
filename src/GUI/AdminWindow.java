@@ -6,14 +6,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AdminWindow {
+public class AdminWindow implements Initializable{
     @FXML
     private JFXButton submit;
     @FXML
@@ -23,6 +27,16 @@ public class AdminWindow {
 
     private double window_height;
     private double window_width;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // allow enter key press
+        this.id.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                submit();
+            }
+        });
+    }
 
     @FXML
     protected void submit() {

@@ -18,7 +18,7 @@ public class ResultsWindow extends BasicWindow{
         super.initialize(null, null);
         double avgTime = calculateAvgReactionTime(shapesTimes, texturesTimes);
         int size = shapesTimes.size() + texturesTimes.size();
-        this.avgTime.setText(Double.toString(avgTime));
+        this.avgTime.setText(String.format("%.3f", avgTime));
         this.numOfRecognizedImages.setText(Integer.toString(numOfImages) + "/" + size);
     }
 

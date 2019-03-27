@@ -67,13 +67,16 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         // show patient name
         super.initialize(location, resources);
-        int index[];
+        int index[] = null;
         // initialize maps
         this.shapesSeries = new HashMap<>();
         this.texturesSeries = new HashMap<>();
 
         index = loadChartData();
-
+        // check if we received any games
+        if (index == null) {
+            return;
+        }
         this.shapes_game_id.setAutoRanging(false);
         this.shapes_game_id.setLowerBound(1);
         this.shapes_game_id.setUpperBound(index[0]);
@@ -104,6 +107,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             Connection conn = Connection.getInstance();
             // get all the games info
             ArrayList<GameContainer> games = conn.getGames(PatientContainer.getInstance().getPatientID());
+            if (games == null) {
+                return null;
+            }
             // create the reaction times table of the patient
             createTable(games);
             for (GameContainer g : games) {
@@ -123,6 +129,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         // add the series to the charts

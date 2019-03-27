@@ -8,10 +8,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -25,7 +23,6 @@ import sun.awt.Mutex;
 
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -83,6 +80,7 @@ public class GameWindow extends BasicWindow {
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow = false;
+    private int sleepTime = 2000;
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
         this.gameType = c_gameType;
@@ -91,8 +89,8 @@ public class GameWindow extends BasicWindow {
         this.keyboard = c_keyboard;
         this.dominantHand = c_dominantHand;
 
-        //this.initialTimeLimit =1;
-        //this.timeLimit = 1;
+        this.initialTimeLimit =1;
+        this.timeLimit = 1;
 
         super.initialize(null, null);
         // initialize the map
@@ -165,7 +163,6 @@ public class GameWindow extends BasicWindow {
         });
     }
 
-
     /******
      * The function handles the input key from the user
      * @param event the key released of the user
@@ -223,8 +220,8 @@ public class GameWindow extends BasicWindow {
         img = new Image(new File(indicationImagePath).toURI().toString());
         this.indicationImage.setImage(img);
         try {
-            // show the image for 1 seconds
-            Thread.sleep(1000);
+            // show the image for 2 seconds
+            Thread.sleep(this.sleepTime);
             // reset the indication image
             this.indicationImage.imageProperty().set(null);
             if (this.nextImage) {

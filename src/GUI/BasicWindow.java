@@ -44,6 +44,7 @@ public class BasicWindow implements Initializable{
                 exit();
             }
         });
+
         // allow mouse key click
         this.exit.setOnMouseClicked(event -> {
             exit();

@@ -69,8 +69,13 @@ public class TableInfoContainer {
         return this;
     }
 
-    public void setDominantHand(String dominantHand) {
-        this.dominantHand = dominantHand;
+    public TableInfoContainer setDominantHand(String dominantHand) {
+        if (dominantHand == "null") {
+            this.dominantHand = "-";
+        } else {
+            this.dominantHand = dominantHand;
+        }
+        return this;
     }
 
     public TableInfoContainer setArrow(String arrow) {
