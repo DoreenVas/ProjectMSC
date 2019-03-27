@@ -250,7 +250,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             TableInfoContainer t = new TableInfoContainer();
             // set the game info
             t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit())).setGameDate(g.getGameDate())
-                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons()));
+                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons())).setDominantHand(g.getDominantHand());
             // add the shapes times
             for (String s : shapesColumns) {
                 insertInfoToTableContainer(t, g, s);

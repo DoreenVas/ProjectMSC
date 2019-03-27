@@ -264,7 +264,7 @@ public class GameWindow extends BasicWindow {
      */
     private void switchImage() {
         // initialize the number of recognized images
-        this.numberOfRecognizedImages = 0;
+        //this.numberOfRecognizedImages = 0;
         if (this.currentImage != null) {
             String imageType = GameQueries.getImageType(this.currentImage.replace(".png", ""));
             if (imageType != null) {
@@ -321,7 +321,7 @@ public class GameWindow extends BasicWindow {
         try {
             Connection conn = Connection.getInstance();
             GameContainer gameContainer = new GameContainer(this.shapesReactionTimes, this.texturesReactionTimes,
-                    this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType);
+                    this.numberOfRecognizedImages, (int)this.initialTimeLimit, this.gameType, this.dominantHand);
             // insert the results of the current game into the database
             conn.insertNewGameQuery(gameContainer);
             // switch to results window

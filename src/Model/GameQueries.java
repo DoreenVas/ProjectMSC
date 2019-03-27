@@ -16,7 +16,7 @@ public class GameQueries {
     // members
     private static GameQueries ourInstance = new GameQueries();
     private static Statement myStatement;
-    private static String[] allGameFields = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
+    private static String[] allGameFields = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit", "dominant_hand"};
     private static String[] shapesColumns = {"game_id", "arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"game_id", "four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
@@ -115,12 +115,12 @@ public class GameQueries {
      * @param gameContainer the results of the current game
      */
     public void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer) {
-        String game_type = gameContainer.getGameType();
+        String game_type = gameContainer.getGameType(), dominantHand = gameContainer.getDominantHand();
         int timeLimit = gameContainer.getTimeLimit(), numOfRecognizedButtons = gameContainer.getNumOfRecognizedButtons();
         int gameCount;
         try {
-            String command = String.format("insert into game (game_type, num_recognized_buttons, game_date, time_limit)" +
-                    "values (\"%s\", %d, now(), %d)", game_type, numOfRecognizedButtons, timeLimit);
+            String command = String.format("insert into game (game_type, num_recognized_buttons, game_date, time_limit, dominant_hand)" +
+                    "values (\"%s\", %d, now(), %d)", game_type, numOfRecognizedButtons, timeLimit, dominantHand);
             // execute the query
             myStatement.execute(command);
             // count the number of games
@@ -152,14 +152,14 @@ public class GameQueries {
             // check what type of game it is, and insert to the corresponding tables
             switch (gameContainer.getGameType()) {
                 case "Shapes":
-                    insertResultsIntoTables(game_id, gameContainer, "shapes");
+                    insertResultsIntoTables(game_id, gameContainer, imageTypeEnum.SHAPES.getType());
                     break;
                 case "Textures":
-                    insertResultsIntoTables(game_id, gameContainer, "textures");
+                    insertResultsIntoTables(game_id, gameContainer, imageTypeEnum.TEXTURES.getType());
                     break;
                 case "Both":
-                    insertResultsIntoTables(game_id, gameContainer, "shapes");
-                    insertResultsIntoTables(game_id, gameContainer, "textures");
+                    insertResultsIntoTables(game_id, gameContainer, imageTypeEnum.SHAPES.getType());
+                    insertResultsIntoTables(game_id, gameContainer, imageTypeEnum.TEXTURES.getType());
                     break;
             }
         } catch (SQLException e) {
@@ -177,7 +177,6 @@ public class GameQueries {
         StringBuilder command1, command2;
         command1 = new StringBuilder("insert into ").append(table).append(" (");
         command2 = new StringBuilder(" values(");
-
 
         try {
             // insert the game and the patient to patient_game table

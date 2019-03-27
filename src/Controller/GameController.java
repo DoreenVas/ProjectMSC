@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.GameQueries;
 import Resources.GameContainer;
 import Resources.PatientContainer;
 
@@ -29,6 +28,11 @@ public class GameController extends ControllerAbstract {
         model.insertNewGame(PatientContainer.getInstance(), gameContainer);
     }
 
+    /*****
+     * returns the results of all games played by specific player
+     * @param patientId the player id
+     * @return array list of game containers of all games.
+     */
     public ArrayList<GameContainer> getGames(String patientId) {
         return model.getData(patientId, null);
     }
