@@ -1,7 +1,6 @@
 package GUI;
 
 import Resources.*;
-import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.awt.*;
+import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,6 +47,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private TableView<TableInfoContainer> resultsTable;
 
+    @FXML
+    private Label infoPatientName = new Label();
+    @FXML
+    private Label patientGender = new Label();
+    @FXML
+    private Label patientDateOfBirth = new Label();
+    @FXML
+    private Label patientDominantHand = new Label();
+    @FXML
+    private Label patientGamesPlayed = new Label();
+
     private HashMap<String, XYChart.Series> shapesSeries;
     private HashMap<String, XYChart.Series> texturesSeries;
 
@@ -71,7 +82,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         // initialize maps
         this.shapesSeries = new HashMap<>();
         this.texturesSeries = new HashMap<>();
-
+        // initialize patient info
+        initializePatientInfo();
         index = loadChartData();
         // check if we received any games
         if (index == null) {
@@ -96,6 +108,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.textures_avgReactionTime.setLowerBound(0);
         this.textures_avgReactionTime.setUpperBound(70);
         this.textures_avgReactionTime.setTickUnit(10);
+    }
+
+    private void initializePatientInfo() {
+        // initialize patient info
+        PatientContainer p = PatientContainer.getInstance();
+        this.infoPatientName.setText(p.getPatientName());
+        this.patientDateOfBirth.setText(p.getPatientAge());
+        this.patientDominantHand.setText(p.getPatientDominantHand());
+        this.patientGender.setText(p.getPatientGender());
+
+        // get number of games
     }
 
     @FXML

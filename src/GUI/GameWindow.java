@@ -213,7 +213,7 @@ public class GameWindow extends BasicWindow {
      * the function pauses the timer, shows a proper indication image and continues the timer.
      * @param indicationImagePath the path to the indication image
      */
-    public void pauseTimer(String indicationImagePath) {
+    private void pauseTimer(String indicationImagePath) {
         this.timer.stop();
         Image img;
         // set the indication image
