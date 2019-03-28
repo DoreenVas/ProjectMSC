@@ -1,6 +1,7 @@
 package GUI;
 
 import Resources.AlertMessages;
+import Resources.Alerter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

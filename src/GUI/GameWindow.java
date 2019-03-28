@@ -1,6 +1,8 @@
 package GUI;
 
+import Model.Connection;
 import Resources.AlertMessages;
+import Resources.Alerter;
 import Resources.GameContainer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -67,8 +69,8 @@ public class GameWindow extends BasicWindow {
     private String picturesDirPath= "src/GUI/pic";
     private String shapesDirPath = "src/GUI/pic/shapes";
     private String texturesDirPath = "src/GUI/pic/textures";
-    private String shapesToKeysFilePath = "src/GUI/shapesToKeys";
-    private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
+    private String shapesToKeysFilePath = "src/Resources/shapesToKeys";
+    private String texturesToKeysFilePath = "src/Resources/texturesToKeys";
     private String tickImagePath = "src/GUI/pic/misc/Tick.png";
     private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
 

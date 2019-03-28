@@ -1,13 +1,11 @@
-package GUI;
+package Model;
 
 import Controller.*;
-import Model.PatientQueries;
 import Resources.GameContainer;
 import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * In charge of holding the connections to the controller.

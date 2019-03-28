@@ -1,7 +1,7 @@
 package GUI;
 
+import Model.Connection;
 import Resources.*;
-import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

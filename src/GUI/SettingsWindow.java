@@ -1,7 +1,7 @@
 package GUI;
 
 import Resources.AlertMessages;
-import com.jfoenix.controls.JFXCheckBox;
+import Resources.Alerter;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

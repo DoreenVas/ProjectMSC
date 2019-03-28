@@ -1,6 +1,7 @@
 package GUI;
 
 import Resources.AlertMessages;
+import Resources.Alerter;
 import Resources.PatientContainer;
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;

@@ -1,8 +1,6 @@
 package Model;
 
-import GUI.Alerter;
 import Resources.*;
-import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.sql.*;

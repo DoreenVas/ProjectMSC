@@ -1,4 +1,4 @@
-package GUI;
+package Resources;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;

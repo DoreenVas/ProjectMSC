@@ -1,6 +1,8 @@
 package GUI;
 
+import Model.Connection;
 import Resources.AlertMessages;
+import Resources.Alerter;
 import Resources.PatientContainer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

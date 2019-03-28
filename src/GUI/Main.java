@@ -1,4 +1,6 @@
 package GUI;
+import Model.Connection;
+import Resources.Alerter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

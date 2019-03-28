@@ -33,7 +33,7 @@ public class InstructionsWindow extends BasicWindow{
         StringBuilder stringBuilder = new StringBuilder();
         // Current working directory is ProjectMSC
         // the path to the instruction file
-        String configFilePath = "src/GUI/instructionsFile";
+        String configFilePath = "src/Resources/instructionsFile";
         try {
             BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
             // read the info from the config file
