@@ -80,7 +80,7 @@ public class GameWindow extends BasicWindow {
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow = false;
-    private int sleepTime = 2000;
+    private int sleepTime = 2000; // in milliseconds
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
         this.gameType = c_gameType;
@@ -261,7 +261,6 @@ public class GameWindow extends BasicWindow {
      */
     private void switchImage() {
         // initialize the number of recognized images
-        //this.numberOfRecognizedImages = 0;
         if (this.currentImage != null) {
             String imageType = GameQueries.getImageType(this.currentImage.replace(".png", ""));
             if (imageType != null) {
