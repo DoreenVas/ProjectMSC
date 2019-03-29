@@ -18,6 +18,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import sun.awt.Mutex;
 
@@ -71,6 +73,8 @@ public class GameWindow extends BasicWindow {
     private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
     private String tickImagePath = "src/GUI/pic/misc/Tick.png";
     private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
+    private String wrongSound = "src/GUI/sounds/misc/Wrong_Answer_Sound_Effect.wav";
+    private String correctSound = "src/GUI/sounds/misc/Correct_Answer_Sound_Effect.mp3";
 
     private String currentImage = "";
     private Set imagesSet;
@@ -89,8 +93,8 @@ public class GameWindow extends BasicWindow {
         this.keyboard = c_keyboard;
         this.dominantHand = c_dominantHand;
 
-        this.initialTimeLimit =1;
-        this.timeLimit = 1;
+//        this.initialTimeLimit =1;
+//        this.timeLimit = 1;
 
         super.initialize(null, null);
         // initialize the map
@@ -148,7 +152,7 @@ public class GameWindow extends BasicWindow {
                         stop();
                         nextImage = true;
                         timerInitialized = false;
-                        pauseTimer(redXImagePath);
+                        pauseTimer(redXImagePath, wrongSound);
                         mutex.unlock();
                     }).start();
                 }
@@ -197,11 +201,11 @@ public class GameWindow extends BasicWindow {
                         this.timerInitialized = false;
                         this.nextImage = true;
                         // pause the timer and show proper indication image
-                        pauseTimer(this.tickImagePath);
+                        pauseTimer(this.tickImagePath, this.correctSound);
                     } else { // the key that was pressed is the wrong key
                         System.out.println("Wrong Key...try again");
                         // pause the timer and show proper indication image
-                        pauseTimer(this.redXImagePath);
+                        pauseTimer(this.redXImagePath, this.wrongSound);
                     }
                 }
                 locker = false;
@@ -213,16 +217,20 @@ public class GameWindow extends BasicWindow {
      * the function pauses the timer, shows a proper indication image and continues the timer.
      * @param indicationImagePath the path to the indication image
      */
-    private void pauseTimer(String indicationImagePath) {
+    private void pauseTimer(String indicationImagePath, String soundEffectPath) {
         this.timer.stop();
         Image img;
         // set the indication image
         img = new Image(new File(indicationImagePath).toURI().toString());
         this.indicationImage.setImage(img);
         try {
+            Media sound = new Media(new File(soundEffectPath).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
             // show the image for 2 seconds
             Thread.sleep(this.sleepTime);
             // reset the indication image
+            mediaPlayer.stop();
             this.indicationImage.imageProperty().set(null);
             if (this.nextImage) {
                 // switch to the next image
