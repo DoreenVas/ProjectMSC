@@ -73,8 +73,10 @@ public class GameWindow extends BasicWindow {
     private String texturesToKeysFilePath = "src/GUI/texturesToKeys";
     private String tickImagePath = "src/GUI/pic/misc/Tick.png";
     private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
+    private String applauseImagePath = "src/GUI/pic/misc/Clapping_Hands2.jpg";
     private String wrongSound = "src/GUI/sounds/misc/Wrong_Answer_Sound_Effect.wav";
     private String correctSound = "src/GUI/sounds/misc/Correct_Answer_Sound_Effect.mp3";
+    private String applauseSound = "src/GUI/sounds/misc/Applause.mp3";
 
     private String currentImage = "";
     private Set imagesSet;
@@ -84,6 +86,7 @@ public class GameWindow extends BasicWindow {
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow = false;
+    private boolean applause = true;
     private int sleepTime = 2000; // in milliseconds
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
@@ -242,6 +245,14 @@ public class GameWindow extends BasicWindow {
                 // reset the timer limit.
                 this.timeLimit = this.initialTimeLimit;
             }
+            // check if the patient guessed 1/3 or 2/3 of the images correct
+            if ((this.numberOfRecognizedImages == (this.imagesSet.size() / 3) ||
+                    this.numberOfRecognizedImages == (2 * (this.imagesSet.size()) / 3)) && this.applause) {
+                applause();
+                this.applause = true;
+                // reset the timer
+                this.currTime = this.initialTimeLimit;
+            }
             // restart the timer
             timer.start();
             // set timer initialized to false (for the next image)
@@ -268,7 +279,6 @@ public class GameWindow extends BasicWindow {
      * when the images end (pic == null) goes to the results window.
      */
     private void switchImage() {
-        // initialize the number of recognized images
         if (this.currentImage != null) {
             String imageType = GameQueries.getImageType(this.currentImage.replace(".png", ""));
             if (imageType != null) {
@@ -319,6 +329,20 @@ public class GameWindow extends BasicWindow {
                 }
             }
         }
+    }
+
+    /****
+     * show applause indication image and sound after 1/3 correct images
+     */
+    private void applause() {
+        this.applause = false;
+        // don't show the next image
+        Image img = this.image.getImage();
+        this.image.setImage(null);
+        // show the applause image
+        pauseTimer(this.applauseImagePath, this.applauseSound);
+        // continue
+        this.image.setImage(img);
     }
 
     private void showResultsWindow() {
