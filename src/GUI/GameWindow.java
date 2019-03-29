@@ -20,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sun.awt.Mutex;
 
@@ -40,6 +41,8 @@ public class GameWindow extends BasicWindow {
     private Label timerLabel = new Label();
     @FXML
     private ImageView image = new ImageView();
+    @FXML
+    private Label wellDoneLabel = new Label();
     @FXML
     private ImageView indicationImage = new ImageView();
 
@@ -88,8 +91,11 @@ public class GameWindow extends BasicWindow {
     private boolean resultsWindow = false;
     private boolean applause = true;
     private int sleepTime = 2000; // in milliseconds
+    private int imagesSetSize;
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
+        this.wellDoneLabel.setFont(Font.font(0));
+
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
@@ -164,6 +170,7 @@ public class GameWindow extends BasicWindow {
         Platform.runLater(() -> {
             // initialize the set of images
             this.imagesSet = this.picToPath.keySet();
+            this.imagesSetSize = this.imagesSet.size();
             // set the first image
             switchImage();
             resetTimer();
@@ -245,11 +252,12 @@ public class GameWindow extends BasicWindow {
                 // reset the timer limit.
                 this.timeLimit = this.initialTimeLimit;
             }
-            // check if the patient guessed 1/3 or 2/3 of the images correct
-            if ((this.numberOfRecognizedImages == (this.imagesSet.size() / 3) ||
-                    this.numberOfRecognizedImages == (2 * (this.imagesSet.size()) / 3)) && this.applause) {
+            // check if the patient guessed 1/2 of the images correct
+            if ((this.numberOfRecognizedImages == (this.imagesSetSize / 3) ||
+                this.numberOfRecognizedImages == (2 * (this.imagesSetSize / 3))) && this.applause) {
                 applause();
                 this.applause = true;
+                this.wellDoneLabel.setFont(Font.font(0));
                 // reset the timer
                 this.currTime = this.initialTimeLimit;
             }
@@ -336,13 +344,17 @@ public class GameWindow extends BasicWindow {
      */
     private void applause() {
         this.applause = false;
+        this.wellDoneLabel.setFont(Font.font(30));
         // don't show the next image
         Image img = this.image.getImage();
+        this.sleepTime = 3500;
         this.image.setImage(null);
         // show the applause image
         pauseTimer(this.applauseImagePath, this.applauseSound);
         // continue
         this.image.setImage(img);
+        this.sleepTime = 2000;
+        this.image.setVisible(true);
     }
 
     private void showResultsWindow() {

@@ -213,6 +213,11 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return max;
     }
 
+    /*****
+     * the function calculates the average reaction time of a game
+     * @param map a map of all reaction times
+     * @return the average reaction time of the game
+     */
     private double calculateAvgReactionTimeForGraph(HashMap<String, Double> map) {
         double avg = 0;
         for (Double d : map.values()) {
