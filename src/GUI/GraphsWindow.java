@@ -1,11 +1,10 @@
 package GUI;
 
-import Model.GameQueries;
+import Model.Connection;
 import Resources.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -363,7 +362,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             case "star":
                 t.setStar(String.valueOf(g.getShapesReactionTime().get(field)));
                 break;
-
             case "four_dots":
                 t.setFour_dots(String.valueOf(g.getTexturesReactionTime().get(field)));
                 break;

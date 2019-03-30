@@ -4,6 +4,7 @@ import Resources.*;
 
 import java.io.*;
 import java.sql.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +18,7 @@ public class DBModel implements Model {
     private String[] gameColumns = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
     private String[] patient_game = {"patient_id", "game_id"};
 
-    /****
+    /**
      * Constructor
      */
     public DBModel() {
@@ -59,7 +60,7 @@ public class DBModel implements Model {
         }
     }
 
-    /*****
+    /***
      * Parse the information of the configuration file, to connect the DB
      */
     private void parseInfo() {
@@ -130,7 +131,7 @@ public class DBModel implements Model {
         return parseGames(games);
     }
 
-    /*****
+    /***
      * The function gets an array of games and returns a list of game containers of those games
      * @param games an array of games
      * @return a list of game containers

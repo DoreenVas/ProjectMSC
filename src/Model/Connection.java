@@ -1,14 +1,12 @@
-package GUI;
+package Model;
 
 import Controller.*;
-import Model.GameQueries;
-import Model.PatientQueries;
 import Resources.GameContainer;
 import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 /**
  * In charge of holding the connections to the controller.
@@ -62,7 +60,7 @@ public class Connection {
         this.patientController.closeModelConnection();
     }
 
-    /****
+    /**
      * get information of a patient from the database
      * @param patientId
      * @return
@@ -78,7 +76,7 @@ public class Connection {
         return this.gameController.getGames(patientId);
     }
 
-    /****
+    /**
      * insert a new game to the data base
      * @param gameContainer the game info
      */
@@ -86,7 +84,7 @@ public class Connection {
         this.gameController.insertNewGame(gameContainer);
     }
 
-    /****
+    /**
      * insert a new patient to the data base
      * @param patientContainer the patient info
      */
@@ -94,7 +92,7 @@ public class Connection {
         this.patientController.insertNewPatient(patientContainer);
     }
 
-    /*****
+    /***
      * returns the number of games
      * @param command get all games command
      * @return the number of games
