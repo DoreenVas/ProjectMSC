@@ -1,11 +1,14 @@
-package Model;
+package GUI;
 
 import Controller.*;
+import Model.GameQueries;
+import Model.PatientQueries;
 import Resources.GameContainer;
 import Resources.PatientContainer;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * In charge of holding the connections to the controller.
@@ -89,6 +92,15 @@ public class Connection {
      */
     public void insertPatientQuery(PatientContainer patientContainer){
         this.patientController.insertNewPatient(patientContainer);
+    }
+
+    /*****
+     * returns the number of games
+     * @param command get all games command
+     * @return the number of games
+     */
+    public int getGamesNumber(String command) {
+        return this.gameController.getGamesNumber(command);
     }
 
 //    public GameContainer gameQuery(String patientId) throws SQLException {

@@ -123,16 +123,30 @@ public class GameQueries {
                     "values (\"%s\", %d, now(), %d, \"%s\")", game_type, numOfRecognizedButtons, timeLimit, dominantHand);
             // execute the query
             myStatement.execute(command);
-            // count the number of games
-            command = "SELECT count(game_id) from game";
-            this.resultSet = myStatement.executeQuery(command);
-            this.resultSet.next();
-            gameCount = this.resultSet.getInt("count(game_id)");
-
+            command = "SELECT count(*) from game";
+            gameCount = countGames(command);
             insertNewGameResults(patientContainer, gameContainer, gameCount);
         } catch (SQLException e) {
             System.out.println("ERROR executeQuery in insert new game - " + e.getMessage());
         }
+    }
+
+    /*****
+     * returns the number of games
+     * @param command get all games command
+     * @return the number of games
+     */
+    public int countGames(String command) {
+        int gameCount = 0;
+        try {
+            // count the number of games
+            this.resultSet = myStatement.executeQuery(command);
+            this.resultSet.next();
+            gameCount = this.resultSet.getInt("count(*)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gameCount;
     }
 
     /*****

@@ -20,6 +20,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sun.awt.Mutex;
 
@@ -40,6 +43,8 @@ public class GameWindow extends BasicWindow {
     private Label timerLabel = new Label();
     @FXML
     private ImageView image = new ImageView();
+    @FXML
+    private Label wellDoneLabel = new Label();
     @FXML
     private ImageView indicationImage = new ImageView();
 
@@ -73,6 +78,10 @@ public class GameWindow extends BasicWindow {
     private String texturesToKeysFilePath = "src/Resources/texturesToKeys";
     private String tickImagePath = "src/GUI/pic/misc/Tick.png";
     private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
+    private String applauseImagePath = "src/GUI/pic/misc/Clapping_Hands2.jpg";
+    private String wrongSound = "src/GUI/sounds/misc/Wrong_Answer_Sound_Effect.wav";
+    private String correctSound = "src/GUI/sounds/misc/Correct_Answer_Sound_Effect.mp3";
+    private String applauseSound = "src/GUI/sounds/misc/Applause.mp3";
 
     private String currentImage = "";
     private Set imagesSet;
@@ -82,17 +91,21 @@ public class GameWindow extends BasicWindow {
     private Mutex mutex = new Mutex();
     private int numberOfRecognizedImages = 0;
     private boolean resultsWindow = false;
+    private boolean applause = true;
     private int sleepTime = 2000; // in milliseconds
+    private int imagesSetSize;
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
+        this.wellDoneLabel.setFont(Font.font(0));
+
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
         this.keyboard = c_keyboard;
         this.dominantHand = c_dominantHand;
 
-        this.initialTimeLimit =1;
-        this.timeLimit = 1;
+//        this.initialTimeLimit =1;
+//        this.timeLimit = 1;
 
         super.initialize(null, null);
         // initialize the map
@@ -150,7 +163,7 @@ public class GameWindow extends BasicWindow {
                         stop();
                         nextImage = true;
                         timerInitialized = false;
-                        pauseTimer(redXImagePath);
+                        pauseTimer(redXImagePath, wrongSound);
                         mutex.unlock();
                     }).start();
                 }
@@ -159,6 +172,7 @@ public class GameWindow extends BasicWindow {
         Platform.runLater(() -> {
             // initialize the set of images
             this.imagesSet = this.picToPath.keySet();
+            this.imagesSetSize = this.imagesSet.size();
             // set the first image
             switchImage();
             resetTimer();
@@ -199,11 +213,11 @@ public class GameWindow extends BasicWindow {
                         this.timerInitialized = false;
                         this.nextImage = true;
                         // pause the timer and show proper indication image
-                        pauseTimer(this.tickImagePath);
+                        pauseTimer(this.tickImagePath, this.correctSound);
                     } else { // the key that was pressed is the wrong key
                         System.out.println("Wrong Key...try again");
                         // pause the timer and show proper indication image
-                        pauseTimer(this.redXImagePath);
+                        pauseTimer(this.redXImagePath, this.wrongSound);
                     }
                 }
                 locker = false;
@@ -215,16 +229,20 @@ public class GameWindow extends BasicWindow {
      * the function pauses the timer, shows a proper indication image and continues the timer.
      * @param indicationImagePath the path to the indication image
      */
-    public void pauseTimer(String indicationImagePath) {
+    private void pauseTimer(String indicationImagePath, String soundEffectPath) {
         this.timer.stop();
         Image img;
         // set the indication image
         img = new Image(new File(indicationImagePath).toURI().toString());
         this.indicationImage.setImage(img);
         try {
+            Media sound = new Media(new File(soundEffectPath).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
             // show the image for 2 seconds
             Thread.sleep(this.sleepTime);
             // reset the indication image
+            mediaPlayer.stop();
             this.indicationImage.imageProperty().set(null);
             if (this.nextImage) {
                 // switch to the next image
@@ -235,6 +253,15 @@ public class GameWindow extends BasicWindow {
                 this.nextImage = false;
                 // reset the timer limit.
                 this.timeLimit = this.initialTimeLimit;
+            }
+            // check if the patient guessed 1/2 of the images correct
+            if ((this.numberOfRecognizedImages == (this.imagesSetSize / 3) ||
+                this.numberOfRecognizedImages == (2 * (this.imagesSetSize / 3))) && this.applause) {
+                applause();
+                this.applause = true;
+                this.wellDoneLabel.setFont(Font.font(0));
+                // reset the timer
+                this.currTime = this.initialTimeLimit;
             }
             // restart the timer
             timer.start();
@@ -262,7 +289,6 @@ public class GameWindow extends BasicWindow {
      * when the images end (pic == null) goes to the results window.
      */
     private void switchImage() {
-        // initialize the number of recognized images
         if (this.currentImage != null) {
             String imageType = GameQueries.getImageType(this.currentImage.replace(".png", ""));
             if (imageType != null) {
@@ -313,6 +339,24 @@ public class GameWindow extends BasicWindow {
                 }
             }
         }
+    }
+
+    /****
+     * show applause indication image and sound after 1/3 correct images
+     */
+    private void applause() {
+        this.applause = false;
+        this.wellDoneLabel.setFont(Font.font(30));
+        // don't show the next image
+        Image img = this.image.getImage();
+        this.sleepTime = 3500;
+        this.image.setImage(null);
+        // show the applause image
+        pauseTimer(this.applauseImagePath, this.applauseSound);
+        // continue
+        this.image.setImage(img);
+        this.sleepTime = 2000;
+        this.image.setVisible(true);
     }
 
     private void showResultsWindow() {
