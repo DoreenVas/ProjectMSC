@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.GameQueries;
 import Resources.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,6 +120,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.patientGender.setText(p.getPatientGender());
 
         // get number of games
+        String command = "SELECT count(*) FROM patient_game where patient_id=\"" + p.getPatientID()+"\"";
+        try {
+            Connection conn = Connection.getInstance();
+            int gamesNum = conn.getGamesNumber(command);
+            this.patientGamesPlayed.setText(String.valueOf(gamesNum));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML

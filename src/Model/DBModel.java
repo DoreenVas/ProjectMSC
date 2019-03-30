@@ -187,6 +187,11 @@ public class DBModel implements Model {
         GameQueries.getInstance(this.statement).insertNewGame(patientContainer, gameContainer);
     }
 
+    @Override
+    public int getGamesNumber(String command) {
+        return GameQueries.getInstance(this.statement).countGames(command);
+    }
+
 
     /**
      * Attempts to set the connection back to auto-commit, ignoring errors.

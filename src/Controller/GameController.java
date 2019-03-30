@@ -36,4 +36,13 @@ public class GameController extends ControllerAbstract {
     public ArrayList<GameContainer> getGames(String patientId) {
         return model.getData(patientId, null);
     }
+
+    /*****
+     * returns the number of games
+     * @param command get all games command
+     * @return the number of games
+     */
+    public int getGamesNumber(String command) {
+        return model.getGamesNumber(command);
+    }
 }

@@ -29,4 +29,11 @@ public interface Model {
     void insertNewPatient(PatientContainer patientContainer);
 
     void insertNewGame(PatientContainer patientContainer, GameContainer gameContainer);
+
+    /*****
+     * returns the number of games
+     * @param command get all games command
+     * @return the number of games
+     */
+    int getGamesNumber(String command);
 }
