@@ -15,111 +15,117 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.SignUpWindow">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx"
+            fx:controller="GUI.SignUpWindow">
     <children>
-      <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox prefHeight="0.0" prefWidth="575.0">
-               <children>
-                        <JFXButton fx:id="home" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" textAlignment="RIGHT" />
-               </children>
-            </HBox>
-                  <ImageView>
-                      <image>
-                          <Image url="@pic/misc/MSC.PNG" />
-                      </image>
-                  </ImageView>
-                  <Label text="רישום">
-                      <font>
-                          <Font size="30.0" />
-                      </font>
-                  </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                      <VBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <children>
-                              <Label text="שם פרטי:">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" top="10.0" />
-                                  </VBox.margin>
-                              </Label>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" text="שם משפחה:">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" top="10.0" />
-                                  </VBox.margin>
-                              </Label>
-                        <Label text="תעודת זהות">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" text="מין:">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" top="10.0" />
-                                  </VBox.margin>
-                              </Label>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" text="תאריך לידה:">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" top="10.0" />
-                                  </VBox.margin>
-                              </Label>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" text="יד דומיננטית:">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" top="10.0" />
-                                  </VBox.margin>
-                              </Label>
-                          </children>
-                      </VBox>
-                      <VBox alignment="CENTER" fillWidth="false" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <children>
-                              <JFXTextField fx:id="firstName" alignment="CENTER_RIGHT">
-                                  <VBox.margin>
-                                      <Insets bottom="5.0" top="5.0" />
-                                  </VBox.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="lastName" alignment="CENTER_RIGHT">
-                                  <VBox.margin>
-                                      <Insets bottom="5.0" top="5.0" />
-                                  </VBox.margin>
-                              </JFXTextField>
-                        <JFXTextField fx:id="id">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </JFXTextField>
-                              <JFXComboBox fx:id="gender" nodeOrientation="RIGHT_TO_LEFT">
-                                  <VBox.margin>
-                                      <Insets bottom="5.0" top="5.0" />
-                                  </VBox.margin>
-                                  <items>
-                                      <FXCollections fx:factory="observableArrayList">
-                                          <String fx:value="זכר" />
-                                          <String fx:value="נקבה" />
-                                      </FXCollections>
-                                  </items>
-                              </JFXComboBox>
-                              <DatePicker fx:id="date" nodeOrientation="RIGHT_TO_LEFT" promptText="MM/DD/YYYY">
-                                  <VBox.margin>
-                                      <Insets bottom="5.0" top="5.0" />
-                                  </VBox.margin>
-                              </DatePicker>
-                              <JFXComboBox fx:id="dominantHand" nodeOrientation="RIGHT_TO_LEFT">
-                                  <VBox.margin>
-                                      <Insets bottom="5.0" top="5.0" />
-                                  </VBox.margin>
-                                  <items>
-                                      <FXCollections fx:factory="observableArrayList">
-                                          <String fx:value="ימין" />
-                                          <String fx:value="שמאל" />
-                                      </FXCollections>
-                                  </items>
-                              </JFXComboBox>
-                          </children>
-                      </VBox>
-               </children>
-            </HBox>
-                <JFXButton fx:id="submit" alignment="CENTER" onAction="#submit" text="אישור" />
-         </children>
-      </VBox>
+        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="0.0" prefWidth="575.0">
+                    <children>
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#mainWindow"
+                                   ripplerFill="#d3d3d3" text="חזרה" textAlignment="RIGHT" buttonType="RAISED"/>
+                    </children>
+                </HBox>
+                <ImageView>
+                    <image>
+                        <Image url="@pic/misc/MSC.PNG"/>
+                    </image>
+                </ImageView>
+                <Label text="רישום">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <Label text="שם פרטי:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="שם משפחה:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label text="תעודת זהות">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="מין:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="תאריך לידה:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="יד דומיננטית:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false" nodeOrientation="RIGHT_TO_LEFT"
+                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="0.0">
+                            <children>
+                                <JFXTextField fx:id="firstName" alignment="CENTER_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                </JFXTextField>
+                                <JFXTextField fx:id="lastName" alignment="CENTER_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                </JFXTextField>
+                                <JFXTextField fx:id="id">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </JFXTextField>
+                                <JFXComboBox fx:id="gender" nodeOrientation="RIGHT_TO_LEFT">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="זכר"/>
+                                            <String fx:value="נקבה"/>
+                                        </FXCollections>
+                                    </items>
+                                </JFXComboBox>
+                                <DatePicker fx:id="date" nodeOrientation="RIGHT_TO_LEFT" promptText="MM/DD/YYYY">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                </DatePicker>
+                                <JFXComboBox fx:id="dominantHand" nodeOrientation="RIGHT_TO_LEFT">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="ימין"/>
+                                            <String fx:value="שמאל"/>
+                                        </FXCollections>
+                                    </items>
+                                </JFXComboBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <JFXButton fx:id="submit" alignment="CENTER" onAction="#submit" text="אישור" buttonType="RAISED"/>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

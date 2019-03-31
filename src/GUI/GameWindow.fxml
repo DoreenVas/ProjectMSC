@@ -43,7 +43,7 @@
                             </children>
                         </HBox>
                         <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1" />
-                        <JFXButton fx:id="home" alignment="TOP_LEFT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2" />
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2" buttonType="RAISED"/>
                     </children>
                 </GridPane>
                 <HBox alignment="CENTER_LEFT">

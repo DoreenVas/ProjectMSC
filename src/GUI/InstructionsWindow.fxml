@@ -46,7 +46,7 @@
                         </HBox>
                         <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true"
                                    GridPane.columnIndex="1"/>
-                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2"/>
+                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2" buttonType="RAISED"/>
                     </children>
                 </GridPane>
                 <HBox nodeOrientation="RIGHT_TO_LEFT">

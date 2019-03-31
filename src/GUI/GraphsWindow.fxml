@@ -51,7 +51,7 @@
                         <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true"
                                    GridPane.columnIndex="1"/>
                         <JFXButton fx:id="back" alignment="TOP_LEFT" onAction="#back" ripplerFill="#d3d3d3" text="חזרה"
-                                   GridPane.columnIndex="2"/>
+                                   GridPane.columnIndex="2" buttonType="RAISED"/>
                     </children>
                 </GridPane>
                 <TabPane nodeOrientation="RIGHT_TO_LEFT" tabClosingPolicy="UNAVAILABLE">
