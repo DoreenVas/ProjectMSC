@@ -17,41 +17,36 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GUI.GraphsWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GraphsWindow">
     <children>
-        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <HBox>
                             <children>
                                 <Label text="שלום: ">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </HBox.margin>
                                 </Label>
                                 <Label fx:id="patientName">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </HBox.margin>
                                 </Label>
                             </children>
                         </HBox>
-                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true"
-                                   GridPane.columnIndex="1"/>
-                        <JFXButton fx:id="back" alignment="TOP_LEFT" onAction="#back" ripplerFill="#d3d3d3" text="חזרה"
-                                   GridPane.columnIndex="2" buttonType="RAISED"/>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1" />
+                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2" />
                     </children>
                 </GridPane>
                 <TabPane nodeOrientation="RIGHT_TO_LEFT" tabClosingPolicy="UNAVAILABLE">
@@ -60,85 +55,91 @@
                             <content>
                                 <AnchorPane>
                                     <children>
-                                        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
-                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                              AnchorPane.topAnchor="0.0">
+                                        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <Label fx:id="infoPatientName">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="שם המטופל: " underline="true">
                                                             <font>
-                                                                <Font size="16.0"/>
+                                                                <Font size="16.0" />
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0"/>
+                                                        <Font size="16.0" />
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientDateOfBirth">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="תאריך לידה: " underline="true">
                                                             <font>
-                                                                <Font size="16.0"/>
+                                                                <Font size="16.0" />
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0"/>
+                                                        <Font size="16.0" />
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientGender">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="מין: " underline="true">
                                                             <font>
-                                                                <Font size="16.0"/>
+                                                                <Font size="16.0" />
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0"/>
+                                                        <Font size="16.0" />
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientDominantHand">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="יד דומיננטית: " underline="true">
                                                             <font>
-                                                                <Font size="16.0"/>
+                                                                <Font size="16.0" />
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0"/>
+                                                        <Font size="16.0" />
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientGamesPlayed">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="מספר משחקים עד כה: " underline="true">
                                                             <font>
-                                                                <Font size="16.0"/>
+                                                                <Font size="16.0" />
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0"/>
+                                                        <Font size="16.0" />
                                                     </font>
                                                 </Label>
+                                    <JFXButton fx:id="save" buttonType="RAISED" mnemonicParsing="false" onAction="#savePatientInfo" style="-fx-background-color: #CDCDCD;" text="שמור נתונים">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </JFXButton>
                                             </children>
                                         </VBox>
                                     </children>
@@ -149,9 +150,7 @@
                             <content>
                                 <AnchorPane>
                                     <children>
-                                        <TableView fx:id="resultsTable" AnchorPane.bottomAnchor="0.0"
-                                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="0.0"/>
+                                        <TableView fx:id="resultsTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -160,30 +159,22 @@
                             <content>
                                 <AnchorPane>
                                     <children>
-                                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
-                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                              AnchorPane.topAnchor="0.0">
+                                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <LineChart fx:id="shapesLineChart" nodeOrientation="LEFT_TO_RIGHT"
-                                                           title="זמני תגובה - צורות">
+                                                <LineChart fx:id="shapesLineChart" nodeOrientation="LEFT_TO_RIGHT" title="זמני תגובה - צורות">
                                                     <xAxis>
-                                                        <NumberAxis fx:id="shapes_game_id" label="משחקים"
-                                                                    side="BOTTOM"/>
+                                                        <NumberAxis fx:id="shapes_game_id" label="משחקים" side="BOTTOM" />
                                                     </xAxis>
                                                     <yAxis>
-                                                        <NumberAxis fx:id="shapes_avgReactionTime" label="זמני תגובה"
-                                                                    side="LEFT"/>
+                                                        <NumberAxis fx:id="shapes_avgReactionTime" label="זמני תגובה" side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
-                                                <LineChart fx:id="texturesLineChart" nodeOrientation="LEFT_TO_RIGHT"
-                                                           title="זמני תגובה - מרקמים">
+                                                <LineChart fx:id="texturesLineChart" nodeOrientation="LEFT_TO_RIGHT" title="זמני תגובה - מרקמים">
                                                     <xAxis>
-                                                        <NumberAxis fx:id="textures_game_id" label="משחקים"
-                                                                    side="BOTTOM"/>
+                                                        <NumberAxis fx:id="textures_game_id" label="משחקים" side="BOTTOM" />
                                                     </xAxis>
                                                     <yAxis>
-                                                        <NumberAxis fx:id="textures_avgReactionTime" label="זמני תגובה"
-                                                                    side="LEFT"/>
+                                                        <NumberAxis fx:id="textures_avgReactionTime" label="זמני תגובה" side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
                                             </children>

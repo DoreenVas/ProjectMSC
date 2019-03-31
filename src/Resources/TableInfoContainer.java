@@ -1,7 +1,16 @@
 package Resources;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TableInfoContainer {
     // members
+    private static String[] titles = {"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית",};
+    private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
+            "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
+    private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
+            , "dollar", "net", "note", "arcs", "monitor", "sad_smiley", "strudel", "four_bubbles", "spiral", "squares"};
+
     private String gameType;
     private String timeLimit;
     private String numOfRecognizedButtons;
@@ -487,4 +496,51 @@ public class TableInfoContainer {
         return squares;
     }
 
+    public ArrayList<String> getValues() {
+        ArrayList<String> values = new ArrayList<>();
+        values.add(gameType);
+        values.add(timeLimit);
+        values.add(numOfRecognizedButtons);
+        values.add(gameDate);
+        values.add(dominantHand);
+        values.add(arrow);
+        values.add(rectangle);
+        values.add(diamond);
+        values.add(pie);
+        values.add(triangle);
+        values.add(heart);
+        values.add(flower);
+        values.add(hexagon);
+        values.add(moon);
+        values.add(plus);
+        values.add(oval);
+        values.add(two_triangles);
+        values.add(circle);
+        values.add(star);
+        values.add(four_dots);
+        values.add(waves);
+        values.add(arrow_head);
+        values.add(strips);
+        values.add(happy_smiley);
+        values.add(spikes);
+        values.add(dollar);
+        values.add(net);
+        values.add(note);
+        values.add(arcs);
+        values.add(monitor);
+        values.add(sad_smiley);
+        values.add(strudel);
+        values.add(four_bubbles);
+        values.add(spiral);
+        values.add(squares);
+        return values;
+    }
+
+    public ArrayList<String> getTitles() {
+        ArrayList<String> values = new ArrayList<>();
+        values.addAll(Arrays.asList(titles));
+        values.addAll(Arrays.asList(shapesColumns));
+        values.addAll(Arrays.asList(texturesColumns));
+        return values;
+    }
 }

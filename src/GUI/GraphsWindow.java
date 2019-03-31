@@ -1,5 +1,8 @@
 package GUI;
 
+import com.gembox.spreadsheet.*;
+import com.gembox.spreadsheet.charts.*;
+
 import Model.Connection;
 import Resources.*;
 import javafx.collections.FXCollections;
@@ -15,12 +18,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.awt.*;
 import javafx.scene.control.Label;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +38,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
     private Button back;
+    @FXML
+    private Button save;
     @FXML
     private LineChart<?, ?> shapesLineChart;
     @FXML
@@ -412,6 +420,51 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 break;
         }
         //return t;
+    }
+
+    @FXML
+    private void savePatientInfo() {
+        Stage secondStage = new Stage();
+        // open excel file
+        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
+        ExcelFile excelFile = new ExcelFile();
+        ExcelWorksheet worksheet = excelFile.addWorksheet("sheet");
+        // open fileChooser
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save file");
+
+        // fill the excel table
+        TableInfoContainer tableInfoContainer = new TableInfoContainer();
+        ArrayList<String> cells;
+        // add the titles to the sheet
+        ArrayList<String> titles = tableInfoContainer.getTitles();
+        for (int column = 0; column < titles.size(); column++) {
+                worksheet.getCell(0, column).setValue(titles.get(column));
+        }
+        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
+            tableInfoContainer = this.resultsTable.getItems().get(row);
+            cells = tableInfoContainer.getValues();
+            for (int column = 0; column < cells.size(); column++) {
+                if (cells.get(column) != null) {
+                    worksheet.getCell(row, column).setValue(cells.get(column));
+                }
+            }
+        }
+        // add file extensions
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
+                new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
+                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv")
+        );
+
+        File file = fileChooser.showSaveDialog(secondStage);
+        if (file != null) {
+            try {
+                excelFile.save(file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
