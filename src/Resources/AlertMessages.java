@@ -84,4 +84,8 @@ public class AlertMessages {
     public static String errorSendingMapToController() {
         return "Error sending information to the Controller.";
     }
+
+    public static String errorFileUsedByAnotherProcess() {
+        return "הקובץ בשימוש על ידי תהליך אחר. אנא סגור אותו קודם ונסה שנית";
+    }
 }

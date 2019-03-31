@@ -1,23 +1,28 @@
 package GUI;
 
 import com.gembox.spreadsheet.*;
-import com.gembox.spreadsheet.charts.*;
 
 import Model.Connection;
 import Resources.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
@@ -26,6 +31,7 @@ import javafx.scene.control.TableView;
 import java.awt.*;
 import javafx.scene.control.Label;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -428,28 +434,14 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         // open excel file
         SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
         ExcelFile excelFile = new ExcelFile();
-        ExcelWorksheet worksheet = excelFile.addWorksheet("sheet");
+        addTableToExcelSheet(excelFile);
+        addGraphToExcelSheet(excelFile);
+
         // open fileChooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save file");
+        fileChooser.setInitialDirectory(javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory());
 
-        // fill the excel table
-        TableInfoContainer tableInfoContainer = new TableInfoContainer();
-        ArrayList<String> cells;
-        // add the titles to the sheet
-        ArrayList<String> titles = tableInfoContainer.getTitles();
-        for (int column = 0; column < titles.size(); column++) {
-                worksheet.getCell(0, column).setValue(titles.get(column));
-        }
-        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
-            tableInfoContainer = this.resultsTable.getItems().get(row);
-            cells = tableInfoContainer.getValues();
-            for (int column = 0; column < cells.size(); column++) {
-                if (cells.get(column) != null) {
-                    worksheet.getCell(row, column).setValue(cells.get(column));
-                }
-            }
-        }
         // add file extensions
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
@@ -462,9 +454,99 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             try {
                 excelFile.save(file.getAbsolutePath());
             } catch (IOException e) {
-                e.printStackTrace();
+                if (e.getMessage().contains("being used by another process")) {
+                    Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
+                }
             }
         }
+    }
+
+    /*****
+     * add a table of patient info into the excel file
+     * @param excelFile the excel file
+     */
+    private void addTableToExcelSheet(ExcelFile excelFile) {
+        ExcelWorksheet worksheet = excelFile.addWorksheet("Table1");
+        // fill the excel table
+        TableInfoContainer tableInfoContainer = new TableInfoContainer();
+        ArrayList<String> cells;
+        // add the titles to the sheet
+        ArrayList<String> titles = tableInfoContainer.getTitles();
+        for (int column = 0; column < titles.size(); column++) {
+            worksheet.getCell(0, column).setValue(titles.get(column));
+        }
+        // add the info into the table
+        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
+            tableInfoContainer = this.resultsTable.getItems().get(row);
+            cells = tableInfoContainer.getValues();
+            for (int column = 0; column < cells.size(); column++) {
+                if (cells.get(column) != null) {
+                    worksheet.getCell(row, column).setValue(cells.get(column));
+                }
+            }
+        }
+    }
+
+    /******
+     * the function adds the graphs to the excel file by saving the charts as
+     * images, add them to the excel file and delete them.
+     * @param excelFile the excel file
+     */
+    private void addGraphToExcelSheet(ExcelFile excelFile) {
+        try {
+            ExcelWorksheet worksheet = excelFile.addWorksheet("Graph1");
+            String currentDirectory = "shapesChart.png";
+            File f = saveAsPng(currentDirectory, this.shapesLineChart);
+            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
+            f.delete();
+            worksheet = excelFile.addWorksheet("Graph2");
+            currentDirectory = "texturesChart.png";
+            f = saveAsPng(currentDirectory, this.texturesLineChart);
+            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
+            f.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*****
+     * the function saves the chart as a PNG file
+     * @param path the path to the file
+     * @param chart the chart
+     * @return the saved file
+     */
+    private File saveAsPng(String path, LineChart chart) {
+        File file = new File(path);
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+        image = flipHorizontal(image);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (Exception s) {
+        }
+        return file;
+    }
+
+    /****
+     * the function receives a writeable image and flip it accoridng to Y axis
+     * @param image the image
+     * @return flipped image
+     */
+    private WritableImage flipHorizontal(WritableImage image) {
+        PixelReader pixelReader = image.getPixelReader();
+        image = new WritableImage(
+                (int)image.getWidth(),
+                (int)image.getHeight());
+
+        PixelWriter pixelWriter = image.getPixelWriter();
+
+        for(int y=0; y<image.getHeight(); y++){
+            for(int x=0; x<image.getWidth(); x++){
+                Color color = pixelReader.getColor(x, y);
+                color = color.brighter();
+                pixelWriter.setColor((int)image.getWidth() - 1 - x, y, color);
+            }
+        }
+        return image;
     }
 
     @FXML
