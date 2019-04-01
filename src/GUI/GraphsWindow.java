@@ -30,9 +30,13 @@ import javafx.scene.control.TableView;
 
 import java.awt.*;
 import javafx.scene.control.Label;
+import org.shaded.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.shaded.apache.poi.ss.usermodel.*;
+import org.shaded.apache.poi.ss.usermodel.charts.*;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -432,10 +436,13 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     private void savePatientInfo() {
         Stage secondStage = new Stage();
         // open excel file
-        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
-        ExcelFile excelFile = new ExcelFile();
-        addTableToExcelSheet(excelFile);
-        addGraphToExcelSheet(excelFile);
+//        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
+//        ExcelFile excelFile = new ExcelFile();
+//        addTableToExcelSheet(excelFile);
+//        addGraphToExcelSheet(excelFile);
+        Workbook workbook = new HSSFWorkbook();
+
+        addTableToExcelSheet(workbook);
 
         // open fileChooser
         FileChooser fileChooser = new FileChooser();
@@ -444,7 +451,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
         // add file extensions
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
+//                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
                 new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
                 new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv")
         );
@@ -452,7 +459,10 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         File file = fileChooser.showSaveDialog(secondStage);
         if (file != null) {
             try {
-                excelFile.save(file.getAbsolutePath());
+                FileOutputStream fileOut = new FileOutputStream(file);
+                workbook.write(fileOut);
+                fileOut.close();
+//                excelFile.save(file.getAbsolutePath());
             } catch (IOException e) {
                 if (e.getMessage().contains("being used by another process")) {
                     Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
@@ -461,52 +471,100 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         }
     }
 
+//    /*****
+//     * add a table of patient info into the excel file
+//     * @param excelFile the excel file
+//     */
+//    private void addTableToExcelSheet(ExcelFile excelFile) {
+//        ExcelWorksheet worksheet = excelFile.addWorksheet("Table1");
+//        // fill the excel table
+//        TableInfoContainer tableInfoContainer = new TableInfoContainer();
+//        ArrayList<String> cells;
+//        // add the titles to the sheet
+//        ArrayList<String> titles = tableInfoContainer.getTitles();
+//        for (int column = 0; column < titles.size(); column++) {
+//            worksheet.getCell(0, column).setValue(titles.get(column));
+//        }
+//        // add the info into the table
+//        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
+//            tableInfoContainer = this.resultsTable.getItems().get(row);
+//            cells = tableInfoContainer.getValues();
+//            for (int column = 0; column < cells.size(); column++) {
+//                if (cells.get(column) != null) {
+//                    worksheet.getCell(row, column).setValue(cells.get(column));
+//                }
+//            }
+//        }
+//    }
+
     /*****
-     * add a table of patient info into the excel file
-     * @param excelFile the excel file
-     */
-    private void addTableToExcelSheet(ExcelFile excelFile) {
-        ExcelWorksheet worksheet = excelFile.addWorksheet("Table1");
-        // fill the excel table
-        TableInfoContainer tableInfoContainer = new TableInfoContainer();
-        ArrayList<String> cells;
-        // add the titles to the sheet
-        ArrayList<String> titles = tableInfoContainer.getTitles();
-        for (int column = 0; column < titles.size(); column++) {
-            worksheet.getCell(0, column).setValue(titles.get(column));
+    * add a table of patient info into the excel file
+    * @param workbook the excel file
+    */
+    private void addTableToExcelSheet(Workbook workbook) {
+        // create a new sheet
+        Sheet spreadsheet = workbook.createSheet("table");
+        spreadsheet.setRightToLeft(true);
+        // create the titles row
+        Row row = spreadsheet.createRow(0);
+        for (int j = 0; j < this.resultsTable.getColumns().size(); j++) {
+            row.createCell(j).setCellValue(this.resultsTable.getColumns().get(j).getText());
         }
-        // add the info into the table
-        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
-            tableInfoContainer = this.resultsTable.getItems().get(row);
-            cells = tableInfoContainer.getValues();
-            for (int column = 0; column < cells.size(); column++) {
-                if (cells.get(column) != null) {
-                    worksheet.getCell(row, column).setValue(cells.get(column));
+        // fill the table
+        // go over the rows
+        for (int i = 0; i < this.resultsTable.getItems().size(); i++) {
+            row = spreadsheet.createRow(i + 1);
+            // go over the columns
+            for (int j = 0; j < this.resultsTable.getColumns().size(); j++) {
+                // insert the data
+                if (this.resultsTable.getColumns().get(j).getCellData(i) != null) {
+                    row.createCell(j).setCellValue(this.resultsTable.getColumns().get(j).getCellData(i).toString());
+                } else {
+                    row.createCell(j).setCellValue("");
                 }
             }
         }
     }
 
-    /******
-     * the function adds the graphs to the excel file by saving the charts as
-     * images, add them to the excel file and delete them.
-     * @param excelFile the excel file
-     */
-    private void addGraphToExcelSheet(ExcelFile excelFile) {
-        try {
-            ExcelWorksheet worksheet = excelFile.addWorksheet("Graph1");
-            String currentDirectory = "shapesChart.png";
-            File f = saveAsPng(currentDirectory, this.shapesLineChart);
-            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
-            f.delete();
-            worksheet = excelFile.addWorksheet("Graph2");
-            currentDirectory = "texturesChart.png";
-            f = saveAsPng(currentDirectory, this.texturesLineChart);
-            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
-            f.delete();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//    /******
+//     * the function adds the graphs to the excel file by saving the charts as
+//     * images, add them to the excel file and delete them.
+//     * @param excelFile the excel file
+//     */
+//    private void addGraphToExcelSheet(ExcelFile excelFile) {
+//        try {
+//            ExcelWorksheet worksheet = excelFile.addWorksheet("Graph1");
+//            String currentDirectory = "shapesChart.png";
+//            File f = saveAsPng(currentDirectory, this.shapesLineChart);
+//            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
+//            f.delete();
+//            worksheet = excelFile.addWorksheet("Graph2");
+//            currentDirectory = "texturesChart.png";
+//            f = saveAsPng(currentDirectory, this.texturesLineChart);
+//            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
+//            f.delete();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void addGraphToExcelSheet(Workbook workbook) {
+//        // create a new sheet
+//        Sheet spreadsheet = workbook.createSheet("chart");
+//        spreadsheet.setRightToLeft(true);
+//
+//        Drawing drawing = spreadsheet.createDrawingPatriarch();
+//        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, NUM_OF_COLUMNS + 2, 3, NUM_OF_COLUMNS + 15, 20);
+//
+//        Chart chart = drawing.createChart(anchor);
+//        ChartLegend legend = chart.getOrCreateLegend();
+//        legend.setPosition(LegendPosition.RIGHT);
+//
+//        LineChartData data = chart.getChartDataFactory().createLineChartData();
+//
+//        ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
+//        ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
+//        leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
     }
 
     /*****

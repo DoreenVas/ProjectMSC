@@ -13,5 +13,8 @@
     <orderEntry type="library" name="lib (2)" level="project" />
     <orderEntry type="library" name="gembox-spreadsheet" level="project" />
     <orderEntry type="library" name="lib (3)" level="project" />
+    <orderEntry type="library" name="ooxml-lib" level="project" />
+    <orderEntry type="library" name="lib (4)" level="project" />
+    <orderEntry type="library" name="lib (5)" level="project" />
   </component>
 </module>
