@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.Connection;
+import javafx.scene.Cursor;
 import Resources.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -89,6 +88,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         // initialize maps
         this.shapesSeries = new HashMap<>();
         this.texturesSeries = new HashMap<>();
+        this.shapesLineChart.setCursor(Cursor.CROSSHAIR);
+        this.texturesLineChart.setCursor(Cursor.CROSSHAIR);
         // initialize patient info
         initializePatientInfo();
         index = loadChartData();
@@ -97,7 +98,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             return;
         }
         this.shapes_game_id.setAutoRanging(false);
-        this.shapes_game_id.setLowerBound(1);
+        this.shapes_game_id.setLowerBound(0);
         this.shapes_game_id.setUpperBound(index[0]);
         this.shapes_game_id.setTickUnit(1);
 
@@ -107,7 +108,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.shapes_avgReactionTime.setTickUnit(10);
 
         this.textures_game_id.setAutoRanging(false);
-        this.textures_game_id.setLowerBound(1);
+        this.textures_game_id.setLowerBound(0);
         this.textures_game_id.setUpperBound(index[1]);
         this.textures_game_id.setTickUnit(1);
 
@@ -200,7 +201,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                     this.shapesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
-                this.shapesSeries.get(timeLimit).getData().add(new XYChart.Data<>(timesCounterMap.get(timeLimit), avg));
+                XYChart.Data<Integer, Double> dataShapes = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
+                dataShapes.setNode(new HoveredThresholdNode((double)Math.round(avg * 100) / 100));
+                this.shapesSeries.get(timeLimit).getData().add(dataShapes);
                 break;
             case "Textures":
                 if (!timesCounterMap.containsKey(timeLimit)) {
@@ -209,7 +212,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                     this.texturesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
-                this.texturesSeries.get(timeLimit).getData().add(new XYChart.Data<>(timesCounterMap.get(timeLimit), avg));
+                XYChart.Data<Integer, Double> dataTextures = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
+                dataTextures.setNode(new HoveredThresholdNode((double)Math.round(avg * 100) / 100));
+                this.texturesSeries.get(timeLimit).getData().add(dataTextures);
                 break;
         }
         timesCounterMap.put(timeLimit, timesCounterMap.get(timeLimit) + 1);
@@ -439,13 +444,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         File file = fileChooser.showSaveDialog(secondStage);
         if (file != null) {
             try {
+                // get the info for the excel file
                 String tableInfo = getTableInfoForExcel();
                 String shapesInfo = getLineChartInfo(this.shapesSeries);
                 String texturesInfo = getLineChartInfo(this.texturesSeries);
+                // run the script
                 Process p = Runtime.getRuntime().exec(new String[]{"python", "src/Model/ExcelWriter.py", file.getAbsolutePath(), tableInfo, shapesInfo, texturesInfo});
+                // get a return output from the program
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line = reader.readLine();
-                if (line.equals("file not saved")) {
+                // check if open failed
+                if (line != null && line.equals("file not saved")) {
                     Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
                 } else {
                     System.out.println(line);
@@ -531,5 +540,4 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     protected void logout() {
         super.logout();
     }
-
 }
