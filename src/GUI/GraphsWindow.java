@@ -1,28 +1,20 @@
 package GUI;
 
-import com.gembox.spreadsheet.*;
-
 import Model.Connection;
 import Resources.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
@@ -30,14 +22,11 @@ import javafx.scene.control.TableView;
 
 import java.awt.*;
 import javafx.scene.control.Label;
-import org.shaded.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.shaded.apache.poi.ss.usermodel.*;
-import org.shaded.apache.poi.ss.usermodel.charts.*;
 
-import javax.imageio.ImageIO;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -435,15 +424,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     @FXML
     private void savePatientInfo() {
         Stage secondStage = new Stage();
-        // open excel file
-//        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
-//        ExcelFile excelFile = new ExcelFile();
-//        addTableToExcelSheet(excelFile);
-//        addGraphToExcelSheet(excelFile);
-        Workbook workbook = new HSSFWorkbook();
-
-        addTableToExcelSheet(workbook);
-
         // open fileChooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save file");
@@ -451,7 +431,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
         // add file extensions
         fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
+                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
                 new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
                 new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv")
         );
@@ -459,152 +439,71 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         File file = fileChooser.showSaveDialog(secondStage);
         if (file != null) {
             try {
-                FileOutputStream fileOut = new FileOutputStream(file);
-                workbook.write(fileOut);
-                fileOut.close();
-//                excelFile.save(file.getAbsolutePath());
-            } catch (IOException e) {
-                if (e.getMessage().contains("being used by another process")) {
+                String tableInfo = getTableInfoForExcel();
+                String shapesInfo = getLineChartInfo(this.shapesSeries);
+                String texturesInfo = getLineChartInfo(this.texturesSeries);
+                Process p = Runtime.getRuntime().exec(new String[]{"python", "src/Model/ExcelWriter.py", file.getAbsolutePath(), tableInfo, shapesInfo, texturesInfo});
+                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line = reader.readLine();
+                if (line.equals("file not saved")) {
                     Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
-                }
-            }
-        }
-    }
-
-//    /*****
-//     * add a table of patient info into the excel file
-//     * @param excelFile the excel file
-//     */
-//    private void addTableToExcelSheet(ExcelFile excelFile) {
-//        ExcelWorksheet worksheet = excelFile.addWorksheet("Table1");
-//        // fill the excel table
-//        TableInfoContainer tableInfoContainer = new TableInfoContainer();
-//        ArrayList<String> cells;
-//        // add the titles to the sheet
-//        ArrayList<String> titles = tableInfoContainer.getTitles();
-//        for (int column = 0; column < titles.size(); column++) {
-//            worksheet.getCell(0, column).setValue(titles.get(column));
-//        }
-//        // add the info into the table
-//        for (int row = 1; row < this.resultsTable.getItems().size(); row++) {
-//            tableInfoContainer = this.resultsTable.getItems().get(row);
-//            cells = tableInfoContainer.getValues();
-//            for (int column = 0; column < cells.size(); column++) {
-//                if (cells.get(column) != null) {
-//                    worksheet.getCell(row, column).setValue(cells.get(column));
-//                }
-//            }
-//        }
-//    }
-
-    /*****
-    * add a table of patient info into the excel file
-    * @param workbook the excel file
-    */
-    private void addTableToExcelSheet(Workbook workbook) {
-        // create a new sheet
-        Sheet spreadsheet = workbook.createSheet("table");
-        spreadsheet.setRightToLeft(true);
-        // create the titles row
-        Row row = spreadsheet.createRow(0);
-        for (int j = 0; j < this.resultsTable.getColumns().size(); j++) {
-            row.createCell(j).setCellValue(this.resultsTable.getColumns().get(j).getText());
-        }
-        // fill the table
-        // go over the rows
-        for (int i = 0; i < this.resultsTable.getItems().size(); i++) {
-            row = spreadsheet.createRow(i + 1);
-            // go over the columns
-            for (int j = 0; j < this.resultsTable.getColumns().size(); j++) {
-                // insert the data
-                if (this.resultsTable.getColumns().get(j).getCellData(i) != null) {
-                    row.createCell(j).setCellValue(this.resultsTable.getColumns().get(j).getCellData(i).toString());
                 } else {
-                    row.createCell(j).setCellValue("");
+                    System.out.println(line);
                 }
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-    }
-
-//    /******
-//     * the function adds the graphs to the excel file by saving the charts as
-//     * images, add them to the excel file and delete them.
-//     * @param excelFile the excel file
-//     */
-//    private void addGraphToExcelSheet(ExcelFile excelFile) {
-//        try {
-//            ExcelWorksheet worksheet = excelFile.addWorksheet("Graph1");
-//            String currentDirectory = "shapesChart.png";
-//            File f = saveAsPng(currentDirectory, this.shapesLineChart);
-//            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
-//            f.delete();
-//            worksheet = excelFile.addWorksheet("Graph2");
-//            currentDirectory = "texturesChart.png";
-//            f = saveAsPng(currentDirectory, this.texturesLineChart);
-//            worksheet.getPictures().add(currentDirectory, 20, 20, 800, 500, LengthUnit.PIXEL);
-//            f.delete();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    private void addGraphToExcelSheet(Workbook workbook) {
-//        // create a new sheet
-//        Sheet spreadsheet = workbook.createSheet("chart");
-//        spreadsheet.setRightToLeft(true);
-//
-//        Drawing drawing = spreadsheet.createDrawingPatriarch();
-//        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, NUM_OF_COLUMNS + 2, 3, NUM_OF_COLUMNS + 15, 20);
-//
-//        Chart chart = drawing.createChart(anchor);
-//        ChartLegend legend = chart.getOrCreateLegend();
-//        legend.setPosition(LegendPosition.RIGHT);
-//
-//        LineChartData data = chart.getChartDataFactory().createLineChartData();
-//
-//        ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
-//        ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
-//        leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
     }
 
     /*****
-     * the function saves the chart as a PNG file
-     * @param path the path to the file
-     * @param chart the chart
-     * @return the saved file
+     * the function builds a string of all the table info and returns it
+     * each row separated by "<" and each value in the row by "!"
+     * @return a string of all the table info
      */
-    private File saveAsPng(String path, LineChart chart) {
-        File file = new File(path);
-        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
-        image = flipHorizontal(image);
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-        } catch (Exception s) {
+    private String getTableInfoForExcel() {
+        // initialize the argument string
+        StringBuilder list = new StringBuilder("");
+        // get the titles a string
+        TableInfoContainer temp = this.resultsTable.getItems().get(0);
+        StringBuilder titles = new StringBuilder("<");
+        for (String title : temp.getTitles()) {
+            titles.append(title);
+            titles.append("!");
         }
-        return file;
+        // add the titles
+        list.append(titles);
+        // for each row in the table, add all info to the string
+        for (TableInfoContainer t : this.resultsTable.getItems()) {
+            // separate each row with "<", and each value by "!"
+            StringBuilder row = new StringBuilder("<");
+            ArrayList<String> values = t.getValues();
+            for (String s : values) {
+                row.append(s);
+                row.append("!");
+            }
+            list.append(row.toString());
+        }
+        return list.toString();
     }
 
-    /****
-     * the function receives a writeable image and flip it accoridng to Y axis
-     * @param image the image
-     * @return flipped image
+    /*****
+     * the function builds a string of all the charts info and returns it
+     * each row separated by "<" and each value in the row by "!"
+     * @return a string of all the chart info
      */
-    private WritableImage flipHorizontal(WritableImage image) {
-        PixelReader pixelReader = image.getPixelReader();
-        image = new WritableImage(
-                (int)image.getWidth(),
-                (int)image.getHeight());
-
-        PixelWriter pixelWriter = image.getPixelWriter();
-
-        for(int y=0; y<image.getHeight(); y++){
-            for(int x=0; x<image.getWidth(); x++){
-                Color color = pixelReader.getColor(x, y);
-                color = color.brighter();
-                pixelWriter.setColor((int)image.getWidth() - 1 - x, y, color);
+    private String getLineChartInfo(HashMap<String, XYChart.Series> series) {
+        StringBuilder str = new StringBuilder("");
+        for (XYChart.Series serie : series.values()) {
+            str.append("<");
+            str.append(serie.getName().replace(" שניות", "")).append("!");
+            for (Object s : serie.getData()) {
+                str.append(s);
+                str.append("!");
             }
         }
-        return image;
+        return str.toString();
     }
 
     @FXML
@@ -632,4 +531,5 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     protected void logout() {
         super.logout();
     }
+
 }
