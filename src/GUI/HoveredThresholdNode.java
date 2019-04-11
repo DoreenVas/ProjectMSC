@@ -8,8 +8,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /** a node which displays a value on hover*/
-public class HoveredThresholdNode extends StackPane {
-    public HoveredThresholdNode(double value) {
+class HoveredThresholdNode extends StackPane {
+
+    HoveredThresholdNode(double value) {
         setPrefSize(15, 15);
 
         final Label label = createDataThresholdLabel(value);

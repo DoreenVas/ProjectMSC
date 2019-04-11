@@ -255,41 +255,53 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("gameType");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
         gameTypeCol.setText("סוג משחק");
+        gameTypeCol.setMinWidth("סוג משחק".length());
+        this.resultsTable.getSortOrder().add(gameTypeCol);
         this.resultsTable.getColumns().add(gameTypeCol);
 
         // create time limit column
         TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("timeLimit");
         timeLimitCol.setCellValueFactory(new PropertyValueFactory<>("timeLimit"));
         timeLimitCol.setText("מגבלת הזמן");
+        timeLimitCol.setMinWidth("מגבלת הזמן".length());
+        this.resultsTable.getSortOrder().add(timeLimitCol);
         this.resultsTable.getColumns().add(timeLimitCol);
 
         // create number of recognized images column
         TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("numOfRecognizedButtons");
         recognizedCol.setCellValueFactory(new PropertyValueFactory<>("numOfRecognizedButtons"));
         recognizedCol.setText("מספר התמונות שזוהו");
+        recognizedCol.setMinWidth("מספר התמונות שזוהו".length());
+        this.resultsTable.getSortOrder().add(recognizedCol);
         this.resultsTable.getColumns().add(recognizedCol);
 
         // create game date column
         TableColumn<TableInfoContainer, String> dateCol = new TableColumn<>("gameDate");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("gameDate"));
         dateCol.setText("תאריך המשחק");
+        dateCol.setMinWidth("תאריך המשחק".length());
+        this.resultsTable.getSortOrder().add(dateCol);
         this.resultsTable.getColumns().add(dateCol);
 
         // create game date column
         TableColumn<TableInfoContainer, String> dominantHandCol = new TableColumn<>("dominantHand");
         dominantHandCol.setCellValueFactory(new PropertyValueFactory<>("dominantHand"));
         dominantHandCol.setText("יד דומיננטית");
+        dominantHandCol.setMinWidth("יד דומיננטית".length());
+        this.resultsTable.getSortOrder().add(dominantHandCol);
         this.resultsTable.getColumns().add(dominantHandCol);
 
         // create column for every image
         for (String s : shapesColumns) {
             TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
             shapesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            shapesColumn.setMinWidth(s.length());
             this.resultsTable.getColumns().add(shapesColumn);
         }
         for (String s : texturesColumns) {
             TableColumn<TableInfoContainer, String> texturesColumn = new TableColumn<>(s);
             texturesColumn.setCellValueFactory(new PropertyValueFactory<>(s));
+            texturesColumn.setMinWidth(s.length());
             this.resultsTable.getColumns().add(texturesColumn);
         }
 
