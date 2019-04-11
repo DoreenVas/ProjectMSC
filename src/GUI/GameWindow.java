@@ -254,14 +254,17 @@ public class GameWindow extends BasicWindow {
                 // reset the timer limit.
                 this.timeLimit = this.initialTimeLimit;
             }
-            // check if the patient guessed 1/2 of the images correct
+            // check if the patient guessed 1/3 or 2/3 of the images correct
             if ((this.numberOfRecognizedImages == (this.imagesSetSize / 3) ||
                 this.numberOfRecognizedImages == (2 * (this.imagesSetSize / 3))) && this.applause) {
                 applause();
-                this.applause = true;
                 this.wellDoneLabel.setFont(Font.font(0));
                 // reset the timer
                 this.currTime = this.initialTimeLimit;
+            }
+            if(this.numberOfRecognizedImages == ((this.imagesSetSize / 3) + 1) ||
+                    this.numberOfRecognizedImages == ((2 * (this.imagesSetSize / 3)) + 1)) {
+                this.applause = true;
             }
             // restart the timer
             timer.start();
