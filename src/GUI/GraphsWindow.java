@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -525,6 +526,97 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             }
         }
         return str.toString();
+    }
+
+//    private void showPersonalBarChart() {
+//        Stage secondStage = new Stage();
+//        AnchorPane anchorPane = new AnchorPane();
+//        TableInfoContainer tableInfoContainer = this.resultsTable.getItems().get(rowIndex);
+//
+//        BarChart barChart = createBarChart(shapesOrTextures, shapesOrTextures, "Reaction Time", tableInfoContainer);
+//        anchorPane.getChildren().add(barChart);
+//
+//        secondStage.show();
+//    }
+
+    private BarChart<String, String> createBarChart(String chartName, String xAxisName, String yAxisName, TableInfoContainer tableInfoContainer) {
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel(xAxisName);
+
+        CategoryAxis yAxis = new CategoryAxis();
+        yAxis.setLabel(yAxisName);
+
+        //Creating the Bar chart
+        BarChart<String, String> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle(chartName);
+        if (chartName.equals("Shapes")) {
+            xAxis.setCategories(setShapesCategories());
+            barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
+        } else if (chartName.equals("Textures")){
+            xAxis.setCategories(setTexturesCategories());
+            barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
+        }
+        return barChart;
+    }
+
+    private ObservableList<String> setShapesCategories() {
+        ObservableList<String> shapes = FXCollections.observableArrayList();
+        for(String s : shapesColumns) {
+            shapes.add(s);
+        }
+        return shapes;
+    }
+
+    private ObservableList<String> setTexturesCategories() {
+        ObservableList<String> textures = FXCollections.observableArrayList();
+        for(String s : texturesColumns) {
+            textures.add(s);
+        }
+        return textures;
+    }
+
+    private XYChart.Series shapesBarSeries(TableInfoContainer tableInfoContainer) {
+        //Prepare XYChart.Series objects by setting data
+        XYChart.Series<String, String> series = new XYChart.Series<>();
+        series.setName("game");
+        series.getData().add(new XYChart.Data<>("arrow", tableInfoContainer.getArrow()));
+        series.getData().add(new XYChart.Data<>("rectangle", tableInfoContainer.getRectangle()));
+        series.getData().add(new XYChart.Data<>("diamond", tableInfoContainer.getDiamond()));
+        series.getData().add(new XYChart.Data<>("triangle", tableInfoContainer.getTriangle()));
+        series.getData().add(new XYChart.Data<>("heart", tableInfoContainer.getHeart()));
+        series.getData().add(new XYChart.Data<>("flower", tableInfoContainer.getFlower()));
+        series.getData().add(new XYChart.Data<>("hexagon", tableInfoContainer.getHexagon()));
+        series.getData().add(new XYChart.Data<>("moon", tableInfoContainer.getPlus()));
+        series.getData().add(new XYChart.Data<>("oval", tableInfoContainer.getPie()));
+        series.getData().add(new XYChart.Data<>("two_triangles", tableInfoContainer.getTwo_triangles()));
+        series.getData().add(new XYChart.Data<>("circle", tableInfoContainer.getCircle()));
+        series.getData().add(new XYChart.Data<>("star", tableInfoContainer.getStar()));
+        series.getData().add(new XYChart.Data<>("pie", tableInfoContainer.getPie()));
+        series.getData().add(new XYChart.Data<>("plus", tableInfoContainer.getPlus()));
+        return series;
+    }
+
+    private XYChart.Series texturesBarSeries(TableInfoContainer tableInfoContainer) {
+        //Prepare XYChart.Series objects by setting data
+        XYChart.Series<String, String> series = new XYChart.Series<>();
+        series.setName("game");
+        series.getData().add(new XYChart.Data<>("four_dots", tableInfoContainer.getFour_dots()));
+        series.getData().add(new XYChart.Data<>("waves", tableInfoContainer.getWaves()));
+        series.getData().add(new XYChart.Data<>("arrow_head", tableInfoContainer.getArrow_head()));
+        series.getData().add(new XYChart.Data<>("strips", tableInfoContainer.getStrips()));
+        series.getData().add(new XYChart.Data<>("happy_smiley", tableInfoContainer.getHappy_smiley()));
+        series.getData().add(new XYChart.Data<>("spikes", tableInfoContainer.getSpikes()));
+        series.getData().add(new XYChart.Data<>("dollar", tableInfoContainer.getDollar()));
+        series.getData().add(new XYChart.Data<>("net", tableInfoContainer.getNet()));
+        series.getData().add(new XYChart.Data<>("note", tableInfoContainer.getNote()));
+        series.getData().add(new XYChart.Data<>("arcs", tableInfoContainer.getArcs()));
+        series.getData().add(new XYChart.Data<>("monitor", tableInfoContainer.getMonitor()));
+        series.getData().add(new XYChart.Data<>("sad_smiley", tableInfoContainer.getSad_smiley()));
+        series.getData().add(new XYChart.Data<>("strudel", tableInfoContainer.getStrudel()));
+        series.getData().add(new XYChart.Data<>("four_bubbles", tableInfoContainer.getFour_bubbles()));
+        series.getData().add(new XYChart.Data<>("squares", tableInfoContainer.getSquares()));
+        series.getData().add(new XYChart.Data<>("spiral", tableInfoContainer.getSpiral()));
+        return series;
     }
 
     @FXML

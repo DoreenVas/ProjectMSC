@@ -543,4 +543,16 @@ public class TableInfoContainer {
         values.addAll(Arrays.asList(texturesColumns));
         return values;
     }
+
+    public ArrayList<String> getShapesTitles() {
+        ArrayList<String> values = new ArrayList<>();
+        values.addAll(Arrays.asList(shapesColumns));
+        return values;
+    }
+
+    public ArrayList<String> getTexturesTitles() {
+        ArrayList<String> values = new ArrayList<>();
+        values.addAll(Arrays.asList(texturesColumns));
+        return values;
+    }
 }
