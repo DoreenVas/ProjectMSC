@@ -94,6 +94,7 @@ public class GameWindow extends BasicWindow {
     private boolean applause = true;
     private int sleepTime = 1500; // in milliseconds
     private int imagesSetSize;
+    private MediaPlayer mediaPlayer;
 
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
         this.wellDoneLabel.setFont(Font.font(0));
@@ -236,13 +237,13 @@ public class GameWindow extends BasicWindow {
         img = new Image(new File(indicationImagePath).toURI().toString());
         this.indicationImage.setImage(img);
         Media sound = new Media(new File(soundEffectPath).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        this.mediaPlayer = new MediaPlayer(sound);
         try {
-            mediaPlayer.play();
+            this.mediaPlayer.play();
             // show the image for 2 seconds
             Thread.sleep(this.sleepTime);
             // reset the indication image
-            mediaPlayer.stop();
+            this.mediaPlayer.stop();
             this.indicationImage.imageProperty().set(null);
             if (this.nextImage) {
                 // switch to the next image
@@ -273,7 +274,7 @@ public class GameWindow extends BasicWindow {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            mediaPlayer.stop();
+            this.mediaPlayer.stop();
         }
     }
 
@@ -456,6 +457,10 @@ public class GameWindow extends BasicWindow {
 
     @FXML
     protected void mainWindow() {
+        this.timer.stop();
+        if (this.mediaPlayer != null) {
+            this.mediaPlayer.stop();
+        }
         super.menuWindow(this.home);
     }
 
