@@ -87,7 +87,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         // show patient name
         super.initialize(location, resources);
         int index[] = null;
-
+        // add click option to table row, to show bar chart
         this.resultsTable.setRowFactory(tv -> {
             TableRow<TableInfoContainer> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -543,20 +543,32 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     private void showPersonalBarChart(TableInfoContainer tableInfoContainer) {
+        // create the window
         Stage secondStage = new Stage();
         AnchorPane anchorPane = new AnchorPane();
         String gameType = tableInfoContainer.getGameType();
+        // create the bar chart
         BarChart barChart = createBarChart(gameType, gameType, "Reaction Time", tableInfoContainer);
         anchorPane.getChildren().add(barChart);
         Scene scene = new Scene(anchorPane, 600, 600);
-
-        anchorPane.setMinHeight(scene.getHeight());
-        anchorPane.setMinWidth(scene.getWidth());
-        barChart.setMinSize(anchorPane.getWidth(), anchorPane.getHeight());
+        // bind the bar chart to the size of the window
+        barChart.minWidthProperty().bind(anchorPane.widthProperty());
+        barChart.minHeightProperty().bind(anchorPane.heightProperty().subtract(20));
+        anchorPane.minWidthProperty().bind(scene.widthProperty());
+        anchorPane.minHeightProperty().bind(scene.heightProperty().subtract(20));
+        // show the window
         secondStage.setScene(scene);
         secondStage.show();
     }
 
+    /******
+     * the function returns a bar chart of reaction times according to the game type
+     * @param chartName the name of the chart
+     * @param xAxisName the x axis name
+     * @param yAxisName the y axis name
+     * @param tableInfoContainer the information of the current game
+     * @return a bar chart
+     */
     private BarChart<String, Number> createBarChart(String chartName, String xAxisName, String yAxisName, TableInfoContainer tableInfoContainer) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisName);
@@ -567,20 +579,30 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         //Creating the Bar chart
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle(chartName);
-        if (chartName.equals("צורות")) {
-            xAxis.setCategories(setShapesCategories());
-            barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
-        } else if (chartName.equals("מרקמים")){
-            xAxis.setCategories(setTexturesCategories());
-            barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
-        } else if (chartName.equals("משולב")){
-            xAxis.setCategories(setTexturesCategories());
-            barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
-            barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
+        switch (chartName) {
+            case "צורות":
+                xAxis.setCategories(setShapesCategories());
+                barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
+                break;
+            case "מרקמים":
+                xAxis.setCategories(setTexturesCategories());
+                barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
+                break;
+            case "משולב":
+                ObservableList<String> list = setShapesCategories();
+                list.addAll(setTexturesCategories());
+                xAxis.setCategories(list);
+                barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
+                barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
+                break;
         }
         return barChart;
     }
 
+    /*****
+     * the function returns a list of shapes titles
+     * @return a list
+     */
     private ObservableList<String> setShapesCategories() {
         ObservableList<String> shapes = FXCollections.observableArrayList();
         for(String s : shapesColumns) {
@@ -589,6 +611,10 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return shapes;
     }
 
+    /*****
+     * the function returns a list of textures titles
+     * @return a list
+     */
     private ObservableList<String> setTexturesCategories() {
         ObservableList<String> textures = FXCollections.observableArrayList();
         for(String s : texturesColumns) {
@@ -597,10 +623,15 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return textures;
     }
 
+    /****
+     * the function returns a serie of shapes and reaction times
+     * @param tableInfoContainer the info of the current game from the table
+     * @return a serie
+     */
     private XYChart.Series shapesBarSeries(TableInfoContainer tableInfoContainer) {
         //Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("game");
+        series.setName("צורות");
         series.getData().add(new XYChart.Data<>("arrow", Double.parseDouble(tableInfoContainer.getArrow())));
         series.getData().add(new XYChart.Data<>("rectangle", Double.parseDouble(tableInfoContainer.getRectangle())));
         series.getData().add(new XYChart.Data<>("diamond", Double.parseDouble(tableInfoContainer.getDiamond())));
@@ -618,10 +649,15 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return series;
     }
 
+    /****
+     * the function returns a serie of textures and reaction times
+     * @param tableInfoContainer the info of the current game from the table
+     * @return a serie
+     */
     private XYChart.Series texturesBarSeries(TableInfoContainer tableInfoContainer) {
         //Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("game");
+        series.setName("מרקמים");
         series.getData().add(new XYChart.Data<>("four_dots", Double.parseDouble(tableInfoContainer.getFour_dots())));
         series.getData().add(new XYChart.Data<>("waves", Double.parseDouble(tableInfoContainer.getWaves())));
         series.getData().add(new XYChart.Data<>("arrow_head", Double.parseDouble(tableInfoContainer.getArrow_head())));
