@@ -15,45 +15,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InstructionsWindow">
     <children>
-        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
                     <columnConstraints>
-                        <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints percentWidth="33" hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <HBox>
                             <children>
                                 <Label text="שלום: ">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </HBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                                 </Label>
                                 <Label fx:id="patientName">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </HBox.margin>
                                 </Label>
                             </children>
                         </HBox>
-                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true"
-                                   GridPane.columnIndex="1"/>
-                        <JFXButton fx:id="back" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2" buttonType="RAISED"/>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Hyperlink>
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="17.0" />
+                     </font></JFXButton>
                     </children>
                 </GridPane>
                 <HBox nodeOrientation="RIGHT_TO_LEFT">
                     <children>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@pic/misc/MSC.PNG"/>
+                                <Image url="@pic/misc/MSC.PNG" />
                             </image>
                         </ImageView>
                     </children>
@@ -62,10 +69,10 @@
                     <children>
                         <Label text="הוראות">
                             <font>
-                                <Font size="30.0"/>
+                                <Font size="36.0" />
                             </font>
                         </Label>
-                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="RIGHT_TO_LEFT"/>
+                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="RIGHT_TO_LEFT" />
                     </children>
                 </VBox>
             </children>
