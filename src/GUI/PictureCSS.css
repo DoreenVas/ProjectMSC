@@ -2,5 +2,5 @@
 	-fx-background-image: url("pic/misc/MSC.PNG");
 	-fx-background-position:center;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: contain;
+    -fx-background-size: cover;
 }
