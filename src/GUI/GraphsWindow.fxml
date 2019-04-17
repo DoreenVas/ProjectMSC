@@ -55,7 +55,7 @@
                      <font>
                         <Font size="16.0" />
                      </font></Hyperlink>
-                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">
+                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back" ripplerFill="#d3d3d3" text="חזרה לתפריט" GridPane.columnIndex="2">
                      <font>
                         <Font size="17.0" />
                      </font></JFXButton>
