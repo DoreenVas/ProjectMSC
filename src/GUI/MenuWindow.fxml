@@ -10,51 +10,83 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuWindow">
     <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-              <GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
-                  <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
-                  <ColumnConstraints />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                  <children>
-                      <HBox alignment="CENTER_LEFT">
-                          <children>
-                              <Label text="שלום: ">
-                                  <HBox.margin>
-                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                  </HBox.margin>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                              </Label>
-                              <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
-                                  <HBox.margin>
-                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                  </HBox.margin>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                              </Label>
-                          </children>
-                      </HBox>
-                      <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="2">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Hyperlink>
-                  </children>
-              </GridPane>
+              <!--<GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">-->
+                  <!--<columnConstraints>-->
+                      <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />-->
+                      <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />-->
+                  <!--<ColumnConstraints />-->
+                  <!--</columnConstraints>-->
+                  <!--<rowConstraints>-->
+                      <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
+                  <!--</rowConstraints>-->
+                  <!--<children>-->
+                      <!--<HBox alignment="CENTER_LEFT">-->
+                          <!--<children>-->
+                              <!--<Label text="שלום: ">-->
+                                  <!--<HBox.margin>-->
+                                      <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                                  <!--</HBox.margin>-->
+                           <!--<font>-->
+                              <!--<Font size="16.0" />-->
+                           <!--</font>-->
+                              <!--</Label>-->
+                              <!--<Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">-->
+                                  <!--<HBox.margin>-->
+                                      <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                                  <!--</HBox.margin>-->
+                           <!--<font>-->
+                              <!--<Font size="16.0" />-->
+                           <!--</font>-->
+                              <!--</Label>-->
+                          <!--</children>-->
+                      <!--</HBox>-->
+                  <!--<Region />-->
+                      <!--<Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">-->
+                     <!--<font>-->
+                        <!--<Font size="16.0" />-->
+                     <!--</font>-->
+                  <!--</Hyperlink>-->
+                  <!--</children>-->
+              <!--</GridPane>-->
+             <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
+                 <children>
+                     <HBox alignment="CENTER_LEFT">
+                         <children>
+                             <Label text="שלום: ">
+                                 <HBox.margin>
+                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                     <Font size="16.0" />
+                                 </font>
+                             </Label>
+                             <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
+                                 <HBox.margin>
+                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                     <Font size="16.0" />
+                                 </font>
+                             </Label>
+                         </children>
+                     </HBox>
+                     <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">
+                         <font>
+                             <Font size="16.0" />
+                         </font>
+                     </Hyperlink>
+                     <Region HBox.hgrow="ALWAYS"/>
+                 </children>
+             </HBox>
             <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pic/misc/MSC.PNG" />

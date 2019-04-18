@@ -92,12 +92,17 @@ public class AdminWindow implements Initializable{
         }
     }
 
-
+    /*****
+     * the function shows a pie chart of errors, according to the game type.
+     * the game type is chosen by clicking different buttons
+     * @param gameType the game type
+     */
     private void showPieChart(String gameType) {
         Stage secondStage = new Stage();
         AnchorPane anchorPane = new AnchorPane();
         // create the bar chart
         PieChart pieChart = PieChartBuilder.createChart(gameType);
+        // add a label for clicking - showing percentage
         final Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
         caption.setStyle("-fx-font: 24 arial;");
@@ -115,6 +120,7 @@ public class AdminWindow implements Initializable{
                     }
             );
         }
+        // add the chart and the label
         anchorPane.getChildren().addAll(pieChart, caption);
         Scene scene = new Scene(anchorPane, 600, 600);
         // bind the bar chart to the size of the window
