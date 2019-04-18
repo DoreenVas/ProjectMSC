@@ -7,8 +7,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#handle" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.SettingsWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#handle" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SettingsWindow">
     <children>
         <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -45,6 +43,9 @@
                                     <HBox.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </HBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                                 </Label>
                             </children>
                         </HBox>
@@ -58,11 +59,6 @@
                      </font></JFXButton>
                     </children>
                 </GridPane>
-                <ImageView pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@pic/misc/MSC.PNG" />
-                    </image>
-                </ImageView>
                 <VBox alignment="TOP_CENTER">
                     <children>
                         <Label alignment="TOP_CENTER" text="הגדרות">
@@ -77,6 +73,7 @@
                             <children>
                                 <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
                                     <columnConstraints>
+                              <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
                                         <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
                                         <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
                                         <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
@@ -87,9 +84,10 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="סוג משחק:" GridPane.columnIndex="1">
+                                        <Label text="סוג משחק:" GridPane.columnIndex="2">
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
@@ -97,7 +95,7 @@
                                     <Font size="16.0" />
                                  </font>
                                         </Label>
-                                        <Label text="הגבלת זמן: " GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <Label text="הגבלת זמן: " GridPane.columnIndex="2" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
@@ -105,7 +103,7 @@
                                     <Font size="16.0" />
                                  </font>
                                         </Label>
-                                        <Label text="סוג מקלדת:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                        <Label text="סוג מקלדת:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
@@ -113,7 +111,7 @@
                                     <Font size="16.0" />
                                  </font>
                                         </Label>
-                                        <JFXComboBox fx:id="gameType" GridPane.columnIndex="2">
+                                        <JFXComboBox fx:id="gameType" GridPane.columnIndex="3">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="צורות" />
@@ -128,7 +126,7 @@
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
                                         </JFXComboBox>
-                                        <JFXComboBox fx:id="timeLimit" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                        <JFXComboBox fx:id="timeLimit" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="30" />
@@ -143,7 +141,7 @@
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
                                         </JFXComboBox>
-                                        <JFXComboBox fx:id="keyboard" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                        <JFXComboBox fx:id="keyboard" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="1" />
@@ -157,7 +155,7 @@
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
                                         </JFXComboBox>
-                                        <Label text="משחק ביד דומיננטית:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <Label text="משחק ביד דומיננטית:" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
@@ -165,7 +163,7 @@
                                     <Font size="16.0" />
                                  </font>
                                         </Label>
-                                        <JFXComboBox fx:id="dominantHand" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                        <JFXComboBox fx:id="dominantHand" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="כן" />

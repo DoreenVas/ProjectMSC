@@ -594,6 +594,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
                 break;
         }
+        barChart.getXAxis().setTickLabelRotation(45);
+        barChart.setStyle("-fx-font-size:13px;");
         return barChart;
     }
 
