@@ -36,4 +36,6 @@ public interface Model {
      * @return the number of games
      */
     int getGamesNumber(String command);
+
+    String[] getAllPatientsIDs();
 }

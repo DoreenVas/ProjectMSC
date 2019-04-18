@@ -4,6 +4,7 @@ import Resources.PatientContainer;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /***
  * A patient controller class
@@ -34,5 +35,9 @@ public class PatientController extends ControllerAbstract {
      */
     public void insertNewPatient(PatientContainer patientContainer) {
         model.insertNewPatient(patientContainer);
+    }
+
+    public String[] getAllPatientsIDs() {
+        return model.getAllPatientsIDs();
     }
 }

@@ -101,10 +101,8 @@ public class Connection {
         return this.gameController.getGamesNumber(command);
     }
 
-//    public GameContainer gameQuery(String patientId) throws SQLException {
-//        GameContainer info = null;
-//        info = this.gameController.getInfoFromGUI(map);
-//        return info;
-//    }
+    public String[] getAllPatientsIDs() throws SQLException {
+       return this.patientController.getAllPatientsIDs();
+    }
 
 }

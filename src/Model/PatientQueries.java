@@ -4,6 +4,7 @@ import Resources.PatientContainer;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * A class holding all of the album table queries, also in charge of executing them.
@@ -61,5 +62,18 @@ public class PatientQueries {
         } catch (SQLException e) {
             System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
         }
+    }
+
+    public String[] getAllPatientsIDs() {
+        String[] cols = {"patient_id"};
+        String query = "Select patient_id from patient;";
+        // execute the query
+        String[] resultSet = new String[0];
+        try {
+            resultSet = Executor.executeQuery(myStatement, query, cols);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 }

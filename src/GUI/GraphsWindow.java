@@ -155,7 +155,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     }
 
-    @FXML
     private int[] loadChartData() {
         HashMap<String, Integer> shapesReactionTimesCounter = new HashMap<>();
         HashMap<String, Integer> texturesReactionTimesCounter = new HashMap<>();
@@ -450,7 +449,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 t.setSquares(String.valueOf(g.getTexturesReactionTime().get(field)));
                 break;
         }
-        //return t;
     }
 
     @FXML

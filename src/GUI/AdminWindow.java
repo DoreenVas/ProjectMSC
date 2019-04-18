@@ -1,5 +1,6 @@
 package GUI;
 
+import Controller.PieChartBuilder;
 import Model.Connection;
 import Resources.AlertMessages;
 import Resources.Alerter;
@@ -10,10 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.net.URL;
@@ -24,6 +29,12 @@ public class AdminWindow implements Initializable{
     private JFXButton submit;
     @FXML
     private JFXTextField id;
+    @FXML
+    private JFXButton shapePieChart;
+    @FXML
+    private JFXButton texturesPieChart;
+    @FXML
+    private JFXButton bothPieChart;
     @FXML
     private JFXButton exit;
 
@@ -79,6 +90,56 @@ public class AdminWindow implements Initializable{
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
+    }
+
+
+    private void showPieChart(String gameType) {
+        Stage secondStage = new Stage();
+        AnchorPane anchorPane = new AnchorPane();
+        // create the bar chart
+        PieChart pieChart = PieChartBuilder.createChart(gameType);
+        final Label caption = new Label("");
+        caption.setTextFill(Color.BLACK);
+        caption.setStyle("-fx-font: 24 arial;");
+        for (final PieChart.Data data : pieChart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    e -> {
+                        double total = 0;
+                        for (PieChart.Data d : pieChart.getData()) {
+                            total += d.getPieValue();
+                        }
+                        caption.setTranslateX(e.getSceneX());
+                        caption.setTranslateY(e.getSceneY());
+                        String text = String.format("%.1f%%", 100*data.getPieValue()/total) ;
+                        caption.setText(text);
+                    }
+            );
+        }
+        anchorPane.getChildren().addAll(pieChart, caption);
+        Scene scene = new Scene(anchorPane, 600, 600);
+        // bind the bar chart to the size of the window
+        pieChart.minWidthProperty().bind(anchorPane.widthProperty());
+        pieChart.minHeightProperty().bind(anchorPane.heightProperty().subtract(20));
+        anchorPane.minWidthProperty().bind(scene.widthProperty());
+        anchorPane.minHeightProperty().bind(scene.heightProperty().subtract(20));
+        // show the window
+        secondStage.setScene(scene);
+        secondStage.show();
+    }
+
+    @FXML
+    private void shapesPieChart() {
+        showPieChart("Shapes");
+    }
+
+    @FXML
+    private void texturesPieChart() {
+        showPieChart("Textures");
+    }
+
+    @FXML
+    private void bothPieChart() {
+        showPieChart("Both");
     }
 
     /***

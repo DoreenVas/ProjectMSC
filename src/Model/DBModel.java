@@ -191,6 +191,9 @@ public class DBModel implements Model {
         return GameQueries.getInstance(this.statement).countGames(command);
     }
 
+    public String[] getAllPatientsIDs() {
+        return PatientQueries.getInstance(this.statement).getAllPatientsIDs();
+    }
 
     /**
      * Attempts to set the connection back to auto-commit, ignoring errors.
