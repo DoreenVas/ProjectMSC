@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" nodeOrientation="LEFT_TO_RIGHT" fx:controller="GUI.SignUpWindow">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SignUpWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -32,7 +32,7 @@
                 </Label>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <VBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="270.0" prefWidth="103.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="270.0" prefWidth="103.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label text="שם פרטי:">
                                     <VBox.margin>
@@ -44,15 +44,15 @@
                                 </Label>
                                 <Label nodeOrientation="RIGHT_TO_LEFT" text="שם משפחה:">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" top="10.0" />
+                                        <Insets bottom="10.0" top="20.0" />
                                     </VBox.margin>
                            <font>
                               <Font size="16.0" />
                            </font>
                                 </Label>
-                                <Label text="תעודת זהות">
+                                <Label text="תעודת זהות:">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" top="10.0" />
+                                        <Insets bottom="10.0" top="20.0" />
                                     </VBox.margin>
                            <font>
                               <Font size="16.0" />
@@ -60,7 +60,7 @@
                                 </Label>
                                 <Label nodeOrientation="RIGHT_TO_LEFT" text="מין:">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" top="10.0" />
+                                        <Insets bottom="10.0" top="20.0" />
                                     </VBox.margin>
                            <font>
                               <Font size="16.0" />
@@ -86,24 +86,33 @@
                         </VBox>
                         <VBox alignment="CENTER" fillWidth="false" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <JFXTextField fx:id="firstName" alignment="CENTER_RIGHT">
+                                <JFXTextField fx:id="firstName" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                                 </JFXTextField>
-                                <JFXTextField fx:id="lastName" alignment="CENTER_RIGHT">
+                                <JFXTextField fx:id="lastName" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                                 </JFXTextField>
-                                <JFXTextField fx:id="id">
+                                <JFXTextField fx:id="id" nodeOrientation="LEFT_TO_RIGHT">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                                 </JFXTextField>
                                 <JFXComboBox fx:id="gender" nodeOrientation="RIGHT_TO_LEFT">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
@@ -114,12 +123,12 @@
                                 </JFXComboBox>
                                 <DatePicker fx:id="date" nodeOrientation="RIGHT_TO_LEFT" promptText="MM/DD/YYYY">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
                                 </DatePicker>
                                 <JFXComboBox fx:id="dominantHand" nodeOrientation="RIGHT_TO_LEFT">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </VBox.margin>
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">

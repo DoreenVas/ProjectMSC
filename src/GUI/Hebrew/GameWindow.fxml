@@ -98,7 +98,7 @@
                     <children>
                         <ImageView fx:id="hourGlass" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@pic/misc/HourGlass.png" />
+                                <Image url="@../pic/misc/HourGlass.png" />
                             </image>
                             <HBox.margin>
                                 <Insets left="10.0" />

@@ -70,7 +70,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
     protected void instructions() {
         try {
             Stage stage = (Stage) this.instructions.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("InstructionsWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/InstructionsWindow.fxml"));
             stage.setTitle("Instructions");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -92,7 +92,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
     protected void start() {
         try {
             Stage stage = (Stage) this.start.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("SettingsWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/SettingsWindow.fxml"));
             stage.setTitle("Settings");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -114,7 +114,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
     protected void results() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("GraphsWindow.fxml"));
+            loader.setLocation(getClass().getResource("Hebrew/GraphsWindow.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
             Stage stage = (Stage) this.results.getScene().getWindow();
             // get the size of the screen
@@ -124,7 +124,7 @@ public class MenuWindow extends BasicWindow implements Initializable{
             // set the window size
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
             GraphsWindow graphsWindow = loader.getController();
-            graphsWindow.setPreviousScene("MenuWindow.fxml");
+            graphsWindow.setPreviousScene("Hebrew/MenuWindow.fxml");
             stage.setTitle("Patient Data");
             stage.setScene(scene);
             stage.setResizable(false);

@@ -89,7 +89,7 @@ public class SignUpWindow extends BasicWindow{
     protected void mainWindow() {
         try {
             Stage stage = (Stage) this.home.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

@@ -20,7 +20,7 @@ public class GraphsTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("GraphsWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Hebrew/GraphsWindow.fxml"));
         primaryStage.setTitle("MSC");
         setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);

@@ -7,6 +7,7 @@ import Resources.PatientContainer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,6 +41,8 @@ public class MainWindow implements Initializable{
     private JFXPasswordField admin_password;
     @FXML
     private Button exit;
+    @FXML
+    private JFXToggleButton change_lng;
 
     private String user, password;
     private double window_height;
@@ -82,7 +85,7 @@ public class MainWindow implements Initializable{
     protected void signUp() {
         try {
             Stage stage = (Stage) this.signUp.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("SignUpWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/SignUpWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -118,7 +121,7 @@ public class MainWindow implements Initializable{
                 Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית או הירשם.", Alert.AlertType.WARNING);
             } else {
                 Stage stage = (Stage) this.submit.getScene().getWindow();
-                AnchorPane root = FXMLLoader.load(getClass().getResource("MenuWindow.fxml"));
+                AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MenuWindow.fxml"));
                 stage.setTitle("MSC");
                 // get the size of the screen
                 Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -151,7 +154,7 @@ public class MainWindow implements Initializable{
                 Alerter.showAlert("הפרטים שהוזנו אינם נכונים.", Alert.AlertType.WARNING);
             } else { //forward to admin page
                 Stage stage = (Stage) this.admin_submit.getScene().getWindow();
-                AnchorPane root = FXMLLoader.load(getClass().getResource("AdminWindow.fxml"));
+                AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/AdminWindow.fxml"));
                 stage.setTitle("Admin");
                 // get the size of the screen
                 Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -202,6 +205,44 @@ public class MainWindow implements Initializable{
         } catch (IOException e) {
             System.out.println("Could not read from config file\n");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void change_lng() {
+        try{
+            if(change_lng.isSelected()== true){
+                Stage stage = (Stage) this.change_lng.getScene().getWindow();
+                AnchorPane root = FXMLLoader.load(getClass().getResource("English/MainWindow.fxml"));
+                stage.setTitle("MSC");
+                // get the size of the screen
+                Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+                this.window_height = window.height;
+                this.window_width = window.width;
+                // set the window size
+                Scene scene = new Scene(root, this.window_width, this.window_height);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setMaximized(true);
+                stage.show();
+            }
+            else{
+                Stage stage = (Stage) this.change_lng.getScene().getWindow();
+                AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));
+                stage.setTitle("MSC");
+                // get the size of the screen
+                Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+                this.window_height = window.height;
+                this.window_width = window.width;
+                // set the window size
+                Scene scene = new Scene(root, this.window_width, this.window_height);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setMaximized(true);
+                stage.show();
+            }
+        }catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
     }
 
