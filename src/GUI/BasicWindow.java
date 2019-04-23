@@ -66,7 +66,7 @@ public class BasicWindow implements Initializable{
         });
         try {
             Stage stage = (Stage) this.logoutLabel.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource(MainWindow.language+"/MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -87,7 +87,7 @@ public class BasicWindow implements Initializable{
     protected void menuWindow(Button button) {
         try {
             Stage stage = (Stage) button.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MenuWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource(MainWindow.language+"/MenuWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

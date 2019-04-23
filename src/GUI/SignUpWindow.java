@@ -48,30 +48,62 @@ public class SignUpWindow extends BasicWindow{
             String gender = (String)this.gender.getValue();
             String dominant_hand = (String)this.dominantHand.getValue();
             LocalDate date = this.date.getValue();
+            //prepare correct msg
+            String id_msg = "";
+            String gender_msg = "";
+            String date_msg = "";
+            String hand_msg = "";
+            switch (MainWindow.language) {
+                case "Hebrew":
+                    id_msg = "יש להזין תעודת זהות תקינה בעלת 9 ספרות";
+                    gender_msg = "יש להזין את מין המשתמש/ת";
+                    date_msg = "יש להזין תאריך לידה תקין";
+                    hand_msg = "ש להזין יד דומיננטית";
+                    break;
+                case "English":
+                    id_msg = "please enter a valid 9 digits ID";
+                    gender_msg = "please enter gender";
+                    date_msg = "please enter a valid birth date";
+                    hand_msg = "please enter dominant hand";
+                    break;
+            }
+
             // validation checks
             if(id.length() != 9) {
-                Alerter.showAlert("יש להזין תעודת זהות תקינה בעלת 9 ספרות", Alert.AlertType.ERROR);
+                Alerter.showAlert(id_msg, Alert.AlertType.ERROR);
             } else if(gender == null) {
-                Alerter.showAlert("יש להזין את מין המשתמש/ת", Alert.AlertType.ERROR);
+                Alerter.showAlert(gender_msg, Alert.AlertType.ERROR);
             } else if(date == null || date.compareTo(LocalDate.now()) > 0) {
-                Alerter.showAlert("יש להזין תאריך לידה תקין", Alert.AlertType.ERROR);
+                Alerter.showAlert(date_msg, Alert.AlertType.ERROR);
             }else if(dominant_hand == null) {
-                    Alerter.showAlert("ש להזין יד דומיננטית", Alert.AlertType.ERROR);
+                    Alerter.showAlert(hand_msg, Alert.AlertType.ERROR);
             } else {
                 switch (gender) {
                     case "זכר":
                         gender = "M";
                         break;
-                    default:
+                    case "male":
+                        gender = "M";
+                        break;
+                    case "נקבה":
                          gender = "F";
                          break;
+                    case "female":
+                        gender = "F";
+                        break;
                 }
 
                 switch (dominant_hand) {
                     case "ימין":
                         dominant_hand = "R";
                         break;
-                    default:
+                    case "right":
+                        dominant_hand = "R";
+                        break;
+                    case "שמאל":
+                        dominant_hand = "L";
+                        break;
+                    case "left":
                         dominant_hand = "L";
                         break;
                 }
@@ -89,7 +121,7 @@ public class SignUpWindow extends BasicWindow{
     protected void mainWindow() {
         try {
             Stage stage = (Stage) this.home.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource(MainWindow.language+"/MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

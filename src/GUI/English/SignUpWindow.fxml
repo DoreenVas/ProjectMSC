@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SignUpWindow">
+    <children>
+        <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="0.0" prefWidth="575.0">
+                    <children>
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="RIGHT" onAction="#mainWindow" ripplerFill="#d3d3d3" text="Return" textAlignment="RIGHT">
+                            <font>
+                                <Font size="17.0" />
+                            </font></JFXButton>
+                    </children>
+                </HBox>
+                <Label text="Register">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="306.0" prefWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <Label text="First name:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="Last name:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="20.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ID:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="20.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="Gender:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="20.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="Birth date:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label nodeOrientation="RIGHT_TO_LEFT" text="Dominant hand:">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <JFXTextField fx:id="firstName" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </JFXTextField>
+                                <JFXTextField fx:id="lastName" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </JFXTextField>
+                                <JFXTextField fx:id="id" nodeOrientation="LEFT_TO_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </JFXTextField>
+                                <JFXComboBox fx:id="gender" nodeOrientation="LEFT_TO_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="male" />
+                                            <String fx:value="female" />
+                                        </FXCollections>
+                                    </items>
+                                </JFXComboBox>
+                                <DatePicker fx:id="date" nodeOrientation="RIGHT_TO_LEFT" promptText="MM/DD/YYYY">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </DatePicker>
+                                <JFXComboBox fx:id="dominantHand" nodeOrientation="LEFT_TO_RIGHT">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="right" />
+                                            <String fx:value="left" />
+                                        </FXCollections>
+                                    </items>
+                                </JFXComboBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submit" text="submit">
+                    <font>
+                        <Font size="17.0" />
+                    </font></JFXButton>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

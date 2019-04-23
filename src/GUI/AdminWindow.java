@@ -65,10 +65,17 @@ public class AdminWindow implements Initializable{
             PatientContainer p_info = conn.idQuery(idString);
             // patient doesn't exist in the database
             if (p_info == null) {
-                Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
+                switch (MainWindow.language) {
+                    case "Hebrew":
+                        Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
+                        break;
+                    case "English":
+                        Alerter.showAlert("Id is not in the system. Try again.", Alert.AlertType.WARNING);
+                        break;
+                }
             } else {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("GraphsWindow.fxml"));
+                loader.setLocation(getClass().getResource(MainWindow.language+"/GraphsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
                 Stage stage = (Stage) this.submit.getScene().getWindow();
                 // get the size of the screen
@@ -78,7 +85,7 @@ public class AdminWindow implements Initializable{
                 // set the window size
                 Scene scene = new Scene(root,  this.window_width,  this.window_height);
                 GraphsWindow graphsWindow = loader.getController();
-                graphsWindow.setPreviousScene("AdminWindow.fxml");
+                graphsWindow.setPreviousScene(MainWindow.language+"/AdminWindow.fxml");
                 stage.setTitle("Patient Data");
                 stage.setScene(scene);
                 stage.setResizable(false);
@@ -86,7 +93,14 @@ public class AdminWindow implements Initializable{
                 stage.show();
             }
         } catch (NumberFormatException e) {
-            Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
+            switch (MainWindow.language) {
+                case "Hebrew":
+                    Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
+                    break;
+                case "English":
+                    Alerter.showAlert("Invalid Id. Try again.", Alert.AlertType.WARNING);
+                    break;
+            }
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }

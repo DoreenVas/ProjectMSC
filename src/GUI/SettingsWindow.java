@@ -47,7 +47,7 @@ public class SettingsWindow extends BasicWindow {
     protected void confirm() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("GameWindow.fxml"));
+            loader.setLocation(getClass().getResource(MainWindow.language+"/GameWindow.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
             Stage stage = (Stage) this.confirm.getScene().getWindow();
             // get the size of the screen
@@ -74,10 +74,19 @@ public class SettingsWindow extends BasicWindow {
             case("צורות"):
                 this.c_gameType="Shapes";
                 break;
+            case("shapes"):
+                this.c_gameType="Shapes";
+                break;
             case("מרקמים"):
                 this.c_gameType="Textures";
                 break;
+            case("textures"):
+                this.c_gameType="Textures";
+                break;
             case("משולב"):
+                this.c_gameType="Both";
+                break;
+            case("combined"):
                 this.c_gameType="Both";
                 break;
         }

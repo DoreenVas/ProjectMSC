@@ -62,7 +62,7 @@ public class ResultsWindow extends BasicWindow{
     protected void personal_Zone() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("GraphsWindow.fxml"));
+            loader.setLocation(getClass().getResource(MainWindow.language+"/GraphsWindow.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
             Stage stage = (Stage) this.personal_zone.getScene().getWindow();
             // get the size of the screen
@@ -72,7 +72,7 @@ public class ResultsWindow extends BasicWindow{
             // set the window size
             Scene scene = new Scene(root,  this.window_width,  this.window_height);
             GraphsWindow graphsWindow = loader.getController();
-            graphsWindow.setPreviousScene("MenuWindow.fxml");
+            graphsWindow.setPreviousScene(MainWindow.language+"/MenuWindow.fxml");
             stage.setTitle("Patient Data");
             stage.setScene(scene);
             stage.setResizable(false);

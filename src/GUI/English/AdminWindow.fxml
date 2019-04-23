@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdminWindow">
+    <children>
+        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Admin personal zone">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Access to patient personal zone">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submit" text="submit" GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXTextField fx:id="id" nodeOrientation="LEFT_TO_RIGHT" promptText="Enter patient's ID" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="40.0" top="10.0" />
+                            </GridPane.margin>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </JFXTextField>
+                    </children>
+                </GridPane>
+                <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <JFXButton fx:id="shapesPieChart" buttonType="RAISED" onAction="#shapesPieChart" text="Display shapes graph">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="texturesPieChart" buttonType="RAISED" onAction="#texturesPieChart" text="Display textures graph">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="bothPieChart" buttonType="RAISED" onAction="#bothPieChart" text="Display combined graph">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+                <JFXButton fx:id="exit" buttonType="RAISED" onAction="#exit" text="Exit">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

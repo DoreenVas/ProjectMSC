@@ -375,7 +375,7 @@ public class GameWindow extends BasicWindow {
             // switch to results window
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("ResultsWindow.fxml"));
+                loader.setLocation(getClass().getResource(MainWindow.language+"/ResultsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
                 Stage stage = (Stage)this.home.getScene().getWindow();
                 // get the size of the screen
@@ -424,7 +424,7 @@ public class GameWindow extends BasicWindow {
                 }
             }
         } else {
-            System.out.println("Not More Files!");
+            System.out.println("No More Files!");
         }
     }
 

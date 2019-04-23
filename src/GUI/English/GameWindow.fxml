@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#handlePress" onKeyReleased="#handleRelease" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GameWindow">
+    <children>
+        <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!--<GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">-->
+                <!--<columnConstraints>-->
+                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                <!--</columnConstraints>-->
+                <!--<rowConstraints>-->
+                <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
+                <!--</rowConstraints>-->
+                <!--<children>-->
+                <!--<HBox>-->
+                <!--<children>-->
+                <!--<Label text="שלום: ">-->
+                <!--<HBox.margin>-->
+                <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                <!--</HBox.margin>-->
+                <!--<font>-->
+                <!--<Font size="16.0" />-->
+                <!--</font>-->
+                <!--</Label>-->
+                <!--<Label fx:id="patientName">-->
+                <!--<HBox.margin>-->
+                <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                <!--</HBox.margin>-->
+                <!--<font>-->
+                <!--<Font size="16.0" />-->
+                <!--</font>-->
+                <!--</Label>-->
+                <!--</children>-->
+                <!--</HBox>-->
+                <!--<Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1">-->
+                <!--<font>-->
+                <!--<Font size="16.0" />-->
+                <!--</font></Hyperlink>-->
+                <!--<JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">-->
+                <!--<font>-->
+                <!--<Font size="17.0" />-->
+                <!--</font></JFXButton>-->
+                <!--</children>-->
+                <!--</GridPane>-->
+                <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
+                            <children>
+                                <Label text="Hello:">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="Disconnect" underline="true">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="Return" GridPane.columnIndex="2">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <ImageView fx:id="hourGlass" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../pic/misc/HourGlass.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="timerLabel" text="Label">
+                            <HBox.margin>
+                                <Insets left="5.0" right="5.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="28.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <Label fx:id="wellDoneLabel" text="Great Job! keep going!">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Label>
+                <ImageView fx:id="image" disable="true" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="indicationImage" disable="true" fitHeight="400.0" fitWidth="200.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

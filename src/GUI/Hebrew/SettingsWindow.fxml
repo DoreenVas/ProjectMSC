@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.Region?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#handle" fx:controller="GUI.SettingsWindow">
+    <children>
+        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!--<GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">-->
+                    <!--<columnConstraints>-->
+                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
+                    <!--</columnConstraints>-->
+                    <!--<rowConstraints>-->
+                        <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
+                    <!--</rowConstraints>-->
+                    <!--<children>-->
+                        <!--<HBox>-->
+                            <!--<children>-->
+                                <!--<Label text="שלום: ">-->
+                                    <!--<HBox.margin>-->
+                                        <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                                    <!--</HBox.margin>-->
+                           <!--<font>-->
+                              <!--<Font size="16.0" />-->
+                           <!--</font>-->
+                                <!--</Label>-->
+                                <!--<Label fx:id="patientName">-->
+                                    <!--<HBox.margin>-->
+                                        <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                                    <!--</HBox.margin>-->
+                           <!--<font>-->
+                              <!--<Font size="16.0" />-->
+                           <!--</font>-->
+                                <!--</Label>-->
+                            <!--</children>-->
+                        <!--</HBox>-->
+                        <!--<Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1">-->
+                     <!--<font>-->
+                        <!--<Font size="16.0" />-->
+                     <!--</font></Hyperlink>-->
+                        <!--<JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">-->
+                     <!--<font>-->
+                        <!--<Font size="17.0" />-->
+                     <!--</font></JFXButton>-->
+                    <!--</children>-->
+                <!--</GridPane>-->
+                <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="שלום: ">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">
+                            <font>
+                            <Font size="17.0" />
+                        </font></JFXButton>
+                    </children>
+                </HBox>
+                <VBox alignment="TOP_CENTER">
+                    <children>
+                        <Label alignment="TOP_CENTER" text="הגדרות">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+                                    <columnConstraints>
+                              <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="סוג משחק:" GridPane.columnIndex="2">
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                        </Label>
+                                        <Label text="הגבלת זמן: " GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                        </Label>
+                                        <Label text="סוג מקלדת:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                        </Label>
+                                        <JFXComboBox fx:id="gameType" GridPane.columnIndex="3">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="צורות" />
+                                                    <String fx:value="מרקמים" />
+                                                    <String fx:value="משולב" />
+                                                </FXCollections>
+                                            </items>
+                                            <value>
+                                                <String fx:value="צורות" />
+                                            </value>
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                        </JFXComboBox>
+                                        <JFXComboBox fx:id="timeLimit" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="30" />
+                                                    <String fx:value="45" />
+                                                    <String fx:value="60" />
+                                                </FXCollections>
+                                            </items>
+                                            <value>
+                                                <String fx:value="30" />
+                                            </value>
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                        </JFXComboBox>
+                                        <JFXComboBox fx:id="keyboard" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="1" />
+                                                    <String fx:value="2" />
+                                                </FXCollections>
+                                            </items>
+                                            <value>
+                                                <String fx:value="1" />
+                                            </value>
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                        </JFXComboBox>
+                                        <Label text="משחק ביד דומיננטית:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                        </Label>
+                                        <JFXComboBox fx:id="dominantHand" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="כן" />
+                                                    <String fx:value="לא" />
+                                                </FXCollections>
+                                            </items>
+                                            <value>
+                                                <String fx:value="כן" />
+                                            </value>
+                                            <GridPane.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </GridPane.margin>
+                                        </JFXComboBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <HBox alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="confirm" buttonType="RAISED" mnemonicParsing="false" onAction="#confirm" text="אישור">
+                            <HBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </HBox.margin>
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
