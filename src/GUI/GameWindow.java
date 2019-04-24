@@ -239,11 +239,13 @@ public class GameWindow extends BasicWindow {
         Media sound = new Media(new File(soundEffectPath).toURI().toString());
         this.mediaPlayer = new MediaPlayer(sound);
         try {
-            this.mediaPlayer.play();
-            // show the image for 2 seconds
-            Thread.sleep(this.sleepTime);
-            // reset the indication image
-            this.mediaPlayer.stop();
+            if (this.mediaPlayer != null) {
+                this.mediaPlayer.play();
+                // show the image for 2 seconds
+                Thread.sleep(this.sleepTime);
+                // reset the indication image
+                this.mediaPlayer.stop();
+            }
             this.indicationImage.imageProperty().set(null);
             if (this.nextImage) {
                 // switch to the next image
@@ -274,7 +276,9 @@ public class GameWindow extends BasicWindow {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            this.mediaPlayer.stop();
+            if (this.mediaPlayer != null) {
+                this.mediaPlayer.stop();
+            }
         }
     }
 

@@ -600,14 +600,22 @@ public class GraphsWindow extends BasicWindow implements Initializable{
      */
     private BarChart<String, Number> createBarChart(String chartName, String xAxisName, String yAxisName, TableInfoContainer tableInfoContainer) {
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel(xAxisName);
+        if (MainWindow.language.equals("Hebrew")) {
+            xAxis.setLabel(xAxisName);
+        } else {
+            xAxis.setLabel(toEnglish(xAxisName));
+        }
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yAxisName);
 
         //Creating the Bar chart
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle(chartName);
+        if (MainWindow.language.equals("Hebrew")) {
+            barChart.setTitle(chartName);
+        } else {
+            barChart.setTitle(toEnglish(chartName));
+        }
         switch (chartName) {
             case "צורות":
                 xAxis.setCategories(setShapesCategories());
@@ -628,6 +636,19 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         barChart.getXAxis().setTickLabelRotation(45);
         barChart.setStyle("-fx-font-size:13px;");
         return barChart;
+    }
+
+    private String toEnglish(String chartName) {
+        switch (chartName) {
+            case "צורות":
+                return "Shapes";
+            case "מרקמים":
+                return "Textures";
+            case "משולב":
+                return "Both";
+            default:
+                return chartName;
+        }
     }
 
     /*****

@@ -1,5 +1,6 @@
 package Controller;
 
+import GUI.MainWindow;
 import Model.Connection;
 import Resources.GameContainer;
 import javafx.collections.FXCollections;
@@ -112,7 +113,11 @@ public class PieChartBuilder {
             sum += d;
         }
         sum /= successes.size();
-        list.addAll(new PieChart.Data("הצלחה", sum), new PieChart.Data("כשלון", 1 - sum));
+        if (MainWindow.language.equals("Hebrew")) {
+            list.addAll(new PieChart.Data("הצלחה", sum), new PieChart.Data("כשלון", 1 - sum));
+        } else {
+            list.addAll(new PieChart.Data("Success", sum), new PieChart.Data("Failure", 1 - sum));
+        }
         return list;
     }
 
