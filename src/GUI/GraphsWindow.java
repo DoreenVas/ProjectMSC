@@ -206,13 +206,22 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                                                    HashMap<String, Integer> timesCounterMap, String gType) {
         String timeLimit = String.valueOf(g.getTimeLimit());
         double avg;
+        String sec = "";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                sec = " שניות";
+                break;
+            case "English":
+                sec = " seconds";
+                break;
+        }
 
         switch (gType) {
             case "Shapes":
                 if (!timesCounterMap.containsKey(timeLimit)) {
                     timesCounterMap.put(timeLimit, 1);
                     this.shapesSeries.put(timeLimit, new XYChart.Series());
-                    this.shapesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
+                    this.shapesSeries.get(timeLimit).setName(g.getTimeLimit() + sec);
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
                 XYChart.Data<Integer, Double> dataShapes = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
@@ -223,7 +232,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 if (!timesCounterMap.containsKey(timeLimit)) {
                     timesCounterMap.put(timeLimit, 1);
                     this.texturesSeries.put(timeLimit, new XYChart.Series());
-                    this.texturesSeries.get(timeLimit).setName(g.getTimeLimit() + " שניות");
+                    this.texturesSeries.get(timeLimit).setName(g.getTimeLimit() +sec);
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
                 XYChart.Data<Integer, Double> dataTextures = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
@@ -265,43 +274,65 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     }
 
     private void createTable(ArrayList<GameContainer> gamesList) {
+        String game_type_txt = "";
+        String time_limit_txt = "";
+        String num_recognized_txt = "";
+        String game_date_txt = "";
+        String dominant_hand_txt = "";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                game_type_txt = "סוג משחק";
+                time_limit_txt = "מגבלת הזמן";
+                num_recognized_txt = "מספר התמונות שזוהו";
+                game_date_txt = "תאריך המשחק";
+                dominant_hand_txt = "יד דומיננטית";
+                break;
+            case "English":
+                game_type_txt = "Game type";
+                time_limit_txt = "TimeLimit";
+                num_recognized_txt = "Number of recognized pictures";
+                game_date_txt = "Game date";
+                dominant_hand_txt = "Dominant hand";
+                break;
+        }
+
         // create game type column
         TableColumn<TableInfoContainer, String> gameTypeCol = new TableColumn<>("gameType");
         gameTypeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
-        gameTypeCol.setText("סוג משחק");
-        gameTypeCol.setMinWidth("סוג משחק".length());
+        gameTypeCol.setText(game_type_txt);
+        gameTypeCol.setMinWidth(game_type_txt.length());
         this.resultsTable.getSortOrder().add(gameTypeCol);
         this.resultsTable.getColumns().add(gameTypeCol);
 
         // create time limit column
         TableColumn<TableInfoContainer, String> timeLimitCol = new TableColumn<>("timeLimit");
         timeLimitCol.setCellValueFactory(new PropertyValueFactory<>("timeLimit"));
-        timeLimitCol.setText("מגבלת הזמן");
-        timeLimitCol.setMinWidth("מגבלת הזמן".length());
+        timeLimitCol.setText(time_limit_txt);
+        timeLimitCol.setMinWidth(time_limit_txt.length());
         this.resultsTable.getSortOrder().add(timeLimitCol);
         this.resultsTable.getColumns().add(timeLimitCol);
 
         // create number of recognized images column
         TableColumn<TableInfoContainer, String> recognizedCol = new TableColumn<>("numOfRecognizedButtons");
         recognizedCol.setCellValueFactory(new PropertyValueFactory<>("numOfRecognizedButtons"));
-        recognizedCol.setText("מספר התמונות שזוהו");
-        recognizedCol.setMinWidth("מספר התמונות שזוהו".length());
+        recognizedCol.setText(num_recognized_txt);
+        recognizedCol.setMinWidth(num_recognized_txt.length());
         this.resultsTable.getSortOrder().add(recognizedCol);
         this.resultsTable.getColumns().add(recognizedCol);
 
         // create game date column
         TableColumn<TableInfoContainer, String> dateCol = new TableColumn<>("gameDate");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("gameDate"));
-        dateCol.setText("תאריך המשחק");
-        dateCol.setMinWidth("תאריך המשחק".length());
+        dateCol.setText(game_date_txt);
+        dateCol.setMinWidth(game_date_txt.length());
         this.resultsTable.getSortOrder().add(dateCol);
         this.resultsTable.getColumns().add(dateCol);
 
         // create game date column
         TableColumn<TableInfoContainer, String> dominantHandCol = new TableColumn<>("dominantHand");
         dominantHandCol.setCellValueFactory(new PropertyValueFactory<>("dominantHand"));
-        dominantHandCol.setText("יד דומיננטית");
-        dominantHandCol.setMinWidth("יד דומיננטית".length());
+        dominantHandCol.setText(dominant_hand_txt);
+        dominantHandCol.setMinWidth(dominant_hand_txt.length());
         this.resultsTable.getSortOrder().add(dominantHandCol);
         this.resultsTable.getColumns().add(dominantHandCol);
 
@@ -629,9 +660,18 @@ public class GraphsWindow extends BasicWindow implements Initializable{
      * @return a serie
      */
     private XYChart.Series shapesBarSeries(TableInfoContainer tableInfoContainer) {
+        String name = "";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                name = "צורות";
+                break;
+            case "English":
+                name = "shapes";
+                break;
+        }
         //Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("צורות");
+        series.setName(name);
         series.getData().add(new XYChart.Data<>("arrow", Double.parseDouble(tableInfoContainer.getArrow())));
         series.getData().add(new XYChart.Data<>("rectangle", Double.parseDouble(tableInfoContainer.getRectangle())));
         series.getData().add(new XYChart.Data<>("diamond", Double.parseDouble(tableInfoContainer.getDiamond())));
@@ -655,9 +695,18 @@ public class GraphsWindow extends BasicWindow implements Initializable{
      * @return a serie
      */
     private XYChart.Series texturesBarSeries(TableInfoContainer tableInfoContainer) {
+        String name = "";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                name = "מרקמים";
+                break;
+            case "English":
+                name = "textures";
+                break;
+        }
         //Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("מרקמים");
+        series.setName(name);
         series.getData().add(new XYChart.Data<>("four_dots", Double.parseDouble(tableInfoContainer.getFour_dots())));
         series.getData().add(new XYChart.Data<>("waves", Double.parseDouble(tableInfoContainer.getWaves())));
         series.getData().add(new XYChart.Data<>("arrow_head", Double.parseDouble(tableInfoContainer.getArrow_head())));
