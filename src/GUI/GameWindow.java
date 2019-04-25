@@ -177,13 +177,14 @@ public class GameWindow extends BasicWindow {
             // initialize the set of images
             this.imagesSet = this.picToPath.keySet();
             this.imagesSetSize = this.imagesSet.size();
-            this.progress.set(this.imagesSetSize - this.imagesSet.size());
+            // images progress label
             this.imagesLeftLabel.bind(this.progress.asString());
             this.progressLabel.textProperty().bind(Bindings.concat(this.imagesLeftLabel)
                     .concat("/" + String.valueOf(this.imagesSetSize)));
             // set the first image
             switchImage();
             resetTimer();
+            this.progress.set(this.imagesSetSize - this.imagesSet.size());
         });
     }
 
@@ -257,6 +258,7 @@ public class GameWindow extends BasicWindow {
             if (this.nextImage) {
                 // switch to the next image
                 switchImage();
+                Platform.runLater(()-> this.progress.set(this.imagesSetSize - this.imagesSet.size()));
                 // ends the game when the images set is empty
                 if (this.resultsWindow) { return; }
                 // set next image to false
