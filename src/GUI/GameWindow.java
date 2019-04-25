@@ -470,6 +470,10 @@ public class GameWindow extends BasicWindow {
 
     @FXML
     protected void logout() {
+        this.timer.stop();
+        if (this.mediaPlayer != null) {
+            this.mediaPlayer.stop();
+        }
         super.logout();
     }
 }

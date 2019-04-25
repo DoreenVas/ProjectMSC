@@ -77,9 +77,12 @@ public class MainWindow implements Initializable{
                 admin_submit();
             }
         });
-        // allow mouse key click
-        this.admin_password.setOnMouseClicked(event -> {
-            admin_submit();
+
+        // allow enter press on admin button
+        this.admin_user.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                admin_submit();
+            }
         });
     }
 
