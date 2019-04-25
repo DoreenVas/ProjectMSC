@@ -49,18 +49,42 @@ public class TableInfoContainer {
     private String spiral;
     private String squares;
 
-
+    /******
+     * Set the game type according to the current language of the window
+     * @param gameType the type of the game (Shapes, Textures or Both)
+     * @return the same tableInfoContainer
+     */
     public TableInfoContainer setGameType(String gameType) {
-        switch (gameType) {
-            case "Shapes":
-                this.gameType = "צורות";
-                break;
-            case "Textures":
-                this.gameType = "מרקמים";
-                break;
-            case "Both":
-                this.gameType = "משולב";
-                break;
+        if (MainWindow.language.equals("Hebrew")) {
+            switch (gameType) {
+                case "Shapes":
+                    this.gameType =  "צורות";
+                    break;
+                case "Textures":
+                    this.gameType =  "מרקמים";
+                    break;
+                case "Both":
+                    this.gameType =  "משולב";
+                    break;
+                default:
+                    this.gameType =  gameType;
+                    break;
+            }
+        } else {
+            switch (gameType) {
+                case "צורות":
+                    this.gameType =  "Shapes";
+                    break;
+                case "מרקמים":
+                    this.gameType =  "Textures";
+                    break;
+                case "משולב":
+                    this.gameType =  "Both";
+                    break;
+                default:
+                    this.gameType =  gameType;
+                    break;
+            }
         }
         return this;
     }
@@ -361,7 +385,7 @@ public class TableInfoContainer {
 
 
     public String getGameType() {
-        return gameTypeSwitchLanguage(gameType);
+        return gameType;
     }
 
     public String getTimeLimit() {
@@ -377,7 +401,7 @@ public class TableInfoContainer {
     }
 
     public String getDominantHand() {
-        return dominantHandSwitchLanguage(dominantHand);
+        return dominantHand;
     }
 
     public String getArrow() {
@@ -558,53 +582,5 @@ public class TableInfoContainer {
         ArrayList<String> values = new ArrayList<>();
         values.addAll(Arrays.asList(texturesColumns));
         return values;
-    }
-
-    private String gameTypeSwitchLanguage(String gameType) {
-        if (MainWindow.language.equals("Hebrew")) {
-            switch (gameType) {
-                case "Shapes":
-                    return "צורות";
-                case "Textures":
-                    return "מרקמים";
-                case "Both":
-                    return "משולב";
-                default:
-                    return gameType;
-            }
-        } else {
-            switch (gameType) {
-                case "צורות":
-                    return "Shapes";
-                case "מרקמים":
-                    return "Textures";
-                case "משולב":
-                    return "Both";
-                default:
-                    return gameType;
-            }
-        }
-    }
-
-    private String dominantHandSwitchLanguage(String dominantHand) {
-        if (MainWindow.language.equals("Hebrew")) {
-            switch (dominantHand) {
-                case "Yes":
-                    return "כן";
-                case "No":
-                    return "לא";
-                default:
-                    return dominantHand;
-            }
-        } else {
-            switch (dominantHand) {
-                case "כן":
-                    return "Yes";
-                case "לא":
-                    return "No";
-                default:
-                    return dominantHand;
-            }
-        }
     }
 }

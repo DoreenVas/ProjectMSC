@@ -366,7 +366,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             TableInfoContainer t = new TableInfoContainer();
             // set the game info
             t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit())).setGameDate(g.getGameDate())
-                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons())).setDominantHand(g.getDominantHand());
+                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons())).setDominantHand(dominantHandSwitchLanguage(g.getDominantHand()));
             // add the shapes times
             for (String s : shapesColumns) {
                 insertInfoToTableContainer(t, g, s);
@@ -379,6 +379,28 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             games.add(t);
         }
         return games;
+    }
+
+    private String dominantHandSwitchLanguage(String dominantHand) {
+        if (MainWindow.language.equals("Hebrew")) {
+            switch (dominantHand) {
+                case "Yes":
+                    return "כן";
+                case "No":
+                    return "לא";
+                default:
+                    return dominantHand;
+            }
+        } else {
+            switch (dominantHand) {
+                case "כן":
+                    return "Yes";
+                case "לא":
+                    return "No";
+                default:
+                    return dominantHand;
+            }
+        }
     }
 
     /*****
@@ -618,14 +640,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         }
         switch (chartName) {
             case "צורות":
+            case "Shapes":
                 xAxis.setCategories(setShapesCategories());
                 barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
                 break;
             case "מרקמים":
+            case "Textures":
                 xAxis.setCategories(setTexturesCategories());
                 barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
                 break;
             case "משולב":
+            case "Both":
                 ObservableList<String> list = setShapesCategories();
                 list.addAll(setTexturesCategories());
                 xAxis.setCategories(list);
@@ -687,7 +712,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 name = "צורות";
                 break;
             case "English":
-                name = "shapes";
+                name = "Shapes";
                 break;
         }
         //Prepare XYChart.Series objects by setting data
@@ -722,7 +747,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 name = "מרקמים";
                 break;
             case "English":
-                name = "textures";
+                name = "Textures";
                 break;
         }
         //Prepare XYChart.Series objects by setting data
