@@ -20,46 +20,6 @@
     <children>
         <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <!--<GridPane alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">-->
-                    <!--<columnConstraints>-->
-                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
-                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
-                        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33" />-->
-                    <!--</columnConstraints>-->
-                    <!--<rowConstraints>-->
-                        <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
-                    <!--</rowConstraints>-->
-                    <!--<children>-->
-                        <!--<HBox>-->
-                            <!--<children>-->
-                                <!--<Label text="שלום: ">-->
-                                    <!--<HBox.margin>-->
-                                        <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-                                    <!--</HBox.margin>-->
-                           <!--<font>-->
-                              <!--<Font size="16.0" />-->
-                           <!--</font>-->
-                                <!--</Label>-->
-                                <!--<Label fx:id="patientName">-->
-                                    <!--<HBox.margin>-->
-                                        <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-                                    <!--</HBox.margin>-->
-                           <!--<font>-->
-                              <!--<Font size="16.0" />-->
-                           <!--</font>-->
-                                <!--</Label>-->
-                            <!--</children>-->
-                        <!--</HBox>-->
-                        <!--<Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true" GridPane.columnIndex="1">-->
-                     <!--<font>-->
-                        <!--<Font size="16.0" />-->
-                     <!--</font></Hyperlink>-->
-                        <!--<JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">-->
-                     <!--<font>-->
-                        <!--<Font size="17.0" />-->
-                     <!--</font></JFXButton>-->
-                    <!--</children>-->
-                <!--</GridPane>-->
                 <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
                     <children>
                         <HBox alignment="CENTER_LEFT">

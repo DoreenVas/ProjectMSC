@@ -6,10 +6,8 @@ import Resources.Alerter;
 import Resources.GameContainer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,6 +45,8 @@ public class GameWindow extends BasicWindow {
     private Label wellDoneLabel = new Label();
     @FXML
     private ImageView indicationImage = new ImageView();
+    @FXML
+    private Label progressLabel = new Label();
 
     // timer members
     private AnimationTimer timer;
@@ -63,6 +63,8 @@ public class GameWindow extends BasicWindow {
     private double currTime = 0;
     private DoubleProperty timeLeft = new SimpleDoubleProperty();
     private BooleanProperty running = new SimpleBooleanProperty();
+    private IntegerProperty progress = new SimpleIntegerProperty();
+    private StringProperty imagesLeftLabel = new SimpleStringProperty();
 
     // shapes and textures
     private HashMap<String, String> picToPath = new HashMap<>();
@@ -118,7 +120,8 @@ public class GameWindow extends BasicWindow {
             case("Textures"):
                 path = texturesDirPath;
                 break;
-            default: path = picturesDirPath;
+            default:
+                path = picturesDirPath;
         }
         this.readImagesFromDir(path);
         this.initializeKeysMap(this.shapesToKeysFilePath);
@@ -174,6 +177,10 @@ public class GameWindow extends BasicWindow {
             // initialize the set of images
             this.imagesSet = this.picToPath.keySet();
             this.imagesSetSize = this.imagesSet.size();
+            this.progress.set(this.imagesSetSize - this.imagesSet.size());
+            this.imagesLeftLabel.bind(this.progress.asString());
+            this.progressLabel.textProperty().bind(Bindings.concat(this.imagesLeftLabel)
+                    .concat("/" + String.valueOf(this.imagesSetSize)));
             // set the first image
             switchImage();
             resetTimer();
