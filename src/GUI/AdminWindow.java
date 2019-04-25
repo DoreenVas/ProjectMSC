@@ -37,6 +37,8 @@ public class AdminWindow implements Initializable{
     private JFXButton bothPieChart;
     @FXML
     private JFXButton exit;
+    @FXML
+    private JFXButton back;
 
     private double window_height;
     private double window_width;
@@ -169,5 +171,28 @@ public class AdminWindow implements Initializable{
     protected void exit() {
         Stage stage = (Stage) this.exit.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    protected void back() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(MainWindow.language + "/MainWindow.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
+            Stage stage = (Stage) this.submit.getScene().getWindow();
+            // get the size of the screen
+            Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            this.window_height = window.height;
+            this.window_width = window.width;
+            // set the window size
+            Scene scene = new Scene(root, this.window_width, this.window_height);
+            stage.setTitle("Patient Data");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (Exception e) {
+            Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
+        }
     }
 }
