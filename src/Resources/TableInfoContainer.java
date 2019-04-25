@@ -1,5 +1,7 @@
 package Resources;
 
+import GUI.MainWindow;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -359,7 +361,7 @@ public class TableInfoContainer {
 
 
     public String getGameType() {
-        return gameType;
+        return gameTypeSwitchLanguage(gameType);
     }
 
     public String getTimeLimit() {
@@ -374,7 +376,9 @@ public class TableInfoContainer {
         return gameDate;
     }
 
-    public String getDominantHand() { return dominantHand; }
+    public String getDominantHand() {
+        return dominantHandSwitchLanguage(dominantHand);
+    }
 
     public String getArrow() {
         return arrow;
@@ -554,5 +558,53 @@ public class TableInfoContainer {
         ArrayList<String> values = new ArrayList<>();
         values.addAll(Arrays.asList(texturesColumns));
         return values;
+    }
+
+    private String gameTypeSwitchLanguage(String gameType) {
+        if (MainWindow.language.equals("Hebrew")) {
+            switch (gameType) {
+                case "Shapes":
+                    return "צורות";
+                case "Textures":
+                    return "מרקמים";
+                case "Both":
+                    return "משולב";
+                default:
+                    return gameType;
+            }
+        } else {
+            switch (gameType) {
+                case "צורות":
+                    return "Shapes";
+                case "מרקמים":
+                    return "Textures";
+                case "משולב":
+                    return "Both";
+                default:
+                    return gameType;
+            }
+        }
+    }
+
+    private String dominantHandSwitchLanguage(String dominantHand) {
+        if (MainWindow.language.equals("Hebrew")) {
+            switch (dominantHand) {
+                case "Yes":
+                    return "כן";
+                case "No":
+                    return "לא";
+                default:
+                    return dominantHand;
+            }
+        } else {
+            switch (dominantHand) {
+                case "כן":
+                    return "Yes";
+                case "לא":
+                    return "No";
+                default:
+                    return dominantHand;
+            }
+        }
     }
 }
