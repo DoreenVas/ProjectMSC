@@ -490,7 +490,7 @@ public class GameWindow extends BasicWindow {
     private void initializeKeysMap(String keysFilePath) {
         String row;
         String[] info;
-        InputStream keysFileStream = this.getClass().getResourceAsStream(keysFilePath);
+        InputStream keysFileStream = this.getClass().getClassLoader().getResourceAsStream(keysFilePath);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(keysFileStream));
             // read the info from the config file

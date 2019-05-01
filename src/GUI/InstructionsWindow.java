@@ -31,11 +31,9 @@ public class InstructionsWindow extends BasicWindow{
         StringBuilder stringBuilder = new StringBuilder();
         // Current working directory is ProjectMSC
         // the path to the instruction file
-//        String configFilePath = "src/Resources/instructionsFile";
-        URL configFilePath = this.getClass().getClassLoader().getResource("instructionsFile");
+        InputStream isntructionsFilePath = this.getClass().getClassLoader().getResourceAsStream("instructionsFile");
         try {
-//            BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(configFilePath.openStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(isntructionsFilePath));
             // read the info from the config file
             row = reader.readLine();
             while(row != null) {
