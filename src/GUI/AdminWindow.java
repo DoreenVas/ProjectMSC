@@ -10,15 +10,19 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
 
 import java.awt.*;
 import java.net.URL;
@@ -115,6 +119,7 @@ public class AdminWindow implements Initializable{
      */
     private void showPieChart(String gameType) {
         Stage secondStage = new Stage();
+        VBox vBox = new VBox();
         AnchorPane anchorPane = new AnchorPane();
         // create the bar chart
         PieChart pieChart = PieChartBuilder.createChart(gameType);
@@ -138,12 +143,27 @@ public class AdminWindow implements Initializable{
         }
         // add the chart and the label
         anchorPane.getChildren().addAll(pieChart, caption);
-        Scene scene = new Scene(anchorPane, 600, 600);
+        Scene scene = new Scene(vBox, 600, 600);
         // bind the bar chart to the size of the window
         pieChart.minWidthProperty().bind(anchorPane.widthProperty());
         pieChart.minHeightProperty().bind(anchorPane.heightProperty().subtract(20));
         anchorPane.minWidthProperty().bind(scene.widthProperty());
         anchorPane.minHeightProperty().bind(scene.heightProperty().subtract(20));
+        // add a description label to the window
+        Label description = new Label();
+        switch (MainWindow.language) {
+            case "Hebrew":
+                description.setText("לחץ על הגרף לקבלת אחוזים");
+                break;
+            case "English":
+                description.setText("Press on the chart to review percentages");
+                break;
+        }
+        description.setFont(Font.font(20));
+        // add the chart and the label to the scene
+        vBox.getChildren().addAll(anchorPane, description);
+        vBox.setAlignment(Pos.CENTER);
+        VBox.setMargin(description, new Insets(0, 10, 10, 10));
         // show the window
         secondStage.setScene(scene);
         secondStage.show();
