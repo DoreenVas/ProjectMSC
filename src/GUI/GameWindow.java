@@ -150,6 +150,7 @@ public class GameWindow extends BasicWindow {
         }
         initializeKeysMap(this.shapesToKeysFilePath);
         initializeKeysMap(this.texturesToKeysFilePath);
+
         this.resultsWindow = false;
         //bind the label to the time left
         this.timerLabel.textProperty().bind(this.timeLeft.asString("%.0f "));

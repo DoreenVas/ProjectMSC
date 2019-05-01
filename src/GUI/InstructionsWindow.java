@@ -31,9 +31,10 @@ public class InstructionsWindow extends BasicWindow{
         StringBuilder stringBuilder = new StringBuilder();
         // Current working directory is ProjectMSC
         // the path to the instruction file
-        InputStream isntructionsFilePath = this.getClass().getClassLoader().getResourceAsStream("instructionsFile");
+        InputStream instructionsFilePath = this.getClass().getClassLoader().getResourceAsStream("instructionsFile");
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(isntructionsFilePath));
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(instructionsFilePath));
             // read the info from the config file
             row = reader.readLine();
             while(row != null) {
