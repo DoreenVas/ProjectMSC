@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 class HoveredThresholdNode extends StackPane {
 
     HoveredThresholdNode(double value) {
-        setPrefSize(15, 15);
+        setPrefSize(7, 7);
 
         final Label label = createDataThresholdLabel(value);
 
