@@ -19,10 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -185,9 +182,9 @@ public class MainWindow implements Initializable{
         String[] info;
         // Current working directory is ProjectMSC
         // the path to the config file
-        String filePath = "src/Resources/admin_details";
+        URL filePath = this.getClass().getClassLoader().getResource("admin_details");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(filePath.openStream()));
             // read the info from the config file
             row = reader.readLine();
             while(row != null) {

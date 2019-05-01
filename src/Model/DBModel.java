@@ -1,8 +1,13 @@
 package Model;
 
+import GUI.Main;
 import Resources.*;
 
+import javax.annotation.Resources;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -13,10 +18,6 @@ public class DBModel implements Model {
     private Connection conn;
     private String host, port, user, password, schema;
     private Statement statement;
-
-
-    private String[] gameColumns = {"game_id", "game_type", "num_recognized_buttons", "game_date", "time_limit"};
-    private String[] patient_game = {"patient_id", "game_id"};
 
     /**
      * Constructor
@@ -64,13 +65,13 @@ public class DBModel implements Model {
      * Parse the information of the configuration file, to connect the DB
      */
     private void parseInfo() {
-        String row;
+        String row = null;
         String[] info;
         // Current working directory is ProjectMSC
         // the path to the config file
-        String configFilePath = "src/Model/config";
+        URL configFilePath = this.getClass().getClassLoader().getResource("config");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(configFilePath.openStream()));
             // read the info from the config file
             row = reader.readLine();
             while (row != null) {
@@ -97,7 +98,7 @@ public class DBModel implements Model {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Could not open config file reader\n");
+            System.out.println("Could not open config file reader - file not found\n");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Could not read from config file\n");

@@ -23,14 +23,10 @@ import javafx.scene.control.TableView;
 import java.awt.*;
 import javafx.scene.control.Label;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -526,18 +522,34 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 String tableInfo = getTableInfoForExcel();
                 String shapesInfo = getLineChartInfo(this.shapesSeries);
                 String texturesInfo = getLineChartInfo(this.texturesSeries);
+
                 // run the script
-                Process p = Runtime.getRuntime().exec(new String[]{"python", "src/Model/ExcelWriter.py", file.getAbsolutePath(), tableInfo, shapesInfo, texturesInfo});
+                // get the path to the script
+                URL excelWriterPath = this.getClass().getResource("/Model/ExcelWriter.py");
+                // read the script
+                byte[] buffer = new byte[excelWriterPath.openStream().available()];
+                excelWriterPath.openStream().read(buffer);
+                // copy the python script to the dektop
+                String tempFilePath = javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory() + "/ExcelWriter.py";
+                File tempFile = new File(tempFilePath);
+                OutputStream outStream = new FileOutputStream(tempFile);
+                outStream.write(buffer);
+                outStream.close();
+                // run the script from the desktop
+                Process p = Runtime.getRuntime().exec(new String[]{"python", tempFile.getPath(), file.getAbsolutePath(), tableInfo, shapesInfo, texturesInfo});
                 // get a return output from the program
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line = reader.readLine();
                 // check if open failed
+                System.out.println(line);
                 if (line != null && line.equals("file not saved")) {
                     Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
                 } else {
                     System.out.println(line);
                 }
                 reader.close();
+                // delete the script
+                tempFile.delete();
             } catch (IOException e) {
                 e.printStackTrace();
             }

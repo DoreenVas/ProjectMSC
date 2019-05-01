@@ -48,7 +48,7 @@
                 </HBox>
                 <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../pic/misc/MSC.PNG" />
+                        <Image url="pic/misc/MSC.PNG" />
                     </image>
                 </ImageView>
                 <VBox alignment="CENTER">

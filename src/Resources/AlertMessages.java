@@ -1,5 +1,7 @@
 package Resources;
 
+import GUI.MainWindow;
+
 /**
  * Holds all of the alert messages the application can display.
  */
@@ -86,6 +88,13 @@ public class AlertMessages {
     }
 
     public static String errorFileUsedByAnotherProcess() {
-        return "הקובץ בשימוש על ידי תהליך אחר. אנא סגור אותו קודם ונסה שנית";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                return "הקובץ בשימוש על ידי תהליך אחר. אנא סגור אותו קודם ונסה שנית.";
+            case "English":
+                return "The file is used by another process. Please close the file and try again.";
+            default:
+                return "";
+        }
     }
 }

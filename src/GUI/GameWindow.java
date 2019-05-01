@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,13 +26,32 @@ import javafx.stage.Stage;
 import sun.awt.Mutex;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
+import java.security.CodeSource;
+import java.util.*;
+import java.util.stream.*;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.*;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import Model.GameQueries;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class GameWindow extends BasicWindow {
     // members
@@ -73,17 +93,16 @@ public class GameWindow extends BasicWindow {
     private HashMap<String, Double> texturesReactionTimes = new HashMap<>();
 
     // files and paths
-    private String picturesDirPath= "src/GUI/pic";
-    private String shapesDirPath = "src/GUI/pic/shapes";
-    private String texturesDirPath = "src/GUI/pic/textures";
-    private String shapesToKeysFilePath = "src/Resources/shapesToKeys";
-    private String texturesToKeysFilePath = "src/Resources/texturesToKeys";
-    private String tickImagePath = "src/GUI/pic/misc/Tick.png";
-    private String redXImagePath = "src/GUI/pic/misc/Red_X.png";
-    private String applauseImagePath = "src/GUI/pic/misc/Clapping_Hands2.jpg";
-    private String wrongSound = "src/GUI/sounds/misc/Wrong_Answer_Sound_Effect.wav";
-    private String correctSound = "src/GUI/sounds/misc/Correct_Answer_Sound_Effect.mp3";
-    private String applauseSound = "src/GUI/sounds/misc/Applause.mp3";
+    private String shapesDirPath = "pic/shapes";
+    private String texturesDirPath = "pic/textures";
+    private String shapesToKeysFilePath = "shapesToKeys";
+    private String texturesToKeysFilePath = "texturesToKeys";
+    private String tickImagePath = "/pic/misc/Tick.png";
+    private String redXImagePath = "/pic/misc/Red_X.png";
+    private String applauseImagePath = "/pic/misc/Clapping_Hands2.jpg";
+    private String wrongSound = "sounds/Wrong_Answer_Sound_Effect.wav";
+    private String correctSound = "sounds/Correct_Answer_Sound_Effect.mp3";
+    private String applauseSound = "sounds/Applause.mp3";
 
     private String currentImage = "";
     private Set imagesSet;
@@ -116,16 +135,21 @@ public class GameWindow extends BasicWindow {
         switch(gameType){
             case("Shapes"):
                 path = shapesDirPath;
+                readImagesFromDir(path);
                 break;
             case("Textures"):
                 path = texturesDirPath;
+                readImagesFromDir(path);
                 break;
             default:
-                path = picturesDirPath;
+                path = shapesDirPath;
+                readImagesFromDir(path);
+                path = texturesDirPath;
+                readImagesFromDir(path);
+                break;
         }
-        this.readImagesFromDir(path);
-        this.initializeKeysMap(this.shapesToKeysFilePath);
-        this.initializeKeysMap(this.texturesToKeysFilePath);
+        initializeKeysMap(this.shapesToKeysFilePath);
+        initializeKeysMap(this.texturesToKeysFilePath);
         this.resultsWindow = false;
         //bind the label to the time left
         this.timerLabel.textProperty().bind(this.timeLeft.asString("%.0f "));
@@ -240,11 +264,16 @@ public class GameWindow extends BasicWindow {
      */
     private void pauseTimer(String indicationImagePath, String soundEffectPath) {
         this.timer.stop();
-        Image img;
+        Image img = null;
         // set the indication image
-        img = new Image(new File(indicationImagePath).toURI().toString());
+        URL mapUrl = this.getClass().getResource(indicationImagePath);
+        try {
+            img = SwingFXUtils.toFXImage(ImageIO.read(mapUrl), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.indicationImage.setImage(img);
-        Media sound = new Media(new File(soundEffectPath).toURI().toString());
+        Media sound = new Media(this.getClass().getClassLoader().getSystemResource(soundEffectPath).toExternalForm());
         this.mediaPlayer = new MediaPlayer(sound);
         try {
             if (this.mediaPlayer != null) {
@@ -343,7 +372,13 @@ public class GameWindow extends BasicWindow {
         }
         if (pic != null) {
             // change to the next image
-            img = new Image(new File(this.picToPath.get(pic)).toURI().toString());
+            BufferedImage buff = null;
+            try {
+                buff = ImageIO.read(getClass().getResourceAsStream(this.picToPath.get(pic)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            img = SwingFXUtils.toFXImage(buff, null);
             this.image.setImage(img);
             this.currentImage = pic;
             // remove the image from the set
@@ -419,25 +454,32 @@ public class GameWindow extends BasicWindow {
      * @param picsFilePath the path to the pictures directory
      */
     private void readImagesFromDir(String picsFilePath) {
-        // open the pics folder
-        File folder = new File(picsFilePath);
-        // get all the files in the directory
-        File[] listOfFiles = folder.listFiles();
-        // go over the files
-        if(listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (!file.getName().equals("misc")) {
-                    if (file.isFile()) { // if it is a file, we add it to the map as: key = name of file, value = path to the file
-                        if (!this.picToPath.containsKey(file.getName())) {
-                            this.picToPath.put(file.getName().toLowerCase(), file.getAbsolutePath());
+        String fileName;
+        try {
+            CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+            URL jar = src.getLocation();
+            ZipInputStream zip = new ZipInputStream(jar.openStream());
+                while(true) {
+                    ZipEntry entry = zip.getNextEntry();
+                    if (entry == null) {
+                        break;
+                    }
+                    String name = entry.getName();
+                    if (name.endsWith(".png"))
+                    if (name.startsWith(picsFilePath) && name.endsWith("png")) { //filter according to the path
+                        fileName = name.split("/")[name.split("/").length - 1];
+                        if (fileName != null) {
+                            if (!fileName.equals("misc")) {
+                                // if it is a file, we add it to the map as: key = name of file, value = path to the file
+                                if (!this.picToPath.containsKey(fileName)) {
+                                    this.picToPath.put(fileName.toLowerCase(), "/" + entry.getName());
+                                }
+                            }
                         }
-                    } else { // if it is a directory we will go over the file inside of it
-                        readImagesFromDir(file.getAbsolutePath());
                     }
                 }
-            }
-        } else {
-            System.out.println("No More Files!");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -448,8 +490,9 @@ public class GameWindow extends BasicWindow {
     private void initializeKeysMap(String keysFilePath) {
         String row;
         String[] info;
+        InputStream keysFileStream = this.getClass().getResourceAsStream(keysFilePath);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(keysFilePath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(keysFileStream));
             // read the info from the config file
             row = reader.readLine();
             while (row != null) {
@@ -459,6 +502,7 @@ public class GameWindow extends BasicWindow {
                 row = reader.readLine();
             }
             reader.close();
+            keysFileStream.close();
         } catch (FileNotFoundException e) {
             System.out.println("Could not open keys file reader\n");
             e.printStackTrace();

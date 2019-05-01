@@ -3,10 +3,8 @@ package GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,9 +31,11 @@ public class InstructionsWindow extends BasicWindow{
         StringBuilder stringBuilder = new StringBuilder();
         // Current working directory is ProjectMSC
         // the path to the instruction file
-        String configFilePath = "src/Resources/instructionsFile";
+//        String configFilePath = "src/Resources/instructionsFile";
+        URL configFilePath = this.getClass().getClassLoader().getResource("instructionsFile");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
+//            BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(configFilePath.openStream()));
             // read the info from the config file
             row = reader.readLine();
             while(row != null) {
