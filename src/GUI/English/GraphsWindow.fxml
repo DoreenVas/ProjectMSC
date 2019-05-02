@@ -16,9 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.GraphsWindow">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.GraphsWindow">
     <children>
-        <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
                     <children>
@@ -26,31 +28,32 @@
                             <children>
                                 <Label text="Hello:">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                     </HBox.margin>
                                     <font>
-                                        <Font size="16.0" />
+                                        <Font size="16.0"/>
                                     </font>
                                 </Label>
                                 <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                     </HBox.margin>
                                     <font>
-                                        <Font size="16.0" />
+                                        <Font size="16.0"/>
                                     </font>
                                 </Label>
                             </children>
                         </HBox>
                         <Hyperlink fx:id="logoutLabel" onAction="#logout" text="Disconnect" underline="true">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="16.0"/>
                             </font>
                         </Hyperlink>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back" ripplerFill="#d3d3d3" text="Return" GridPane.columnIndex="2">
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back"
+                                   ripplerFill="#d3d3d3" text="Return" GridPane.columnIndex="2">
                             <font>
-                                <Font size="17.0" />
+                                <Font size="17.0"/>
                             </font>
                         </JFXButton>
                     </children>
@@ -61,89 +64,94 @@
                             <content>
                                 <AnchorPane nodeOrientation="LEFT_TO_RIGHT">
                                     <children>
-                                        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                              AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <Label fx:id="infoPatientName">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="Patient name:" underline="true">
                                                             <font>
-                                                                <Font size="16.0" />
+                                                                <Font size="16.0"/>
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0" />
+                                                        <Font size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientDateOfBirth">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="Date of Birth:" underline="true">
                                                             <font>
-                                                                <Font size="16.0" />
+                                                                <Font size="16.0"/>
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0" />
+                                                        <Font size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientGender">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="Gender:" underline="true">
                                                             <font>
-                                                                <Font size="16.0" />
+                                                                <Font size="16.0"/>
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0" />
+                                                        <Font size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientDominantHand">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="Dominant hand:" underline="true">
                                                             <font>
-                                                                <Font size="16.0" />
+                                                                <Font size="16.0"/>
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0" />
+                                                        <Font size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <Label fx:id="patientGamesPlayed">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                                     </VBox.margin>
                                                     <graphic>
                                                         <Label text="Games played so far:" underline="true">
                                                             <font>
-                                                                <Font size="16.0" />
+                                                                <Font size="16.0"/>
                                                             </font>
                                                         </Label>
                                                     </graphic>
                                                     <font>
-                                                        <Font size="16.0" />
+                                                        <Font size="16.0"/>
                                                     </font>
                                                 </Label>
-                                                <JFXButton fx:id="save" buttonType="RAISED" mnemonicParsing="false" onAction="#savePatientInfo" style="-fx-background-color: #CDCDCD;" text="Export data to excel">
+                                                <JFXButton fx:id="save" buttonType="RAISED" mnemonicParsing="false"
+                                                           onAction="#savePatientInfo"
+                                                           style="-fx-background-color: #CDCDCD;"
+                                                           text="Export data to excel">
                                                     <VBox.margin>
-                                                        <Insets top="10.0" />
+                                                        <Insets top="10.0"/>
                                                     </VBox.margin>
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="18.0"/>
                                                     </font>
                                                 </JFXButton>
                                             </children>
@@ -156,7 +164,21 @@
                             <content>
                                 <AnchorPane>
                                     <children>
-                                        <TableView fx:id="resultsTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                              AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <TableView fx:id="resultsTable"/>
+                                                <Label text="Double Click on a row to review bar chart">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -165,22 +187,29 @@
                             <content>
                                 <AnchorPane>
                                     <children>
-                                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                              AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <LineChart fx:id="shapesLineChart" nodeOrientation="LEFT_TO_RIGHT" title="Reaction Time - Shapes">
+                                                <LineChart fx:id="shapesLineChart" nodeOrientation="LEFT_TO_RIGHT"
+                                                           title="Reaction Time - Shapes">
                                                     <xAxis>
-                                                        <NumberAxis fx:id="shapes_game_id" label="Games" side="BOTTOM" />
+                                                        <NumberAxis fx:id="shapes_game_id" label="Games" side="BOTTOM"/>
                                                     </xAxis>
                                                     <yAxis>
-                                                        <NumberAxis fx:id="shapes_avgReactionTime" label="Reaction time" side="LEFT" />
+                                                        <NumberAxis fx:id="shapes_avgReactionTime" label="Reaction time"
+                                                                    side="LEFT"/>
                                                     </yAxis>
                                                 </LineChart>
-                                                <LineChart fx:id="texturesLineChart" nodeOrientation="LEFT_TO_RIGHT" title="Reaction Time - Textures">
+                                                <LineChart fx:id="texturesLineChart" nodeOrientation="LEFT_TO_RIGHT"
+                                                           title="Reaction Time - Textures">
                                                     <xAxis>
-                                                        <NumberAxis fx:id="textures_game_id" label="Games" side="BOTTOM" />
+                                                        <NumberAxis fx:id="textures_game_id" label="Games"
+                                                                    side="BOTTOM"/>
                                                     </xAxis>
                                                     <yAxis>
-                                                        <NumberAxis fx:id="textures_avgReactionTime" label="Reaction time" side="LEFT" />
+                                                        <NumberAxis fx:id="textures_avgReactionTime"
+                                                                    label="Reaction time" side="LEFT"/>
                                                     </yAxis>
                                                 </LineChart>
                                             </children>
