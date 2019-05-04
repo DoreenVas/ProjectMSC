@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InstructionsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -58,7 +58,10 @@
                                 <Font size="36.0" />
                             </font>
                         </Label>
-                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="LEFT_TO_RIGHT" />
+                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="340.0" prefWidth="638.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextArea>
                     </children>
                 </VBox>
             </children>

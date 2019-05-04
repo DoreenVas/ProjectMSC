@@ -6,15 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.Region?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.InstructionsWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InstructionsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -45,7 +43,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Hyperlink>
-                        <Region HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS" />
                         <JFXButton fx:id="back" buttonType="RAISED" onAction="#mainWindow" text="חזרה" GridPane.columnIndex="2">
                             <font>
                                 <Font size="17.0" />
@@ -60,7 +58,10 @@
                                 <Font size="36.0" />
                             </font>
                         </Label>
-                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="RIGHT_TO_LEFT" />
+                        <TextArea fx:id="instructionsText" editable="false" nodeOrientation="RIGHT_TO_LEFT" text="ברגע שתמלא\י את ההגדרות המשחק יתחיל.&#10;נא לוודא כי השפה של המקלדת מוגדרת להיות אנגלית על מנת שהמשחק יעבוד באופן תקין.&#10;להלן תהליך המשחק:&#10;&#10;1.התבונן בצורה המוצגת על המסך.&#10;2.אופן המעבר על המקלדת הוא משמאל לימין מהשורה העליונה לשורה התחתונה.&#10;3.יש לזהות צורות\מרקמים מבלי להסתכל על המקלדת.&#10;4.ניתן למשש בכל אצבע.&#10;5.נסה\נסי לענות מהר ככל האפשר.&#10;6.ברגע שזיהית את הצורה\מרקם המתאים לחץ על המקש.&#10;7.במקרה של טעות ניתן לנסות שנית בזמן הנותר.&#10;8.המתן להופעת התמונה הבאה.&#10;9.זהה את התמונה באותו אופן." wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextArea>
                     </children>
                 </VBox>
             </children>

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#handle" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.SettingsWindow">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#handle" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SettingsWindow">
     <children>
         <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -176,6 +176,7 @@
                                 </GridPane>
                             </children>
                         </VBox>
+                  <Label text="*Please make sure your keyboard is set to english mode." />
                     </children>
                 </VBox>
                 <HBox alignment="CENTER">

@@ -18,8 +18,10 @@ public class InstructionsWindow extends BasicWindow{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String fileContent = parseInstructions();
-        this.instructionsText.setText(fileContent);
+        if(MainWindow.language.equals("English")){
+            String fileContent = parseInstructions();
+            this.instructionsText.setText(fileContent);
+        }
         super.initialize(location, resources);
     }
 
@@ -31,13 +33,23 @@ public class InstructionsWindow extends BasicWindow{
         StringBuilder stringBuilder = new StringBuilder();
         // Current working directory is ProjectMSC
         // the path to the instruction file
-        InputStream instructionsFilePath = this.getClass().getClassLoader().getResourceAsStream("instructionsFile");
+        String filePath = "";
+        switch (MainWindow.language) {
+            case "Hebrew":
+                filePath = "instructionsFileHeb";
+                break;
+            case "English":
+                filePath = "instructionsFileEng";
+                break;
+        }
+        InputStream instructionsFilePath = this.getClass().getClassLoader().getResourceAsStream(filePath);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(instructionsFilePath));
             // read the info from the config file
             row = reader.readLine();
             while(row != null) {
                 stringBuilder.append(row);
+                stringBuilder.append("\n");
                 row = reader.readLine();
             }
             reader.close();
