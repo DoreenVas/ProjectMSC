@@ -541,11 +541,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line = reader.readLine();
                 // check if open failed
-                System.out.println(line);
                 if (line != null && line.equals("file not saved")) {
                     Alerter.showAlert(AlertMessages.errorFileUsedByAnotherProcess(), Alert.AlertType.WARNING);
-                } else {
-                    System.out.println(line);
                 }
                 reader.close();
                 // delete the script

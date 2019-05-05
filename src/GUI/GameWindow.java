@@ -231,7 +231,6 @@ public class GameWindow extends BasicWindow {
             this.mutex.lock();
             // if locker is locked, we already have a key press in handle
             if (locker) {
-                System.out.println("Discarded");
                 this.mutex.unlock();
             } else {
                 locker = true;
@@ -241,7 +240,6 @@ public class GameWindow extends BasicWindow {
                 if (event.getText().matches("[a-zA-Z';./,]")) {
                     // check if the key that was pressed is the correct key for the image
                     if (event.getText().equals(this.picToKey.get(this.currentImage))) {
-                        System.out.println("Correct Key!");
                         this.numberOfRecognizedImages++;
                         // set timer initialized to false (for the next image)
                         this.timerInitialized = false;
@@ -249,7 +247,6 @@ public class GameWindow extends BasicWindow {
                         // pause the timer and show proper indication image
                         pauseTimer(this.tickImagePath, this.correctSound);
                     } else { // the key that was pressed is the wrong key
-                        System.out.println("Wrong Key...try again");
                         // pause the timer and show proper indication image
                         pauseTimer(this.redXImagePath, this.wrongSound);
                     }
@@ -505,10 +502,8 @@ public class GameWindow extends BasicWindow {
             reader.close();
             keysFileStream.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Could not open keys file reader\n");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Could not read from keys file\n");
             e.printStackTrace();
         }
     }
