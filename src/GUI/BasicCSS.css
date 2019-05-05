@@ -1,3 +1,22 @@
 .combo-box-popup .list-view {
     -fx-font-size : 10pt;
 }
+
+.button {
+  /*-fx-background-color: #008CBA; */
+  /*-fx-border-color: black;*/
+  -fx-color: white;
+  /*-fx-padding: 15px 32px;*/
+  -fx-text-align: center;
+  -fx-text-decoration: none;
+  -fx-display: inline-block;
+  -fx-font-size: 16px;
+  -fx-border-radius: 4px;
+  -fx-webkit-transition-duration: 0.4s; /* Safari */
+  -fx-transition-duration: 0.4s;
+}
+
+.button:hover {
+  -fx-background-color: darkgray;
+  -fx-color: white;
+}

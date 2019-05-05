@@ -23,6 +23,7 @@ public class Main extends Application {
         primaryStage.setTitle("MSC");
         setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);
+        main_window.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
         primaryStage.setScene(main_window);
         primaryStage.setResizable(false);
         primaryStage.setMaximized(true);

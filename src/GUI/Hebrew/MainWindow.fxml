@@ -27,14 +27,14 @@
                   </JFXToggleButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" style="-fx-background-color: steelblue; -fx-border-color: black;">
+            <HBox alignment="CENTER" style="-fx-background-color: #00A2D3; -fx-border-color: gray;">
                <children>
-                  <Label alignment="CENTER" text="ברוכים הבאים" textAlignment="CENTER">
+                  <Label alignment="CENTER" text="ברוכים הבאים" textAlignment="CENTER" textFill="WHITE">
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="36.0" />
+                        <Font size="36.0" />
                      </font>
                   </Label>
                </children>
