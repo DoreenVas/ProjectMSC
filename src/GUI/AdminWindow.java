@@ -1,6 +1,6 @@
 package GUI;
 
-import Controller.PieChartBuilder;
+import Resources.PieChartBuilder;
 import Model.Connection;
 import Resources.AlertMessages;
 import Resources.Alerter;
@@ -28,6 +28,11 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/******
+ * Admin window class.
+ * Responsible over the admin log in and operations,
+ * such as viewing patients results and charts.
+ */
 public class AdminWindow implements Initializable{
     @FXML
     private JFXButton submit;
@@ -57,6 +62,10 @@ public class AdminWindow implements Initializable{
         });
     }
 
+    /******
+     * In order to search for a certain patient the admin must ype a correct ID of a patient
+     * (i.e 9 digits). After verifying the ID, the personal zone of the patient will be shown.
+     */
     @FXML
     protected void submit() {
         try {
@@ -115,7 +124,7 @@ public class AdminWindow implements Initializable{
     /*****
      * the function shows a pie chart of errors, according to the game type.
      * the game type is chosen by clicking different buttons
-     * @param gameType the game type
+     * @param gameType the game type (Shapes/ Textures/ Both).
      */
     private void showPieChart(String gameType) {
         Stage secondStage = new Stage();
@@ -169,6 +178,10 @@ public class AdminWindow implements Initializable{
         secondStage.show();
     }
 
+    /*******
+     * By clicking each of the buttons in the window, we show a matching pie chart (according to the
+     * game type), that represent the success/failure rate of all the patients.
+     */
     @FXML
     private void shapesPieChart() {
         showPieChart("Shapes");
@@ -193,6 +206,9 @@ public class AdminWindow implements Initializable{
         stage.close();
     }
 
+    /********
+     * Clicking this button will log out from the admin window and return to the main window.
+     */
     @FXML
     protected void back() {
         try {

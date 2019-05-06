@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.time.LocalDate;
 
+/******
+ * In this window a new user can enter his/her details and submit into the system.
+ * All information will be saved in the DB for further sign up.
+ */
 public class SignUpWindow extends BasicWindow{
 
     @FXML
@@ -40,6 +44,16 @@ public class SignUpWindow extends BasicWindow{
     private double window_height;
     private double window_width;
 
+    /*******
+     * By clicking the submit button a verification check of all fields
+     * will be preformed.
+     *
+     * In case one of the fields is incorrect, an error will raise
+     * and the information will not be sent.
+     *
+     * If all fields are correct, the information will be saved into the DB and
+     * user will log in.
+     */
     @FXML
     protected void submit() {
         try {
@@ -107,6 +121,7 @@ public class SignUpWindow extends BasicWindow{
                         dominant_hand = "L";
                         break;
                 }
+                // inserting the new patient to the DB.
                 Connection conn = Connection.getInstance();
                 conn.insertPatientQuery(PatientContainer.getInstance().setPatientAge(date.toString())
                         .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name));
@@ -117,6 +132,9 @@ public class SignUpWindow extends BasicWindow{
         }
     }
 
+    /*****
+     * By clicking the return button - we go back to the main window.
+     */
     @FXML
     protected void mainWindow() {
         try {

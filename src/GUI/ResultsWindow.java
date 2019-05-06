@@ -14,6 +14,11 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.util.HashMap;
 
+/******
+ * Results window class.
+ * Shows the results of the last game - avg reaction time and
+ * number of recognized images.
+ */
 public class ResultsWindow extends BasicWindow{
     // members
     @FXML
@@ -30,6 +35,13 @@ public class ResultsWindow extends BasicWindow{
     private double window_height;
     private double window_width;
 
+    /******
+     * the function initializes the average time label of the game
+     * and the num of recognized images label
+     * @param shapesTimes map of reaction times to shapes images
+     * @param texturesTimes map of reaction times to textures images
+     * @param numOfImages number of recognized images
+     */
     public void initialize(HashMap<String, Double> shapesTimes, HashMap<String, Double> texturesTimes, int numOfImages) {
         super.initialize(null, null);
         double avgTime = calculateAvgReactionTime(shapesTimes, texturesTimes);
@@ -42,22 +54,25 @@ public class ResultsWindow extends BasicWindow{
      * the function get maps of all the images to reactions times in a specific game,
      * and calculates the average reaction time of that game
      * @param shapesTimes reaction times for shapes images
-     * @param textuesTimes reaction times for texture images
-     * @return the average time
+     * @param texturesTimes reaction times for texture images
+     * @return the average time of a specific game
      */
-    private double calculateAvgReactionTime(HashMap<String, Double> shapesTimes, HashMap<String, Double> textuesTimes) {
-        int size = shapesTimes.size() + textuesTimes.size();
+    private double calculateAvgReactionTime(HashMap<String, Double> shapesTimes, HashMap<String, Double> texturesTimes) {
+        int size = shapesTimes.size() + texturesTimes.size();
         double avg = 0;
         for (Double d : shapesTimes.values()) {
             avg += d;
         }
-        for (Double d : textuesTimes.values()) {
+        for (Double d : texturesTimes.values()) {
             avg += d;
         }
         avg = avg / size;
         return avg;
     }
 
+    /******
+     * clicking on the personal zone button will direct the patient to his/her personal zone.
+     */
     @FXML
     protected void personal_Zone() {
         try {

@@ -10,6 +10,10 @@ import javafx.scene.paint.Color;
 /** a node which displays a value on hover*/
 class HoveredThresholdNode extends StackPane {
 
+    /*****
+     * Constructor
+     * @param value the value we wish to display in the label.
+     */
     HoveredThresholdNode(double value) {
         setPrefSize(7, 7);
 

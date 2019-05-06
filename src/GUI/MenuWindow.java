@@ -15,6 +15,16 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/********
+ * Menu window class.
+ * Contains the menu of the application, allowing
+ * the patient to choose the next operation
+ * they want to do:
+ * - start a new game.
+ * - view the instructions.
+ * - view the personal zone.
+ * - exit the application.
+ */
 public class MenuWindow extends BasicWindow implements Initializable{
     @FXML
     private Button start;
@@ -66,6 +76,10 @@ public class MenuWindow extends BasicWindow implements Initializable{
         });
     }
 
+    /******
+     * clicking on the instructions button will direct the patient to
+     * the instructions window.
+     */
     @FXML
     protected void instructions() {
         try {
@@ -87,7 +101,10 @@ public class MenuWindow extends BasicWindow implements Initializable{
         }
     }
 
-
+    /******
+     * clicking on the start game button will direct the patient to
+     * the settings window, he/she could determine the settings of the next game.
+     */
     @FXML
     protected void start() {
         try {
@@ -110,6 +127,10 @@ public class MenuWindow extends BasicWindow implements Initializable{
         }
     }
 
+    /******
+     * clicking on the results button will direct the patient to
+     * the personal zone window.
+     */
     @FXML
     protected void results() {
         try {

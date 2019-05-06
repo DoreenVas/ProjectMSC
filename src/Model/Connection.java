@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  * In charge of holding the connections to the controller.
  */
@@ -101,6 +100,11 @@ public class Connection {
         return this.gameController.getGamesNumber(command);
     }
 
+    /*****
+     * returns all the IDs of the patients.
+     * @return an array with all the IDs of the patients.
+     * @throws SQLException
+     */
     public String[] getAllPatientsIDs() throws SQLException {
        return this.patientController.getAllPatientsIDs();
     }

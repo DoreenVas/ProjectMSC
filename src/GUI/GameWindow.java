@@ -53,6 +53,17 @@ import Model.GameQueries;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/********
+ * the window of the game.
+ * each round we show an image - the patient must identify the corresponding button
+ * and press it.
+ * in case of success - we move to the next image, and in case of failure
+ * we stay with the same image until the timer is off.
+ *
+ * Proper indication sounds and images are shown according to the key pressed.
+ *
+ * After all images are shown, we move to the results window.
+ */
 public class GameWindow extends BasicWindow {
     // members
     @FXML
@@ -117,6 +128,15 @@ public class GameWindow extends BasicWindow {
     private int imagesSetSize;
     private MediaPlayer mediaPlayer;
 
+    /*******
+     * the function initializes the components of the game:
+     * the timer, the images to keys maps,
+     * the images list and the progress label.
+     * @param c_gameType the current game type.
+     * @param c_timeLimit the time limit of the current game.
+     * @param c_keyboard the keyboard type of the current game.
+     * @param c_dominantHand indicates if the patient uses his/her dominant hand in the game.
+     */
     public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
         this.wellDoneLabel.setFont(Font.font(0));
 
@@ -411,6 +431,10 @@ public class GameWindow extends BasicWindow {
         this.image.setVisible(true);
     }
 
+    /******
+     * After the game ends, we will insert all the game information into the DB,
+     * and show a window with avg reaction time and number of recognized images in the last game.
+     */
     private void showResultsWindow() {
         try {
             Connection conn = Connection.getInstance();

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /***
- * A class for artist controller
+ * A class for game controller
  */
 public class GameController extends ControllerAbstract {
 
