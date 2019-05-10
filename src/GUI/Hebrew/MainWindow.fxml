@@ -3,9 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,32 +17,16 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainWindow">
    <children>
-      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox>
-               <children>
-                  <JFXToggleButton fx:id="change_lng" onAction="#change_lng" prefHeight="62.0" prefWidth="206.0" text="Switch To English">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXToggleButton>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" style="-fx-background-color: #00A2D3; -fx-border-color: gray;">
-               <children>
-                  <Label alignment="CENTER" text="ברוכים הבאים" textAlignment="CENTER" textFill="WHITE">
-                     <padding>
-                        <Insets bottom="20.0" top="20.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="36.0" />
-                     </font>
-                  </Label>
-               </children>
+            <ImageView fitHeight="250.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="pic/misc/bunner.png" />
+               </image>
                <VBox.margin>
-                  <Insets bottom="60.0" top="100.0" />
+                  <Insets bottom="50.0" top="30.0" />
                </VBox.margin>
-            </HBox>
+            </ImageView>
             <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -145,5 +130,17 @@
              </JFXButton>
          </children>
       </VBox>
+      <HBox>
+         <children>
+            <ImageView fx:id="image" fitHeight="34.0" fitWidth="38.0" onMouseClicked="#change_lng" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="15.0" top="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="pic/misc/usa.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

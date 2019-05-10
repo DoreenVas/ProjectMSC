@@ -8,20 +8,23 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.image.Image;
 
 /*****
  * Main window class.
@@ -46,7 +49,7 @@ public class MainWindow implements Initializable{
     @FXML
     private Button exit;
     @FXML
-    private JFXToggleButton change_lng;
+    private ImageView image;
 
     private String user, password;
     private double window_height;
@@ -55,6 +58,7 @@ public class MainWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         // allow enter press on submit button
         this.id.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
@@ -236,12 +240,12 @@ public class MainWindow implements Initializable{
      */
     @FXML
     protected void change_lng() {
-        if(change_lng.isSelected()== true)
+        if(language.equals("Hebrew"))
             language = "English";
         else
             language = "Hebrew";
         try{
-            Stage stage = (Stage) this.change_lng.getScene().getWindow();
+            Stage stage = (Stage) this.image.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource(language+"/MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen
