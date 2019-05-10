@@ -22,6 +22,11 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/******
+ * Basic window class.
+ * Contains the top row of user info (user name, return and log out).
+ * implements the functions of back, exit and log out for all windows
+ */
 public class BasicWindow implements Initializable{
     @FXML
     private Button exit = new Button();
@@ -84,6 +89,10 @@ public class BasicWindow implements Initializable{
         }
     }
 
+    /******
+     * Goes to the menu window.
+     * @param button the clicked button
+     */
     @FXML
     protected void menuWindow(Button button) {
         try {

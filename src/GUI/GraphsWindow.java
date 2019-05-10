@@ -30,6 +30,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/******
+ * Graphs window class.
+ * This window is the personal zone of the user.
+ * In this window we view the details of the patient and all the reaction time
+ * for each game that was played by the patient.
+ * We also view a line chart of avg reaction time of all games of the patient.
+ */
 public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
@@ -74,6 +81,10 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
             , "dollar", "net", "note", "arcs", "monitor", "sad_smiley", "strudel", "four_bubbles", "spiral", "squares"};
 
+    /***
+     * saving the name of the previous window (menu or admin).
+     * @param prevScene the name of the previous window.
+     */
     public void setPreviousScene(String prevScene){
         this.previousScene = prevScene;
     }
@@ -129,6 +140,10 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.textures_avgReactionTime.setTickUnit(10);
     }
 
+    /******
+     * The function initializes the information of the patient to display on the
+     * first tab of the graphs window.
+     */
     private void initializePatientInfo() {
         // initialize patient info
         PatientContainer p = PatientContainer.getInstance();
@@ -151,6 +166,13 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     }
 
+    /******
+     * The function loads all the games of the current patient and store them in
+     * series to add the results table.
+     *
+     * @return The function returns the number of values in the biggest category of
+     * both the shapes and the textures series (an array of int).
+     */
     private int[] loadChartData() {
         HashMap<String, Integer> shapesReactionTimesCounter = new HashMap<>();
         HashMap<String, Integer> texturesReactionTimesCounter = new HashMap<>();
@@ -198,11 +220,21 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return i;
     }
 
+    /********
+     *
+     * @param g the container of the current game.
+     * @param timesCounterMap a map that counts the number of values in each category (the categories are
+     *                        the time limits [30/45/60 sec]. We count how many games where played on each
+     *                        time limit).
+     * @param gType the game type.
+     * @return a map of each category and number of games that where played on each category.
+     */
     private HashMap<String, Integer> insertToSeries(GameContainer g,
                                                    HashMap<String, Integer> timesCounterMap, String gType) {
         String timeLimit = String.valueOf(g.getTimeLimit());
         double avg;
         String sec = "";
+        // set the seconds word according to the app language
         switch (MainWindow.language) {
             case "Hebrew":
                 sec = " שניות";
@@ -212,38 +244,48 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 break;
         }
 
+        // check the type of game
         switch (gType) {
             case "Shapes":
+                // check if the category is already in the map
                 if (!timesCounterMap.containsKey(timeLimit)) {
+                    // add a new serie, and count it
                     timesCounterMap.put(timeLimit, 1);
                     this.shapesSeries.put(timeLimit, new XYChart.Series());
+                    // set the category title
                     this.shapesSeries.get(timeLimit).setName(g.getTimeLimit() + sec);
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getShapesReactionTime());
                 XYChart.Data<Integer, Double> dataShapes = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
+                // add hover node
                 dataShapes.setNode(new HoveredThresholdNode((double)Math.round(avg * 100) / 100));
                 this.shapesSeries.get(timeLimit).getData().add(dataShapes);
                 break;
             case "Textures":
+                // check if the category is already in the map
                 if (!timesCounterMap.containsKey(timeLimit)) {
+                    // add a new serie, and count it
                     timesCounterMap.put(timeLimit, 1);
                     this.texturesSeries.put(timeLimit, new XYChart.Series());
+                    // set the category title
                     this.texturesSeries.get(timeLimit).setName(g.getTimeLimit() +sec);
                 }
                 avg = calculateAvgReactionTimeForGraph(g.getTexturesReactionTime());
                 XYChart.Data<Integer, Double> dataTextures = new XYChart.Data<>(timesCounterMap.get(timeLimit), avg);
+                // add hover node
                 dataTextures.setNode(new HoveredThresholdNode((double)Math.round(avg * 100) / 100));
                 this.texturesSeries.get(timeLimit).getData().add(dataTextures);
                 break;
         }
+        // add 1 to the counter of the time limit
         timesCounterMap.put(timeLimit, timesCounterMap.get(timeLimit) + 1);
         return timesCounterMap;
     }
 
     /****
-     * the function returns the max value in a map
-     * @param map a map
-     * @return a max integer in the map
+     * the function returns the max value in a map.
+     * @param map a map of number of games in each time limit.
+     * @return a max integer in the map.
      */
     private int max(HashMap<String, Integer> map) {
         int max = Integer.MIN_VALUE;
@@ -269,12 +311,17 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return avg;
     }
 
+    /******
+     * The function creates the table, fill the titles and columns according to data it receives.
+     * @param gamesList A list of all games data.
+     */
     private void createTable(ArrayList<GameContainer> gamesList) {
         String game_type_txt = "";
         String time_limit_txt = "";
         String num_recognized_txt = "";
         String game_date_txt = "";
         String dominant_hand_txt = "";
+        // set the titles of the table according to the current language of the app.
         switch (MainWindow.language) {
             case "Hebrew":
                 game_type_txt = "סוג משחק";
@@ -353,7 +400,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     /****
      * the function makes an observable list of table info container (for the table view)
      * @param list a list of game containers
-     * @return an observable list
+     * @return an observable list of table info containers
      */
     private ObservableList<TableInfoContainer> getGames(ArrayList<GameContainer> list) {
         ObservableList<TableInfoContainer> games = FXCollections.observableArrayList();
@@ -377,6 +424,12 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return games;
     }
 
+    /*****
+     * The function receives the value of dominant hand and returns it
+     * according to the current language of the app.
+     * @param dominantHand the value of dominant hand.
+     * @return the translation according to the current language of the app.
+     */
     private String dominantHandSwitchLanguage(String dominantHand) {
         if (MainWindow.language.equals("Hebrew")) {
             switch (dominantHand) {
@@ -401,9 +454,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     /*****
      * insert the reaction time to the tableInfoContainer
-     * @param t the tableInfoContainer
-     * @param g the gameContainer
-     * @param field the image
+     * @param t the tableInfoContainer.
+     * @param g the gameContainer of the current game.
+     * @param field the current image.
      */
     private void insertInfoToTableContainer(TableInfoContainer t, GameContainer g, String field) {
         switch (field) {
@@ -500,6 +553,12 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         }
     }
 
+    /*******
+     * The function opens a file chooser, so the user can save the table and line charts
+     * into an excel file.
+     * The function calls a python script (ExcelWriter.py) in order to create the excel file.
+     * The script is created on the desktop and removed after the save is made.
+     */
     @FXML
     private void savePatientInfo() {
         Stage secondStage = new Stage();
@@ -516,6 +575,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         );
 
         File file = fileChooser.showSaveDialog(secondStage);
+        File tempFile = null;
         if (file != null) {
             try {
                 // get the info for the excel file
@@ -529,9 +589,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 // read the script
                 byte[] buffer = new byte[excelWriterPath.openStream().available()];
                 excelWriterPath.openStream().read(buffer);
-                // copy the python script to the dektop
+                // copy the python script to the desktop
                 String tempFilePath = javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory() + "/ExcelWriter.py";
-                File tempFile = new File(tempFilePath);
+                tempFile = new File(tempFilePath);
                 OutputStream outStream = new FileOutputStream(tempFile);
                 outStream.write(buffer);
                 outStream.close();
@@ -549,6 +609,10 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 tempFile.delete();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if (tempFile != null && tempFile.exists()) {
+                    tempFile.delete();
+                }
             }
         }
     }
@@ -602,6 +666,11 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return str.toString();
     }
 
+    /*****
+     * Double click on a row in the table opens a new window with a bar chart
+     * in it, that represents the reaction times of the specific game.
+     * @param tableInfoContainer the row info from the table.
+     */
     private void showPersonalBarChart(TableInfoContainer tableInfoContainer) {
         // create the window
         Stage secondStage = new Stage();
@@ -648,22 +717,29 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         } else {
             barChart.setTitle(toEnglish(chartName));
         }
+        // add the data to the corresponding chart.
         switch (chartName) {
             case "צורות":
             case "Shapes":
+                // get a list of all shapes images titles
                 xAxis.setCategories(setShapesCategories());
+                // add the data
                 barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
                 break;
             case "מרקמים":
             case "Textures":
+                // get a list of all textures images titles
                 xAxis.setCategories(setTexturesCategories());
+                // add the data
                 barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
                 break;
             case "משולב":
             case "Both":
+                // get a list of all images titles
                 ObservableList<String> list = setShapesCategories();
                 list.addAll(setTexturesCategories());
                 xAxis.setCategories(list);
+                // add the data
                 barChart.getData().addAll(shapesBarSeries(tableInfoContainer));
                 barChart.getData().addAll(texturesBarSeries(tableInfoContainer));
                 break;
@@ -673,6 +749,11 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         return barChart;
     }
 
+    /****
+     * the function receives the chart name in hebrew and converts it to english.
+     * @param chartName the chart name in hebrew.
+     * @return the chart name in english.
+     */
     private String toEnglish(String chartName) {
         switch (chartName) {
             case "צורות":
@@ -688,7 +769,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     /*****
      * the function returns a list of shapes titles
-     * @return a list
+     * @return an observable list of the shapes images' titles for the bar chart.
      */
     private ObservableList<String> setShapesCategories() {
         ObservableList<String> shapes = FXCollections.observableArrayList();
@@ -700,7 +781,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
     /*****
      * the function returns a list of textures titles
-     * @return a list
+     * @return an observable list of the texture images' titles for the bar chart.
      */
     private ObservableList<String> setTexturesCategories() {
         ObservableList<String> textures = FXCollections.observableArrayList();
@@ -713,7 +794,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     /****
      * the function returns a serie of shapes and reaction times
      * @param tableInfoContainer the info of the current game from the table
-     * @return a serie
+     * @return a serie of shapes values for the bar chart.
      */
     private XYChart.Series shapesBarSeries(TableInfoContainer tableInfoContainer) {
         String name = "";
@@ -748,7 +829,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     /****
      * the function returns a serie of textures and reaction times
      * @param tableInfoContainer the info of the current game from the table
-     * @return a serie
+     * @return a serie of textures values for the bar chart.
      */
     private XYChart.Series texturesBarSeries(TableInfoContainer tableInfoContainer) {
         String name = "";

@@ -2,6 +2,17 @@ package Resources;
 
 import java.util.HashMap;
 
+/*******
+ * Game container class.
+ * Holds all the information about a specific game.
+ * Contains:
+ * - the game type.
+ * - the date when the game was played.
+ * - an indication if the patient used his/her dominant hand or not.
+ * - the number of recognized images.
+ * - the time limit of each round in the game.
+ * - maps of reaction times for both shapes and textures.
+ */
 public class GameContainer {
     // members
     private HashMap<String, Double> shapesReactionTime;

@@ -25,6 +25,11 @@ public class PatientQueries {
         return ourInstance;
     }
 
+    /******
+     * Request patient information from the DB given patient's ID.
+     * @param patientID the patient's ID.
+     * @return an array of all the patient info.
+     */
     public String[] getPatientInfo(String patientID) {
         try {
             String query = "Select * from patient where patient_id=\"" + patientID + "\";";
@@ -32,7 +37,6 @@ public class PatientQueries {
             String[] resultSet = Executor.executeQuery(myStatement, query, patientColumns);
             return resultSet;
         } catch (SQLException e) {
-            //TODO change to alert
             System.out.println("ERROR executeQuery in get patient info - " + e.getMessage());
             return null;
         }
@@ -51,6 +55,10 @@ public class PatientQueries {
         }
     }
 
+    /*****
+     * Inserts a new patient into the DB, given a patient container.
+     * @param patientInfo the information of the patient.
+     */
     public void insertNewPatient(PatientContainer patientInfo) {
         String p_id = patientInfo.getPatientID(), p_name = patientInfo.getPatientName(), p_age = patientInfo.getPatientAge();
         String p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender();
@@ -64,6 +72,10 @@ public class PatientQueries {
         }
     }
 
+    /*****
+     * Request all patients' IDs from the DB.
+     * @return an array with all the IDs of the patients.
+     */
     public String[] getAllPatientsIDs() {
         String[] cols = {"patient_id"};
         String query = "Select patient_id from patient;";

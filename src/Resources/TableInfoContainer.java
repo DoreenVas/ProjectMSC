@@ -5,6 +5,10 @@ import GUI.MainWindow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*****
+ * Table info container class.
+ * The class holds all info of a single row in the results table.
+ */
 public class TableInfoContainer {
     // members
     private static String[] titles = {"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית",};
@@ -572,12 +576,20 @@ public class TableInfoContainer {
         return values;
     }
 
+    /******
+     * Returns a list with all the shapes titles.
+     * @return a list with all shapes titles.
+     */
     public ArrayList<String> getShapesTitles() {
         ArrayList<String> values = new ArrayList<>();
         values.addAll(Arrays.asList(shapesColumns));
         return values;
     }
 
+    /******
+     * Returns a list with all the textures titles.
+     * @return a list with all textures titles.
+     */
     public ArrayList<String> getTexturesTitles() {
         ArrayList<String> values = new ArrayList<>();
         values.addAll(Arrays.asList(texturesColumns));

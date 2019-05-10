@@ -1,18 +1,17 @@
 package Model;
 
-import GUI.Main;
 import Resources.*;
-
-import javax.annotation.Resources;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/******
+ * DBModel class.
+ * Responsible on the connection between the GUI and the DB.
+ */
 public class DBModel implements Model {
     // members
     private Connection conn;
@@ -106,17 +105,20 @@ public class DBModel implements Model {
         }
     }
 
+    @Override
     public PatientContainer getData(String id) {
         String[] info = PatientQueries.getInstance(this.statement).getPatientInfo(id);
         if (info[0].equals("")) {
             return null;
         } else {
+            // parse the info
             String[] splitInfo = info[0].split(",");
             String p_id = splitInfo[0];
             String p_name = splitInfo[1];
             String p_gender = splitInfo[2];
             String dominant_hand = splitInfo[3];
             String p_age = splitInfo[4];
+            // create the patient container.
             return PatientContainer.getInstance().setPatientAge(p_age).setPatientDominantHand(dominant_hand)
                     .setPatientGender(p_gender).setPatientID(p_id).setPatientName(p_name);
         }
@@ -192,6 +194,7 @@ public class DBModel implements Model {
         return GameQueries.getInstance(this.statement).countGames(command);
     }
 
+    @Override
     public String[] getAllPatientsIDs() {
         return PatientQueries.getInstance(this.statement).getAllPatientsIDs();
     }

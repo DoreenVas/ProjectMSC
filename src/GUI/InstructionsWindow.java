@@ -8,7 +8,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/******
+ * Instructions window class.
+ * In this window we load the instructions of the game from
+ * a file, and display them to the screen.
+ */
 public class InstructionsWindow extends BasicWindow{
     // members
     @FXML
@@ -42,6 +46,7 @@ public class InstructionsWindow extends BasicWindow{
                 filePath = "instructionsFileEng";
                 break;
         }
+        // read the instructions from the file
         InputStream instructionsFilePath = this.getClass().getClassLoader().getResourceAsStream(filePath);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(instructionsFilePath));

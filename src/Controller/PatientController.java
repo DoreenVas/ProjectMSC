@@ -37,6 +37,10 @@ public class PatientController extends ControllerAbstract {
         model.insertNewPatient(patientContainer);
     }
 
+    /*****
+     * Request all patients' IDs from the model.
+     * @return an array with all the IDs of the patients.
+     */
     public String[] getAllPatientsIDs() {
         return model.getAllPatientsIDs();
     }

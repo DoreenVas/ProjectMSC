@@ -1,4 +1,4 @@
-package Controller;
+package Resources;
 
 import GUI.MainWindow;
 import Model.Connection;

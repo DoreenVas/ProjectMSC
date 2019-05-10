@@ -54,7 +54,6 @@ public class GameQueries {
             String[] resultSet = Executor.executeQuery(myStatement, query, allGameFields);
             return resultSet;
         } catch (SQLException e) {
-            //TODO change to alert
             System.out.println("ERROR executeQuery in get game info - " + e.getMessage());
             return null;
         }

@@ -11,12 +11,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Paths;
 
+/****
+ * Main class
+ */
 public class Main extends Application {
     // members
     private double window_height;
     private double window_width;
     private JDialog dialog = new JDialog();
 
+    /******
+     * Try to connect to the DB and show the main window of
+     * the application.
+     *
+     * @param primaryStage the stage of the application.
+     * @throws Exception In case of failure in the DB connection, an error is raised
+     * and the option to try again is available.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));

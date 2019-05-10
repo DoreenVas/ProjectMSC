@@ -23,6 +23,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/*****
+ * Main window class.
+ * In the main window the user would be able to decide whether
+ * to log in, sign up or use administrator log in.
+ */
 public class MainWindow implements Initializable{
     public static String language = "Hebrew";
 
@@ -83,6 +88,11 @@ public class MainWindow implements Initializable{
         });
     }
 
+    /******
+     * clicking the submit button will redirect the patient to the sign up window.
+     * In the sign up window, a patient would be able to insert his/her details that
+     * will be saved in the DB for further identification.
+     */
     @FXML
     protected void signUp() {
         try {
@@ -105,7 +115,12 @@ public class MainWindow implements Initializable{
         }
     }
 
-
+    /******
+     * clicking the submit button will redirect the patient to the menu window.
+     * before redirecting the given ID is checked to appear in the DB.
+     * If so - the redirection is made.
+     * Otherwise - and error is raised.
+     */
     @FXML
     protected void submit() {
         try {
@@ -144,6 +159,10 @@ public class MainWindow implements Initializable{
         }
     }
 
+    /*******
+     * clicking the admin submit button with the correct password
+     * and username will allow access to the admin zone.
+     */
     @FXML
     protected void admin_submit() {
         try {
@@ -212,6 +231,9 @@ public class MainWindow implements Initializable{
         }
     }
 
+    /******
+     * changes the language toggle (hebrew/english) and sets the display language accordingly.
+     */
     @FXML
     protected void change_lng() {
         if(change_lng.isSelected()== true)

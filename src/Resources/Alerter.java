@@ -1,11 +1,7 @@
 package Resources;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogEvent;
-
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**

@@ -15,6 +15,14 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
+/******
+ * This window determines the settings of the game that will be played.
+ * The patient can choose and change the followings:
+ * - the game type (shapes/textures/both).
+ * - the time limit of each round in the game (30/45/60 seconds).
+ * - the dominant hand - determine if he/she is going to use the dominant hand during the game.
+ * - (not in current version) the keyboard number - for multi keyboard options.
+ */
 public class SettingsWindow extends BasicWindow {
     // members
     @FXML
@@ -41,6 +49,10 @@ public class SettingsWindow extends BasicWindow {
         }
     }
 
+    /*****
+     * clicking the confirm button will save the values and  start the game
+     * according to those parameters.
+     */
     @FXML
     protected void confirm() {
         try {
@@ -68,6 +80,9 @@ public class SettingsWindow extends BasicWindow {
         }
     }
 
+    /******
+     * converts the game type to english
+     */
     private void convertData(){
         switch((String)gameType.getValue()){
             case("צורות"):
@@ -90,7 +105,6 @@ public class SettingsWindow extends BasicWindow {
                 break;
         }
     }
-
 
     @FXML
     protected void mainWindow() {
