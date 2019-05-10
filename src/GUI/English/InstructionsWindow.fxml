@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -8,7 +7,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -22,6 +20,14 @@
                     <children>
                         <HBox alignment="CENTER_LEFT">
                             <children>
+                        <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="pic/misc/arrow.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
                                 <Label text="Hello:">
                                     <HBox.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -46,11 +52,6 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#mainWindow" text="Return" GridPane.columnIndex="2">
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </JFXButton>
                     </children>
                 </HBox>
                 <VBox alignment="TOP_CENTER">
