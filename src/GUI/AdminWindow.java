@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,7 +48,7 @@ public class AdminWindow implements Initializable{
     @FXML
     private JFXButton exit;
     @FXML
-    private JFXButton back;
+    private ImageView back;
 
     private double window_height;
     private double window_width;

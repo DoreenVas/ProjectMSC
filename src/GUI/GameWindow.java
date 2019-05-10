@@ -67,17 +67,17 @@ import javax.swing.*;
 public class GameWindow extends BasicWindow {
     // members
     @FXML
-    private Button home = new Button();
+    private ImageView home;
     @FXML
-    private Label timerLabel = new Label();
+    private Label timerLabel;
     @FXML
-    private ImageView image = new ImageView();
+    private ImageView image;
     @FXML
-    private Label wellDoneLabel = new Label();
+    private Label wellDoneLabel;
     @FXML
-    private ImageView indicationImage = new ImageView();
+    private ImageView indicationImage;
     @FXML
-    private Label progressLabel = new Label();
+    private Label progressLabel;
 
     // timer members
     private AnimationTimer timer;

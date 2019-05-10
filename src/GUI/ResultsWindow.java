@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.util.HashMap;
 
@@ -22,9 +22,7 @@ import java.util.HashMap;
 public class ResultsWindow extends BasicWindow{
     // members
     @FXML
-    private Button home;
-    @FXML
-    private Button exit;
+    private ImageView home;
     @FXML
     private Button personal_zone;
     @FXML

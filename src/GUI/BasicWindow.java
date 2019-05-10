@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -91,12 +92,12 @@ public class BasicWindow implements Initializable{
 
     /******
      * Goes to the menu window.
-     * @param button the clicked button
+     * @param ImageView the clicked image
      */
     @FXML
-    protected void menuWindow(Button button) {
+    protected void menuWindow(ImageView image) {
         try {
-            Stage stage = (Stage) button.getScene().getWindow();
+            Stage stage = (Stage) image.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource(MainWindow.language+"/MenuWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen

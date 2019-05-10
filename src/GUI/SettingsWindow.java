@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,7 +27,7 @@ import java.awt.*;
 public class SettingsWindow extends BasicWindow {
     // members
     @FXML
-    private Button home;
+    private ImageView home;
     @FXML
     private Button confirm;
     @FXML

@@ -11,8 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -40,9 +40,7 @@ import java.util.ResourceBundle;
 public class GraphsWindow extends BasicWindow implements Initializable{
     // members
     @FXML
-    private Button back;
-    @FXML
-    private Button save;
+    private ImageView back;
     @FXML
     private LineChart<?, ?> shapesLineChart;
     @FXML
@@ -59,15 +57,15 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     private TableView<TableInfoContainer> resultsTable;
 
     @FXML
-    private Label infoPatientName = new Label();
+    private Label infoPatientName;
     @FXML
-    private Label patientGender = new Label();
+    private Label patientGender;
     @FXML
-    private Label patientDateOfBirth = new Label();
+    private Label patientDateOfBirth;
     @FXML
-    private Label patientDominantHand = new Label();
+    private Label patientDominantHand;
     @FXML
-    private Label patientGamesPlayed = new Label();
+    private Label patientGamesPlayed;
 
     private HashMap<String, XYChart.Series> shapesSeries;
     private HashMap<String, XYChart.Series> texturesSeries;
@@ -794,7 +792,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
     /****
      * the function returns a serie of shapes and reaction times
      * @param tableInfoContainer the info of the current game from the table
-     * @return a serie of shapes values for the bar chart.
+     * @return a series of shapes values for the bar chart.
      */
     private XYChart.Series shapesBarSeries(TableInfoContainer tableInfoContainer) {
         String name = "";

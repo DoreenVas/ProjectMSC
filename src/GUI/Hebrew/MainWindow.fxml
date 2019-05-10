@@ -34,7 +34,7 @@
                         <Insets bottom="20.0" top="20.0" />
                      </padding>
                      <font>
-                        <Font size="36.0" />
+                        <Font name="Arial" size="36.0" />
                      </font>
                   </Label>
                </children>

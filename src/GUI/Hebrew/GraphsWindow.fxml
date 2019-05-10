@@ -9,8 +9,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -48,11 +49,11 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="back" alignment="TOP_LEFT" buttonType="RAISED" onAction="#back" ripplerFill="#d3d3d3" text="חזרה לתפריט" GridPane.columnIndex="2">
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </JFXButton>
+                  <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="pic/misc/arrow.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </HBox>
                 <TabPane nodeOrientation="RIGHT_TO_LEFT" tabClosingPolicy="UNAVAILABLE">

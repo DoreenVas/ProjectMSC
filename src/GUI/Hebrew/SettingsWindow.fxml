@@ -7,6 +7,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -48,10 +50,11 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="home" alignment="TOP_LEFT" buttonType="RAISED" onAction="#mainWindow" ripplerFill="#d3d3d3" text="חזרה" GridPane.columnIndex="2">
-                            <font>
-                            <Font size="17.0" />
-                        </font></JFXButton>
+                  <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="pic/misc/arrow.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </HBox>
                 <VBox alignment="TOP_CENTER">

@@ -3,6 +3,7 @@ package GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.net.URL;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 public class InstructionsWindow extends BasicWindow{
     // members
     @FXML
-    private Button back = new Button();
+    private ImageView back;
     @FXML
     private TextArea instructionsText = new TextArea();
 

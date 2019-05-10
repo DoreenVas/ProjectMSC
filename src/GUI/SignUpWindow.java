@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,7 +26,7 @@ import java.time.LocalDate;
 public class SignUpWindow extends BasicWindow{
 
     @FXML
-    private Button home;
+    private ImageView home;
     @FXML
     private Button submit;
     @FXML
@@ -125,7 +126,7 @@ public class SignUpWindow extends BasicWindow{
                 Connection conn = Connection.getInstance();
                 conn.insertPatientQuery(PatientContainer.getInstance().setPatientAge(date.toString())
                         .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name));
-                super.menuWindow(this.submit);
+                super.menuWindow(this.home);
             }
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
