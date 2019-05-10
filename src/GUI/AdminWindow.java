@@ -90,6 +90,7 @@ public class AdminWindow implements Initializable{
                 this.window_width = window.width;
                 // set the window size
                 Scene scene = new Scene(root,  this.window_width,  this.window_height);
+                scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
                 GraphsWindow graphsWindow = loader.getController();
                 graphsWindow.setPreviousScene(MainWindow.language+"/AdminWindow.fxml");
                 stage.setTitle("Patient Data");
@@ -206,6 +207,7 @@ public class AdminWindow implements Initializable{
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root, this.window_width, this.window_height);
+            scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
             stage.setTitle("Patient Data");
             stage.setScene(scene);
             stage.setResizable(false);

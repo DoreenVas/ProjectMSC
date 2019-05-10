@@ -78,7 +78,6 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
@@ -91,14 +90,6 @@
                                  </font>
                                         </Label>
                                         <Label text="הגבלת זמן: " GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets bottom="10.0" top="10.0" />
-                                            </GridPane.margin>
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                                        </Label>
-                                        <Label text="סוג מקלדת:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />
                                             </GridPane.margin>
@@ -131,20 +122,6 @@
                                             </items>
                                             <value>
                                                 <String fx:value="30" />
-                                            </value>
-                                            <GridPane.margin>
-                                                <Insets bottom="10.0" top="10.0" />
-                                            </GridPane.margin>
-                                        </JFXComboBox>
-                                        <JFXComboBox fx:id="keyboard" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="1" />
-                                                    <String fx:value="2" />
-                                                </FXCollections>
-                                            </items>
-                                            <value>
-                                                <String fx:value="1" />
                                             </value>
                                             <GridPane.margin>
                                                 <Insets bottom="10.0" top="10.0" />

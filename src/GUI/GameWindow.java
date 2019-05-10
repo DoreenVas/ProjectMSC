@@ -117,13 +117,12 @@ public class GameWindow extends BasicWindow {
     private int imagesSetSize;
     private MediaPlayer mediaPlayer;
 
-    public void initialize(String c_gameType,String c_timeLimit,String c_keyboard, String c_dominantHand) {
+    public void initialize(String c_gameType,String c_timeLimit, String c_dominantHand) {
         this.wellDoneLabel.setFont(Font.font(0));
 
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
-        this.keyboard = c_keyboard;
         this.dominantHand = c_dominantHand;
 
 //        this.initialTimeLimit =1;
@@ -429,6 +428,7 @@ public class GameWindow extends BasicWindow {
                 this.window_height = window.height;
                 this.window_width = window.width;
                 Scene scene = new Scene(root, window.width, window.height);
+                scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
                 ResultsWindow resultsWindow= loader.getController();
                 resultsWindow.initialize(gameContainer.getShapesReactionTime(), gameContainer.getTexturesReactionTime(), gameContainer.getNumOfRecognizedButtons());
                 stage.setTitle("Results");

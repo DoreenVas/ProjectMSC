@@ -611,6 +611,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         BarChart barChart = createBarChart(gameType, gameType, "Reaction Time", tableInfoContainer);
         anchorPane.getChildren().add(barChart);
         Scene scene = new Scene(anchorPane, 600, 600);
+        scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
         // bind the bar chart to the size of the window
         barChart.minWidthProperty().bind(anchorPane.widthProperty());
         barChart.minHeightProperty().bind(anchorPane.heightProperty().subtract(20));
@@ -793,6 +794,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root, this.window_width, this.window_height);
+            scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);

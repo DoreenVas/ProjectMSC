@@ -74,6 +74,7 @@ public class BasicWindow implements Initializable{
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root, this.window_width, this.window_height);
+            scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);
@@ -95,6 +96,7 @@ public class BasicWindow implements Initializable{
             this.window_width = window.width;
             // set the window size
             Scene scene = new Scene(root, this.window_width, this.window_height);
+            scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setMaximized(true);
