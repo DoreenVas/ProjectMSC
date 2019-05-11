@@ -32,7 +32,7 @@ public class BasicWindow implements Initializable{
     @FXML
     private Button exit = new Button();
     @FXML
-    private Hyperlink logoutLabel = new Hyperlink();
+    private ImageView logout = new ImageView();
     @FXML
     private Label patientName = new Label();
 
@@ -63,7 +63,7 @@ public class BasicWindow implements Initializable{
      */
     @FXML
     protected void logout() {
-        this.logoutLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        this.logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 //copy over the button's event.
@@ -71,7 +71,7 @@ public class BasicWindow implements Initializable{
             }
         });
         try {
-            Stage stage = (Stage) this.logoutLabel.getScene().getWindow();
+            Stage stage = (Stage) this.logout.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource(MainWindow.language+"/MainWindow.fxml"));
             stage.setTitle("MSC");
             // get the size of the screen

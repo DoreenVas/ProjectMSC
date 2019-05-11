@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,6 +17,14 @@
             <children>
                 <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
                     <children>
+                  <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="pic/misc/signout.png" />
+                     </image>
+                  </ImageView>
                         <HBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="שלום: ">
@@ -38,11 +45,6 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
