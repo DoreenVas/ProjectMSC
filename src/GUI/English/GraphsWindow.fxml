@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -51,12 +50,15 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="Disconnect" underline="true">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
+                  <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="pic/misc/signout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                     </children>
                 </HBox>
                 <TabPane nodeOrientation="LEFT_TO_RIGHT" tabClosingPolicy="UNAVAILABLE">
