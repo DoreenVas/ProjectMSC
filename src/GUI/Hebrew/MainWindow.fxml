@@ -19,9 +19,9 @@
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="250.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pic" fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="pic/misc/bunner.png" />
+                  <Image url="pic/misc/mainHeb.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="50.0" top="30.0" />

@@ -49,6 +49,8 @@ public class MainWindow implements Initializable{
     @FXML
     private Button exit;
     @FXML
+    private ImageView pic;
+    @FXML
     private ImageView image;
 
     private String user, password;
@@ -57,7 +59,7 @@ public class MainWindow implements Initializable{
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
 
         // allow enter press on submit button
         this.id.setOnKeyPressed(event -> {

@@ -1,6 +1,6 @@
 .root {
-	-fx-background-image: url("pic/misc/MSC.PNG");
-	-fx-background-position:center;
+	-fx-background-image: url("/pic/misc/bunner.png");
+	-fx-background-position:top;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
+    -fx-background-size: contain;/**contain,auto**/
 }

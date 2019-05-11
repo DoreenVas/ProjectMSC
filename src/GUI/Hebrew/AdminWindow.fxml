@@ -27,14 +27,14 @@
                   </ImageView>
                </children>
             </HBox>
-            <Label text="אזור אישי אדמין">
-               <font>
-                  <Font size="36.0" />
-               </font>
+            <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="pic/misc/adminHeb.png" />
+               </image>
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="30.0" top="30.0" />
                </VBox.margin>
-            </Label>
+            </ImageView>
             <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
