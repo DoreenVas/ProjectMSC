@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.MenuWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuWindow">
     <children>
         <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -46,24 +46,22 @@
                         <Region HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-                <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="pic/misc/MSC.PNG" />
-                    </image>
-                </ImageView>
+            <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="pic/misc/menu.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="30.0" top="30.0" />
+               </VBox.margin>
+            </ImageView>
                 <VBox alignment="CENTER">
                     <children>
-                        <Label text="Menu">
-                            <font>
-                                <Font size="36.0" />
-                            </font>
-                        </Label>
                         <JFXButton fx:id="instructions" buttonType="RAISED" mnemonicParsing="false" onKeyPressed="#instructions" text="Instructions">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                             <VBox.margin>
-                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
                             </VBox.margin>
                             <font>
                                 <Font size="17.0" />
@@ -71,7 +69,7 @@
                         </JFXButton>
                         <JFXButton fx:id="start" buttonType="RAISED" mnemonicParsing="false" onAction="#start" text="Start Game">
                             <VBox.margin>
-                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
                             </VBox.margin>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -80,9 +78,9 @@
                                 <Font size="17.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton fx:id="results" buttonType="RAISED" onAction="#results" text="Personal zone">
+                        <JFXButton fx:id="results" buttonType="RAISED" onAction="#results" text="Personal Zone">
                             <VBox.margin>
-                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
                             </VBox.margin>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -96,7 +94,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                             <VBox.margin>
-                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
                             </VBox.margin>
                             <font>
                                 <Font size="17.0" />

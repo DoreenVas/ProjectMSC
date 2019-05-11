@@ -49,8 +49,6 @@ public class MainWindow implements Initializable{
     @FXML
     private Button exit;
     @FXML
-    private ImageView pic;
-    @FXML
     private ImageView image;
 
     private String user, password;

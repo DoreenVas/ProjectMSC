@@ -14,98 +14,98 @@
 
 <AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuWindow">
     <children>
-      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-             <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
-                 <children>
-                     <HBox alignment="CENTER_LEFT">
-                         <children>
-                             <Label text="שלום: ">
-                                 <HBox.margin>
-                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                     <Font size="16.0" />
-                                 </font>
-                             </Label>
-                             <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
-                                 <HBox.margin>
-                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                     <Font size="16.0" />
-                                 </font>
-                             </Label>
-                         </children>
-                     </HBox>
-                     <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">
-                         <font>
-                             <Font size="16.0" />
-                         </font>
-                     </Hyperlink>
-                     <Region HBox.hgrow="ALWAYS" />
-                 </children>
-             </HBox>
-            <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="pic/misc/menuHeb.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="30.0" top="30.0" />
-               </VBox.margin>
-            </ImageView>
-              <VBox alignment="CENTER">
-                  <children>
-                      <JFXButton fx:id="instructions" buttonType="RAISED" mnemonicParsing="false" onKeyPressed="#instructions" text="הוראות">
-                          <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                          </padding>
-                          <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
-                          </VBox.margin>
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                      </JFXButton>
-                      <JFXButton fx:id="start" buttonType="RAISED" mnemonicParsing="false" onAction="#start" text="התחל משחק">
-                          <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
-                          </VBox.margin>
-                          <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                          </padding>
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                      </JFXButton>
-                  <JFXButton fx:id="results" buttonType="RAISED" onAction="#results" text="אזור אישי">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </JFXButton>
-                      <JFXButton fx:id="exit" buttonType="RAISED" mnemonicParsing="false" onAction="#exit" text="יציאה">
-                          <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                          </padding>
-                          <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
-                          </VBox.margin>
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                      </JFXButton>
-                  </children>
-                  <padding>
-                      <Insets top="20.0" />
-                  </padding>
-              </VBox>
-         </children>
-      </VBox>
+        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="שלום: ">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="patientName" nodeOrientation="RIGHT_TO_LEFT">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Hyperlink fx:id="logoutLabel" onAction="#logout" text="התנתק" underline="true">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="pic/misc/menuHeb.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="30.0" top="30.0" />
+                    </VBox.margin>
+                </ImageView>
+                <VBox alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="instructions" buttonType="RAISED" mnemonicParsing="false" onKeyPressed="#instructions" text="הוראות">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="start" buttonType="RAISED" mnemonicParsing="false" onAction="#start" text="התחל משחק">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="results" buttonType="RAISED" onAction="#results" text="אזור אישי">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="exit" buttonType="RAISED" mnemonicParsing="false" onAction="#exit" text="יציאה">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="15.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

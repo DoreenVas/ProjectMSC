@@ -47,21 +47,21 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="pic/misc/arrow.png" />
-                     </image>
-                  </ImageView>
+                        <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="pic/misc/arrow.png" />
+                            </image>
+                        </ImageView>
                     </children>
                 </HBox>
-            <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="pic/misc/resultsHeb.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="30.0" top="30.0" />
-               </VBox.margin>
-            </ImageView>
+                <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="pic/misc/resultsHeb.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="30.0" top="30.0" />
+                    </VBox.margin>
+                </ImageView>
                 <GridPane alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" />
@@ -77,46 +77,46 @@
                             <GridPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </GridPane.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
                         </Label>
                         <Label fx:id="avgTime" text="Label" GridPane.columnIndex="1">
                             <GridPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </GridPane.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
                         </Label>
                         <Label fx:id="numOfRecognizedImages" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </GridPane.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
                         </Label>
                         <Label text="ממוצע זמן תגובה:">
                             <GridPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </GridPane.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
                         </Label>
                     </children>
                 </GridPane>
-            <JFXButton fx:id="personal_zone" onAction="#personal_Zone" text="מעבר לאזור אישי">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="exit" onAction="#exit" text="יציאה">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </JFXButton>
+                <JFXButton fx:id="personal_zone" onAction="#personal_Zone" text="מעבר לאזור אישי">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="exit" onAction="#exit" text="יציאה">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </JFXButton>
             </children>
         </VBox>
     </children>

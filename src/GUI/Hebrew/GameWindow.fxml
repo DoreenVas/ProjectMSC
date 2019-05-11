@@ -43,11 +43,11 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="pic/misc/arrow.png" />
-                     </image>
-                  </ImageView>
+                        <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#mainWindow" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="pic/misc/arrow.png" />
+                            </image>
+                        </ImageView>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT">
@@ -68,35 +68,35 @@
                                 <Font size="28.0" />
                             </font>
                         </Label>
-                  <Label text="תמונות שעברו:">
-                     <HBox.margin>
-                        <Insets left="50.0" right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="progressLabel" text="Label">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
+                        <Label text="תמונות שעברו:">
+                            <HBox.margin>
+                                <Insets left="50.0" right="5.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="28.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="progressLabel" text="Label">
+                            <HBox.margin>
+                                <Insets left="5.0" right="5.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="28.0" />
+                            </font>
+                        </Label>
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
-            <Label fx:id="wellDoneLabel" text="כל הכבוד! המשך כך!" textAlignment="RIGHT">
-               <font>
-                  <Font size="30.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
+                <Label fx:id="wellDoneLabel" text="כל הכבוד! המשך כך!" textAlignment="RIGHT">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Label>
                 <ImageView fx:id="image" disable="true" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                 <ImageView fx:id="indicationImage" disable="true" fitHeight="400.0" fitWidth="200.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="true" preserveRatio="true" />
             </children>

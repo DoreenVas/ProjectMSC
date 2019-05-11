@@ -49,11 +49,11 @@
                             </font>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="pic/misc/arrow.png" />
-                     </image>
-                  </ImageView>
+                        <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="pic/misc/arrow.png" />
+                            </image>
+                        </ImageView>
                     </children>
                 </HBox>
                 <TabPane nodeOrientation="RIGHT_TO_LEFT" tabClosingPolicy="UNAVAILABLE">

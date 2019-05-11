@@ -19,17 +19,14 @@
     <children>
         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label alignment="TOP_CENTER" text="Welcome" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="36.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="60.0" />
-                    </padding>
-                </Label>
+            <ImageView fx:id="pic" fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="pic/misc/main.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="50.0" top="30.0" />
+               </VBox.margin>
+            </ImageView>
                 <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

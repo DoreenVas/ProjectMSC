@@ -92,7 +92,7 @@ public class BasicWindow implements Initializable{
 
     /******
      * Goes to the menu window.
-     * @param ImageView the clicked image
+     * @param image the clicked button
      */
     @FXML
     protected void menuWindow(ImageView image) {
