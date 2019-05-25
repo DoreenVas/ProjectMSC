@@ -66,6 +66,8 @@ import javax.swing.*;
 public class GameWindow extends BasicWindow {
     // members
     @FXML
+    AnchorPane anchorPane;
+    @FXML
     private ImageView home;
     @FXML
     private Label timerLabel;
@@ -135,6 +137,7 @@ public class GameWindow extends BasicWindow {
      * @param c_dominantHand indicates if the patient uses his/her dominant hand in the game.
      */
     public void initialize(String c_gameType,String c_timeLimit, String c_dominantHand) {
+        this.anchorPane.requestFocus();
         this.wellDoneLabel.setFont(Font.font(0));
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);

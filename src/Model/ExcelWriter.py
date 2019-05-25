@@ -96,7 +96,7 @@ def write_line_chart(workbook, info, chart_name):
     return workbook
 
 
-if __name__ == "__main__":
+def main():
     charts = []
     # read all arguments from the java program - table and charts
     for i in range(len(sys.argv)):
@@ -120,9 +120,10 @@ if __name__ == "__main__":
     try:
         workbook.save(file_path)
         workbook.close()
-        print "file saved!"
+        print("file saved!")
     except:
-        print "file not saved"
-        print "Unexpected error:", sys.exc_info()[0]
+        print("file not saved")
+        print("Unexpected error:", sys.exc_info()[0])
         raise
 
+main()
