@@ -6,15 +6,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.ResultsWindow">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ResultsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -64,51 +61,40 @@
                         <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </ImageView>
-                <GridPane alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label text="מספר צורות שנוחשו נכון:" GridPane.rowIndex="2">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
+            <HBox alignment="CENTER">
+               <children>
+                        <Label text="מספר צורות שנוחשו נכון:">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                        </Label>
+                        <Label fx:id="avgTime" text="Label">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Label fx:id="avgTime" text="Label" GridPane.columnIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="numOfRecognizedImages" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
                         <Label text="ממוצע זמן תגובה:">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </GridPane.margin>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                        </Label>
+                        <Label fx:id="numOfRecognizedImages" text="Label">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                    </children>
-                </GridPane>
+               </children>
+            </HBox>
                 <JFXButton fx:id="personal_zone" onAction="#personal_Zone" text="מעבר לאזור אישי">
                     <font>
                         <Font size="17.0" />
