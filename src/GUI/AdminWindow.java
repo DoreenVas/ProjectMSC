@@ -83,7 +83,7 @@ public class AdminWindow implements Initializable{
             if (p_info == null) {
                 switch (MainWindow.language) {
                     case "Hebrew":
-                        Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
+//                        Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
 //                        break;
                     case "English":
                         Alerter.showAlert("Id is not in the system. Try again.", Alert.AlertType.WARNING);
