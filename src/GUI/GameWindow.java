@@ -434,6 +434,10 @@ public class GameWindow extends BasicWindow {
      * and show a window with avg reaction time and number of recognized images in the last game.
      */
     private void showResultsWindow() {
+        this.timer.stop();
+        if (this.mediaPlayer != null) {
+            this.mediaPlayer.stop();
+        }
         try {
             Connection conn = Connection.getInstance();
             GameContainer gameContainer = new GameContainer(this.shapesReactionTimes, this.texturesReactionTimes,
