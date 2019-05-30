@@ -112,7 +112,7 @@ public class AdminWindow implements Initializable{
         } catch (NumberFormatException e) {
             switch (MainWindow.language) {
                 case "Hebrew":
-                    Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
+//                    Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
 //                    break;
                 case "English":
                     Alerter.showAlert("Invalid Id. Please try again.", Alert.AlertType.WARNING);
