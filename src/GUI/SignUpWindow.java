@@ -74,7 +74,7 @@ public class SignUpWindow extends BasicWindow{
                     gender_msg = "יש להזין את מין המשתמש/ת";
                     date_msg = "יש להזין תאריך לידה תקין";
                     hand_msg = "יש להזין יד דומיננטית";
-                    break;
+//                    break;
                 case "English":
                     id_msg = "please enter a valid 9 digits ID";
                     gender_msg = "please enter gender";

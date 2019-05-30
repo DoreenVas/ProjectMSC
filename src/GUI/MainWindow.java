@@ -139,7 +139,7 @@ public class MainWindow implements Initializable{
             PatientContainer p_info = conn.idQuery(idString);
             // patient doesn't exist in the database
             if (p_info == null) {
-                Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית או הירשם.", Alert.AlertType.WARNING);
+                Alerter.showAlert("ID not in the system. Please try again or sign up.", Alert.AlertType.WARNING);
             } else {
                 Stage stage = (Stage) this.submit.getScene().getWindow();
                 AnchorPane root = FXMLLoader.load(getClass().getResource(language+"/MenuWindow.fxml"));
@@ -157,7 +157,7 @@ public class MainWindow implements Initializable{
                 stage.show();
             }
         } catch (NumberFormatException e) {
-            Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
+            Alerter.showAlert("Invalid ID! Please try again.", Alert.AlertType.WARNING);
         } catch (Exception e) {
             Alerter.showAlert(AlertMessages.pageLoadingFailure(), Alert.AlertType.ERROR);
         }
@@ -177,7 +177,7 @@ public class MainWindow implements Initializable{
             parseInfo();
             // check validation of user and password
             if (!admin_user.equals(this.user) || !admin_password.equals(this.password) ) { // wrong details
-                Alerter.showAlert("הפרטים שהוזנו אינם נכונים.", Alert.AlertType.WARNING);
+                Alerter.showAlert("Incorrect details. Please try again.", Alert.AlertType.WARNING);
             } else { //forward to admin page
                 Stage stage = (Stage) this.admin_submit.getScene().getWindow();
                 AnchorPane root = FXMLLoader.load(getClass().getResource(language+"/AdminWindow.fxml"));

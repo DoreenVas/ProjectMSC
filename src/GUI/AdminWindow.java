@@ -84,7 +84,7 @@ public class AdminWindow implements Initializable{
                 switch (MainWindow.language) {
                     case "Hebrew":
                         Alerter.showAlert("תעודת זהות לא במערכת. נסה שנית.", Alert.AlertType.WARNING);
-                        break;
+//                        break;
                     case "English":
                         Alerter.showAlert("Id is not in the system. Try again.", Alert.AlertType.WARNING);
                         break;
@@ -113,9 +113,9 @@ public class AdminWindow implements Initializable{
             switch (MainWindow.language) {
                 case "Hebrew":
                     Alerter.showAlert("תעודת זהות לא תקינה! נסה שוב.", Alert.AlertType.WARNING);
-                    break;
+//                    break;
                 case "English":
-                    Alerter.showAlert("Invalid Id. Try again.", Alert.AlertType.WARNING);
+                    Alerter.showAlert("Invalid Id. Please try again.", Alert.AlertType.WARNING);
                     break;
             }
         } catch (Exception e) {
@@ -155,6 +155,7 @@ public class AdminWindow implements Initializable{
         // add the chart and the label
         anchorPane.getChildren().addAll(pieChart, caption);
         Scene scene = new Scene(vBox, 600, 600);
+        scene.getStylesheets().add(getClass().getResource("BasicCSS.css").toExternalForm());
         // bind the bar chart to the size of the window
         pieChart.minWidthProperty().bind(anchorPane.widthProperty());
         pieChart.minHeightProperty().bind(anchorPane.heightProperty().subtract(20));
