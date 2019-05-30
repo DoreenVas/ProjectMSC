@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class TableInfoContainer {
     // members
-    private static String[] titles;
+    private static String[] titles = {"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית"};
     private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
@@ -89,15 +89,6 @@ public class TableInfoContainer {
                     this.gameType =  gameType;
                     break;
             }
-        }
-
-        switch (MainWindow.language) {
-            case "Hebrew":
-                titles = new String[]{"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית"};
-                break;
-            case "English":
-                titles = new String[]{"Game type", "Time limit", "Number of Correct Images", "Game date", "Dominant hand"};
-                break;
         }
         return this;
     }
@@ -579,7 +570,16 @@ public class TableInfoContainer {
 
     public ArrayList<String> getTitles() {
         ArrayList<String> values = new ArrayList<>();
-        values.addAll(Arrays.asList(titles));
+        String[] temp_titles = null;
+        switch (MainWindow.language) {
+            case "Hebrew":
+                temp_titles = new String[]{"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית"};
+                break;
+            case "English":
+                temp_titles = new String[]{"Game type", "Time limit", "Number of Correct Images", "Game date", "Dominant hand"};
+                break;
+        }
+        values.addAll(Arrays.asList(temp_titles));
         values.addAll(Arrays.asList(shapesColumns));
         values.addAll(Arrays.asList(texturesColumns));
         return values;
