@@ -1,10 +1,7 @@
 package Resources;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.StageStyle;
 
 import java.util.Optional;
 

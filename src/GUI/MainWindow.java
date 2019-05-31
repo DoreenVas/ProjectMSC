@@ -139,7 +139,7 @@ public class MainWindow implements Initializable{
             PatientContainer p_info = conn.idQuery(idString);
             // patient doesn't exist in the database
             if (p_info == null) {
-                Alerter.showAlert("ID not in the system. Please try again or sign up.", Alert.AlertType.WARNING);
+                Alerter.showAlert("ID is not in the system. Please try again or sign up.", Alert.AlertType.WARNING);
             } else {
                 Stage stage = (Stage) this.submit.getScene().getWindow();
                 AnchorPane root = FXMLLoader.load(getClass().getResource(language+"/MenuWindow.fxml"));

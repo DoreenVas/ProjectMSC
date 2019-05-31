@@ -138,7 +138,7 @@ public class GameWindow extends BasicWindow {
      */
     public void initialize(String c_gameType,String c_timeLimit, String c_dominantHand) {
         this.anchorPane.requestFocus();
-        this.wellDoneLabel.setFont(Font.font(0));
+        this.wellDoneLabel.setVisible(false);
         this.gameType = c_gameType;
         this.initialTimeLimit = Double.parseDouble(c_timeLimit);
         this.timeLimit = Double.parseDouble(c_timeLimit);
@@ -315,7 +315,7 @@ public class GameWindow extends BasicWindow {
             if ((this.numberOfRecognizedImages == (this.imagesSetSize / 3) ||
                 this.numberOfRecognizedImages == (2 * (this.imagesSetSize / 3))) && this.applause) {
                 applause();
-                this.wellDoneLabel.setFont(Font.font(0));
+                this.wellDoneLabel.setVisible(false);
                 // reset the timer
                 this.currTime = this.initialTimeLimit;
             }
@@ -416,7 +416,7 @@ public class GameWindow extends BasicWindow {
      */
     private void applause() {
         this.applause = false;
-        this.wellDoneLabel.setFont(Font.font(30));
+        this.wellDoneLabel.setVisible(true);
         // don't show the next image
         Image img = this.image.getImage();
         this.sleepTime = 3000;

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.GraphsWindow">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GraphsWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -63,18 +63,18 @@
                 </HBox>
                 <TabPane nodeOrientation="LEFT_TO_RIGHT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab text="Patient data">
+                        <Tab styleClass="graph_class" text="Patient data">
                             <content>
                                 <AnchorPane nodeOrientation="LEFT_TO_RIGHT">
                                     <children>
                                         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <Label fx:id="infoPatientName">
+                                                <Label fx:id="infoPatientName" styleClass="graph_class">
                                                     <VBox.margin>
                                                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
-                                                        <Label text="Patient name:" underline="true">
+                                                        <Label styleClass="graph_class" text="Patient name:" underline="true">
                                                             <font>
                                                                 <Font size="16.0" />
                                                             </font>
@@ -84,12 +84,12 @@
                                                         <Font size="16.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="patientDateOfBirth">
+                                                <Label fx:id="patientDateOfBirth" styleClass="graph_class">
                                                     <VBox.margin>
                                                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
-                                                        <Label text="Date of Birth:" underline="true">
+                                                        <Label styleClass="graph_class" text="Date of Birth:" underline="true">
                                                             <font>
                                                                 <Font size="16.0" />
                                                             </font>
@@ -99,12 +99,12 @@
                                                         <Font size="16.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="patientGender">
+                                                <Label fx:id="patientGender" styleClass="graph_class">
                                                     <VBox.margin>
                                                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
-                                                        <Label text="Gender:" underline="true">
+                                                        <Label styleClass="graph_class" text="Gender:" underline="true">
                                                             <font>
                                                                 <Font size="16.0" />
                                                             </font>
@@ -114,12 +114,12 @@
                                                         <Font size="16.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="patientDominantHand">
+                                                <Label fx:id="patientDominantHand" styleClass="graph_class">
                                                     <VBox.margin>
                                                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
-                                                        <Label text="Dominant hand:" underline="true">
+                                                        <Label styleClass="graph_class" text="Dominant hand:" underline="true">
                                                             <font>
                                                                 <Font size="16.0" />
                                                             </font>
@@ -129,12 +129,12 @@
                                                         <Font size="16.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="patientGamesPlayed">
+                                                <Label fx:id="patientGamesPlayed" styleClass="graph_class">
                                                     <VBox.margin>
                                                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                                     </VBox.margin>
                                                     <graphic>
-                                                        <Label text="Games played so far:" underline="true">
+                                                        <Label styleClass="graph_class" text="Games played so far:" underline="true">
                                                             <font>
                                                                 <Font size="16.0" />
                                                             </font>
@@ -158,7 +158,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Results">
+                        <Tab styleClass="graph_class" text="Results">
                             <content>
                                 <AnchorPane>
                                     <children>
@@ -179,7 +179,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Progress charts">
+                        <Tab styleClass="graph_class" text="Progress charts">
                             <content>
                                 <AnchorPane>
                                     <children>
