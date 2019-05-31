@@ -221,7 +221,7 @@ public class GameWindow extends BasicWindow {
             this.imagesSet = this.picToPath.keySet();
             this.imagesSetSize = this.imagesSet.size();
             // images progress label
-            this.imagesLeftLabel.bind(this.progress.asString());
+            this.imagesLeftLabel.bind((this.progress.add(-1)).asString());
             this.progressLabel.textProperty().bind(Bindings.concat(this.imagesLeftLabel)
                     .concat("/" + String.valueOf(this.imagesSetSize)));
             // set the first image
