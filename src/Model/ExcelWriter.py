@@ -40,6 +40,8 @@ def write_line_chart(workbook, info, chart_name):
     chart_info = info.split("<")
     chart_lines_names = []
     # get the line names
+    # if chart_info[0] == '':
+    #     chart_info = chart_info[1:]
     for i in chart_info:
         line_name = i.split("!")[0]
         chart_lines_names.append(line_name)
@@ -61,7 +63,7 @@ def write_line_chart(workbook, info, chart_name):
         columns.append(col)
 
     # convert the columns to rows
-    for i in range(len(max(columns))):
+    for i in range(len(max(columns, key=len))):
         row = []
         for c in columns:
             if i >= len(c):
@@ -83,7 +85,7 @@ def write_line_chart(workbook, info, chart_name):
     c1.x_axis.tickLblSkip = 1
     c1.x_axis.tickMarkSkip = 1
 
-    data = Reference(worksheet, min_col=1, min_row=1, max_col=len(chart_lines_names), max_row=len(rows))
+    data = Reference(worksheet, min_col=1, min_row=1, max_col=(len(chart_lines_names) + 1), max_row=len(rows))
     c1.add_data(data, titles_from_data=True)
 
     style_symbols = ["triangle", "diamond", "square", "x"]
