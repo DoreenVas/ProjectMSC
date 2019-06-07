@@ -8,23 +8,27 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 /******
  * In this window a new user can enter his/her details and submit into the system.
  * All information will be saved in the DB for further sign up.
  */
-public class SignUpWindow extends BasicWindow{
+public class SignUpWindow extends BasicWindow implements Initializable {
 
     @FXML
     private ImageView home;
@@ -60,6 +64,16 @@ public class SignUpWindow extends BasicWindow{
      * If all fields are correct, the information will be saved into the DB and
      * user will log in.
      */
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // allow enter press on start button
+        this.submit.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                submit();
+            }
+        });
+    }
     @FXML
     protected void submit() {
         try {

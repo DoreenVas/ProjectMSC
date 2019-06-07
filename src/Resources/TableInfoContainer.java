@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class TableInfoContainer {
     // members
-    private static String[] titles = {"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית"};
+    private static String[] titles = {"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית", "סוג משתמש"};
     private static String[] shapesColumns = {"arrow", "rectangle", "diamond", "pie", "triangle", "heart", "flower",
             "hexagon", "moon", "plus", "oval", "two_triangles", "circle", "star"};
     private static String[] texturesColumns = {"four_dots", "waves", "arrow_head", "strips", "happy_smiley", "spikes"
@@ -22,6 +22,7 @@ public class TableInfoContainer {
     private String numOfRecognizedButtons;
     private String gameDate;
     private String dominantHand;
+    private String patientType;
     private String arrow;
     private String rectangle;
     private String diamond;
@@ -113,6 +114,40 @@ public class TableInfoContainer {
             this.dominantHand = "-";
         } else {
             this.dominantHand = dominantHand;
+        }
+        return this;
+    }
+
+    /******
+     * Set the patient type according to the current language of the window
+     * @param patientType the type of the user (Tester or Patient)
+     * @return the same tableInfoContainer
+     */
+    public TableInfoContainer setPatientType(String patientType) {
+        if (MainWindow.language.equals("Hebrew")) {
+            switch (patientType) {
+                case "tester":
+                    this.patientType =  "נסיין";
+                    break;
+                case "patient":
+                    this.patientType =  "מטופל";
+                    break;
+                default:
+                    this.patientType =  patientType;
+                    break;
+            }
+        } else {
+            switch (patientType) {
+                case "נסיין":
+                    this.patientType =  "tester";
+                    break;
+                case "מטופל":
+                    this.patientType =  "patient";
+                    break;
+                default:
+                    this.patientType =  patientType;
+                    break;
+            }
         }
         return this;
     }
@@ -408,6 +443,10 @@ public class TableInfoContainer {
         return dominantHand;
     }
 
+    public String getPatientType() {
+        return patientType;
+    }
+
     public String getArrow() {
         return arrow;
     }
@@ -573,10 +612,10 @@ public class TableInfoContainer {
         String[] temp_titles = null;
         switch (MainWindow.language) {
             case "Hebrew":
-                temp_titles = new String[]{"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית"};
+                temp_titles = new String[]{"סוג משחק", "מגבלת הזמן", "מספר התמונות שזוהו", "תאריך המשחק", "יד דומיננטית", "סוג משתמש"};
                 break;
             case "English":
-                temp_titles = new String[]{"Game type", "Time limit", "Number of Correct Images", "Game date", "Dominant hand"};
+                temp_titles = new String[]{"Game type", "Time limit", "Number of Correct Images", "Game date", "Dominant hand", "Patient type"};
                 break;
         }
         values.addAll(Arrays.asList(temp_titles));

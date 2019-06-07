@@ -13,7 +13,7 @@ public class PatientQueries {
     // members
     private static PatientQueries ourInstance = new PatientQueries();
     private static Statement myStatement;
-    private static String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "birth_date"};
+    private static String[] patientColumns = {"patient_id", "patient_name", "patient_gender", "dominant_hand", "birth_date", "patient_type"};
 
     /****
      * Constructor singleton
@@ -61,10 +61,10 @@ public class PatientQueries {
      */
     public void insertNewPatient(PatientContainer patientInfo) {
         String p_id = patientInfo.getPatientID(), p_name = patientInfo.getPatientName(), p_age = patientInfo.getPatientAge();
-        String p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender();
+        String p_hand = patientInfo.getPatientDominantHand(), p_gender = patientInfo.getPatientGender(), p_type = patientInfo.getPatientType();
         try {
             String command = String.format("insert into patient (patient_id, patient_name, patient_gender, dominant_hand," +
-                    " birth_date)values(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age);
+                    " birth_date, patient_type)values(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", p_id, p_name, p_gender, p_hand, p_age, p_type);
             // execute the query
             Executor.executeInsertQuery(myStatement, command, patientColumns);
         } catch (SQLException e) {
