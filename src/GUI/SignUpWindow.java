@@ -70,13 +70,13 @@ public class SignUpWindow extends BasicWindow{
             String hand_msg = "";
             switch (MainWindow.language) {
                 case "Hebrew":
-                    id_msg = "יש להזין תעודת זהות תקינה בעלת 9 ספרות";
+                    id_msg = "יש להזין 4 ספרות אחרונות של תעודת זהות";
                     gender_msg = "יש להזין את מין המשתמש/ת";
                     date_msg = "יש להזין תאריך לידה תקין";
                     hand_msg = "יש להזין יד דומיננטית";
 //                    break;
                 case "English":
-                    id_msg = "please enter a valid 9 digits ID";
+                    id_msg = "please enter the last 4 digits of your ID";
                     gender_msg = "please enter gender";
                     date_msg = "please enter a valid birth date";
                     hand_msg = "please enter dominant hand";
@@ -84,7 +84,7 @@ public class SignUpWindow extends BasicWindow{
             }
 
             // validation checks
-            if(id.length() != 9) {
+            if(id.length() != 4) {
                 Alerter.showAlert(id_msg, Alert.AlertType.ERROR);
             } else if(gender == null) {
                 Alerter.showAlert(gender_msg, Alert.AlertType.ERROR);

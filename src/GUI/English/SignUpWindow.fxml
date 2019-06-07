@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.SignUpWindow">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SignUpWindow">
     <children>
         <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -35,7 +35,7 @@
             </ImageView>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="306.0" prefWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label text="First name:">
                                     <VBox.margin>
@@ -53,7 +53,7 @@
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <Label text="ID:">
+                                <Label text="ID:&#10;(Last 4 digits)">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="20.0" />
                                     </VBox.margin>
@@ -143,11 +143,17 @@
                             </children>
                         </VBox>
                     </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
                 </HBox>
                 <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submit" text="submit">
                     <font>
                         <Font size="17.0" />
-                    </font></JFXButton>
+                    </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></JFXButton>
             </children>
         </VBox>
     </children>

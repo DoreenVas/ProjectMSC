@@ -130,7 +130,7 @@ public class MainWindow implements Initializable{
         try {
             // check validation of id number
             int id = Integer.parseInt(this.id.getText());
-            if (id < 0 || id > 999999999) {
+            if (id < 0 || id > 9999) {
                 throw new NumberFormatException();
             }
             // get the information of the patient
