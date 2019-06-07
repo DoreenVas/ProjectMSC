@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -29,6 +30,10 @@ public class SignUpWindow extends BasicWindow{
     private ImageView home;
     @FXML
     private Button submit;
+    @FXML
+    private RadioButton radio_patient;
+    @FXML
+    private RadioButton radio_tester;
     @FXML
     private JFXTextField firstName;
     @FXML
@@ -63,6 +68,11 @@ public class SignUpWindow extends BasicWindow{
             String gender = (String)this.gender.getValue();
             String dominant_hand = (String)this.dominantHand.getValue();
             LocalDate date = this.date.getValue();
+            String patient_type = "";
+            if (radio_patient.isSelected())
+                patient_type = "patient";
+            else
+                patient_type = "tester";
             //prepare correct msg
             String id_msg = "";
             String gender_msg = "";
@@ -91,7 +101,7 @@ public class SignUpWindow extends BasicWindow{
             } else if(date == null || date.compareTo(LocalDate.now()) > 0) {
                 Alerter.showAlert(date_msg, Alert.AlertType.ERROR);
             }else if(dominant_hand == null) {
-                    Alerter.showAlert(hand_msg, Alert.AlertType.ERROR);
+                Alerter.showAlert(hand_msg, Alert.AlertType.ERROR);
             } else {
                 switch (gender) {
                     case "זכר":
@@ -125,7 +135,7 @@ public class SignUpWindow extends BasicWindow{
                 // inserting the new patient to the DB.
                 Connection conn = Connection.getInstance();
                 conn.insertPatientQuery(PatientContainer.getInstance().setPatientAge(date.toString())
-                        .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name));
+                        .setPatientDominantHand(dominant_hand).setPatientGender(gender).setPatientID(id).setPatientName(name).setPatientType(patient_type));
                 super.menuWindow(this.home);
             }
         } catch (Exception e) {

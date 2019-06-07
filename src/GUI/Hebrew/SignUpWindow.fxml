@@ -8,6 +8,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -88,6 +90,14 @@
                               <Font size="16.0" />
                            </font>
                                 </Label>
+                        <RadioButton fx:id="radio_patient" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" selected="true" text="מטופל">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="patient2" />
+                           </toggleGroup>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </RadioButton>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER" fillWidth="false" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -143,6 +153,11 @@
                                         </FXCollections>
                                     </items>
                                 </JFXComboBox>
+                        <RadioButton fx:id="radio_tester" mnemonicParsing="false" text="נסיין" toggleGroup="$patient2">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </RadioButton>
                             </children>
                         </VBox>
                     </children>

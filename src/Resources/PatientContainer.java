@@ -15,6 +15,7 @@ public class PatientContainer {
     private String patientAge;
     private String patientGender;
     private String patientDominantHand;
+    private String patientType;
 
     /*****
      * Constructor
@@ -25,6 +26,7 @@ public class PatientContainer {
         this.patientAge = null;
         this.patientGender = null;
         this.patientDominantHand = null;
+        this.patientType = null;
     }
 
     /****
@@ -77,6 +79,22 @@ public class PatientContainer {
      */
     public String getPatientGender() {
         return patientGender;
+    }
+
+    /*****
+     * Returns the type of the patient(tester ot patient).
+     * @return the type of the patient.
+     */
+    public String getPatientType() { return patientType; }
+
+    /******
+     * Sets the type of the patient.
+     * @param patientType the new type of the patient.
+     * @return the current patient container.
+     */
+    public PatientContainer setPatientType(String patientType) {
+        this.patientType = patientType;
+        return this;
     }
 
     /******
