@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,98 +15,90 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdminWindow">
-   <children>
-      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox>
-               <children>
-                  <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="pic/misc/arrow.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="pic/misc/adminHeb.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="30.0" top="30.0" />
-               </VBox.margin>
-            </ImageView>
-            <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="מעבר לאזור אישי של מטופל">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
+    <children>
+        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox>
+                    <children>
+                        <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="pic/misc/arrow.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <ImageView fitHeight="300.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="pic/misc/adminHeb.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="30.0" top="30.0" />
+                    </VBox.margin>
+                </ImageView>
+                <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="מעבר לאזור אישי של מטופל" GridPane.rowIndex="0">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TableView fx:id="usersTable" minHeight="100.0" GridPane.rowIndex="2">
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
-                  </Label>
-                  <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submit" text="אישור" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </GridPane.margin>
-                     <font>
+                        </TableView>
+                    </children>
+                </GridPane>
+                <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <JFXButton fx:id="shapesPieChart" buttonType="RAISED" onAction="#shapesPieChart" text="הצג גרף צורות">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="texturesPieChart" buttonType="RAISED" onAction="#texturesPieChart" text="הצג גרף מרקמים">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="bothPieChart" buttonType="RAISED" onAction="#bothPieChart" text="הצג גרף משולב">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+                <JFXButton fx:id="exit" buttonType="RAISED" onAction="#exit" text="יציאה">
+                    <font>
                         <Font size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXTextField fx:id="id" nodeOrientation="RIGHT_TO_LEFT" promptText="הכנס תעודת זהות עבור המטופל הרצוי" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="40.0" top="10.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </GridPane>
-             <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
-                 <children>
-                     <JFXButton fx:id="shapesPieChart" buttonType="RAISED" onAction="#shapesPieChart" text="הצג גרף צורות">
-                         <font>
-                             <Font size="17.0" />
-                         </font>
-                         <HBox.margin>
-                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                         </HBox.margin>
-                     </JFXButton>
-                     <JFXButton fx:id="texturesPieChart" buttonType="RAISED" onAction="#texturesPieChart" text="הצג גרף מרקמים">
-                         <font>
-                             <Font size="17.0" />
-                         </font>
-                         <HBox.margin>
-                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                         </HBox.margin>
-                     </JFXButton>
-                     <JFXButton fx:id="bothPieChart" buttonType="RAISED" onAction="#bothPieChart" text="הצג גרף משולב">
-                         <font>
-                             <Font size="17.0" />
-                         </font>
-                         <HBox.margin>
-                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                         </HBox.margin>
-                     </JFXButton>
-                 </children>
-             </HBox>
-            <JFXButton fx:id="exit" buttonType="RAISED" onAction="#exit" text="יציאה">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </VBox>
-   </children>
+                    </font>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.AdminWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AdminWindow">
     <children>
         <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -47,7 +47,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Access to patient personal zone">
+                        <Label text="מעבר לאזור אישי של מטופל" GridPane.rowIndex="0">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font>
@@ -55,22 +55,14 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </GridPane.margin>
                         </Label>
-                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submit" text="submit" GridPane.rowIndex="3">
-                            <GridPane.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </GridPane.margin>
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXTextField fx:id="id" nodeOrientation="LEFT_TO_RIGHT" promptText="Enter patient's ID" GridPane.rowIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="10.0" left="10.0" right="40.0" top="10.0" />
-                            </GridPane.margin>
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </JFXTextField>
+                        <TableView fx:id="usersTable" minHeight="100.0" GridPane.rowIndex="2">
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                        </TableView>
                     </children>
                 </GridPane>
                 <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">

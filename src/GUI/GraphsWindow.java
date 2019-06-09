@@ -319,7 +319,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         String num_recognized_txt = "";
         String game_date_txt = "";
         String dominant_hand_txt = "";
-        String patient_type_txt = "";
         // set the titles of the table according to the current language of the app.
         switch (MainWindow.language) {
             case "Hebrew":
@@ -328,15 +327,13 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                 num_recognized_txt = "מספר התמונות שזוהו";
                 game_date_txt = "תאריך המשחק";
                 dominant_hand_txt = "יד דומיננטית";
-                patient_type_txt = "סוג משתמש";
                 break;
             case "English":
                 game_type_txt = "Game type";
-                time_limit_txt = "TimeLimit";
+                time_limit_txt = "Time Limit";
                 num_recognized_txt = "Number of recognized pictures";
                 game_date_txt = "Game date";
                 dominant_hand_txt = "Dominant hand";
-                patient_type_txt = "Patient type";
                 break;
         }
 
@@ -380,14 +377,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         this.resultsTable.getSortOrder().add(dominantHandCol);
         this.resultsTable.getColumns().add(dominantHandCol);
 
-        // create patient type column
-        TableColumn<TableInfoContainer, String> patientTypeCol = new TableColumn<>("patientType");
-        patientTypeCol.setCellValueFactory(new PropertyValueFactory<>("patientType"));
-        patientTypeCol.setText(patient_type_txt);
-        patientTypeCol.setMinWidth(patient_type_txt.length());
-        this.resultsTable.getSortOrder().add(patientTypeCol);
-        this.resultsTable.getColumns().add(patientTypeCol);
-
         // create column for every image
         for (String s : shapesColumns) {
             TableColumn<TableInfoContainer, String> shapesColumn = new TableColumn<>(s);
@@ -417,12 +406,8 @@ public class GraphsWindow extends BasicWindow implements Initializable{
         for (GameContainer g : list) {
             TableInfoContainer t = new TableInfoContainer();
             // set the game info
-            t.setGameType(g.getGameType())
-                .setTimeLimit(String.valueOf(g.getTimeLimit()))
-                .setGameDate(g.getGameDate())
-                .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons()))
-                .setDominantHand(dominantHandSwitchLanguage(g.getDominantHand()))
-                .setPatientType(PatientContainer.getInstance().getPatientType());
+            t.setGameType(g.getGameType()).setTimeLimit(String.valueOf(g.getTimeLimit())).setGameDate(g.getGameDate())
+                    .setNumOfRecognizedButtons(String.valueOf(g.getNumOfRecognizedButtons())).setDominantHand(dominantHandSwitchLanguage(g.getDominantHand()));
             // add the shapes times
             for (String s : shapesColumns) {
                 insertInfoToTableContainer(t, g, s);
@@ -461,34 +446,6 @@ public class GraphsWindow extends BasicWindow implements Initializable{
                     return "No";
                 default:
                     return dominantHand;
-            }
-        }
-    }
-
-    /*****
-     * The function receives the value of patient type hand and returns it
-     * according to the current language of the app.
-     * @param patientType the value of patient tpye.
-     * @return the translation according to the current language of the app.
-     */
-    private String patientTypeSwitchLanguage(String patientType) {
-        if (MainWindow.language.equals("Hebrew")) {
-            switch (patientType) {
-                case "tester":
-                    return "נסיין";
-                case "patient":
-                    return "מטופל";
-                default:
-                    return patientType;
-            }
-        } else {
-            switch (patientType) {
-                case "נסיין":
-                    return "tester";
-                case "מטופל":
-                    return "patient";
-                default:
-                    return patientType;
             }
         }
     }
@@ -610,7 +567,9 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
         // add file extensions
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx")
+                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
+                new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
+                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv")
         );
 
         File file = fileChooser.showSaveDialog(secondStage);

@@ -1,32 +1,35 @@
 package GUI;
 
-import Resources.PieChartBuilder;
+import Resources.*;
 import Model.Connection;
-import Resources.AlertMessages;
-import Resources.Alerter;
-import Resources.PatientContainer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.geometry.Insets;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /******
@@ -36,9 +39,7 @@ import java.util.ResourceBundle;
  */
 public class AdminWindow implements Initializable{
     @FXML
-    private JFXButton submit;
-    @FXML
-    private JFXTextField id;
+    private TableView<AdminTableInfoContainer> usersTable;
     @FXML
     private JFXButton shapePieChart;
     @FXML
@@ -55,30 +56,146 @@ public class AdminWindow implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // allow enter key press
-        this.id.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ENTER){
-                submit();
-            }
+        // add double click option to the table
+        // double goes to the patient's personal zone.
+        this.usersTable.setRowFactory(tv -> {
+            TableRow<AdminTableInfoContainer> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    AdminTableInfoContainer clickedRow = row.getItem();
+                    submit(clickedRow.getPatientID());
+                }
+            });
+            return row ;
         });
+
+        createUsersTable();
+    }
+
+    /****
+     * Add rows and columns to the table
+     */
+    private void createUsersTable() {
+        addCols();
+        addRows();
+    }
+
+    /******
+     * For each patient id, we get all the patient info
+     * and display it in the table.
+     */
+    private void addRows() {
+        ObservableList<AdminTableInfoContainer> users = FXCollections.observableArrayList();
+        Connection conn = null;
+        try {
+            conn = Connection.getInstance();
+            // get all patients ids
+            String[] ids = conn.getAllPatientsIDs();
+            PatientContainer patient = null;
+            // go over the ids
+            for(String id : ids) {
+                patient = conn.idQuery(id);
+                String[] info = new String[5];
+                info[0] = patient.getPatientID();
+                info[1] = patient.getPatientGender();
+                info[2] = patient.getPatientAge();
+                info[3] = patient.getPatientDominantHand();
+                info[4] = patient.getPatientType();
+                AdminTableInfoContainer container = new AdminTableInfoContainer(info[0], info[1], info[2], info[3], info[4]);
+                users.add(container);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // add the patients info to the table
+        this.usersTable.getItems().addAll(users);
+    }
+
+    /*****
+     * Add the columns of the table
+     */
+    private void addCols() {
+        String patient_id_txt = "";
+        String patient_gender_txt = "";
+        String birth_date_txt = "";
+        String dominant_hand_txt = "";
+        String patient_type_txt = "";
+
+        switch (MainWindow.language) {
+            case "Hebrew":
+                patient_id_txt = "תעודת זהות";
+                patient_gender_txt = "מין";
+                patient_type_txt = "סוג המשתמש";
+                birth_date_txt = "תאריך לידה";
+                dominant_hand_txt = "יד דומיננטית";
+                break;
+            case "English":
+                patient_id_txt = "User ID";
+                patient_gender_txt = "User Gender";
+                patient_type_txt = "User type";
+                birth_date_txt = "Birth date";
+                dominant_hand_txt = "Dominant hand";
+                break;
+        }
+
+        // create patient id column
+        TableColumn<AdminTableInfoContainer, String> patientIDCol = new TableColumn<>("patientID");
+        patientIDCol.setCellValueFactory(new PropertyValueFactory<>("patientID"));
+        patientIDCol.setText(patient_id_txt);
+        patientIDCol.setMinWidth(patient_id_txt.length());
+        this.usersTable.getSortOrder().add(patientIDCol);
+        this.usersTable.getColumns().add(patientIDCol);
+
+        // create patient gender column
+        TableColumn<AdminTableInfoContainer, String> patientGenderCol = new TableColumn<>("patientGender");
+        patientGenderCol.setCellValueFactory(new PropertyValueFactory<>("patientGender"));
+        patientGenderCol.setText(patient_gender_txt);
+        patientGenderCol.setMinWidth(patient_gender_txt.length());
+        this.usersTable.getSortOrder().add(patientGenderCol);
+        this.usersTable.getColumns().add(patientGenderCol);
+
+        // create patient age column
+        TableColumn<AdminTableInfoContainer, String> patientBirthDateCol = new TableColumn<>("patientAge");
+        patientBirthDateCol.setCellValueFactory(new PropertyValueFactory<>("patientAge"));
+        patientBirthDateCol.setText(birth_date_txt);
+        patientBirthDateCol.setMinWidth(birth_date_txt.length());
+        this.usersTable.getSortOrder().add(patientBirthDateCol);
+        this.usersTable.getColumns().add(patientBirthDateCol);
+
+        // create patient dominant hand column
+        TableColumn<AdminTableInfoContainer, String> patientDominantHandCol = new TableColumn<>("patientDominantHand");
+        patientDominantHandCol.setCellValueFactory(new PropertyValueFactory<>("patientDominantHand"));
+        patientDominantHandCol.setText(dominant_hand_txt);
+        patientDominantHandCol.setMinWidth(dominant_hand_txt.length());
+        this.usersTable.getSortOrder().add(patientDominantHandCol);
+        this.usersTable.getColumns().add(patientDominantHandCol);
+
+        // create patient type column
+        TableColumn<AdminTableInfoContainer, String> patientTypeCol = new TableColumn<>("patientType");
+        patientTypeCol.setCellValueFactory(new PropertyValueFactory<>("patientType"));
+        patientTypeCol.setText(patient_type_txt);
+        patientTypeCol.setMinWidth(patient_type_txt.length());
+        this.usersTable.getSortOrder().add(patientTypeCol);
+        this.usersTable.getColumns().add(patientTypeCol);
     }
 
     /******
      * In order to search for a certain patient the admin must ype a correct ID of a patient
      * (i.e 9 digits). After verifying the ID, the personal zone of the patient will be shown.
      */
-    @FXML
-    protected void submit() {
+    private void submit(String p_id) {
         try {
             // check validation of id number
-            int id = Integer.parseInt(this.id.getText());
+            int id = Integer.parseInt(p_id);
             if (id < 0 || id > 999999999) {
                 throw new NumberFormatException();
             }
             // get the information of the patient
-            String idString = this.id.getText();
             Connection conn = Connection.getInstance();
-            PatientContainer p_info = conn.idQuery(idString);
+            PatientContainer p_info = conn.idQuery(p_id);
             // patient doesn't exist in the database
             if (p_info == null) {
                 switch (MainWindow.language) {
@@ -93,7 +210,7 @@ public class AdminWindow implements Initializable{
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource(MainWindow.language+"/GraphsWindow.fxml"));
                 AnchorPane root = (AnchorPane) loader.load();
-                Stage stage = (Stage) this.submit.getScene().getWindow();
+                Stage stage = (Stage) this.usersTable.getScene().getWindow();
                 // get the size of the screen
                 Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
                 this.window_height = window.height;
@@ -218,7 +335,7 @@ public class AdminWindow implements Initializable{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(MainWindow.language + "/MainWindow.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
-            Stage stage = (Stage) this.submit.getScene().getWindow();
+            Stage stage = (Stage) this.usersTable.getScene().getWindow();
             // get the size of the screen
             Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
             this.window_height = window.height;
