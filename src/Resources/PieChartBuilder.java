@@ -19,9 +19,9 @@ public class PieChartBuilder {
      * @param gameType the game type
      * @return a pie chart
      */
-    public static PieChart createChart(String gameType) {
+    public static PieChart createChart(boolean isTester, String gameType) {
         String[] ids = getPatientsIDs();
-        ArrayList<Double> gameSuccesses = analyzeGamesForPatients(ids, gameType);
+        ArrayList<Double> gameSuccesses = analyzeGamesForPatients(ids, gameType, isTester);
         ObservableList<PieChart.Data> pieChartData = getPieChartData(gameSuccesses);
         PieChart pieChart = new PieChart(pieChartData);
         pieChart.setTitle(gameType);
@@ -51,18 +51,34 @@ public class PieChartBuilder {
      * @param gameType the wanted game type
      * @return a list of success rate
      */
-    private static ArrayList<Double> analyzeGamesForPatients(String[] ids, String gameType) {
+    private static ArrayList<Double> analyzeGamesForPatients(String[] ids, String gameType, boolean isTester) {
         ArrayList<GameContainer> g;
         ArrayList<Double> personalSuccessRate = new ArrayList<>();
         try {
             Connection connection = Connection.getInstance();
             for (String id : ids) {
-                g = connection.getGames(id);
-                if (g == null) {
+                PatientContainer p = connection.idQuery(id);
+                // check if we want a tester or a patient
+                // add only the games of the type we want
+                if(p.getPatientType().equals("null")) {
                     continue;
                 }
-                double success = getGamesSuccessRate(g, gameType);
-                personalSuccessRate.add(success);
+                if(p.getPatientType().equals("tester") && isTester) {
+                    g = connection.getGames(id);
+                    if (g == null) {
+                        continue;
+                    }
+                    double success = getGamesSuccessRate(g, gameType);
+                    personalSuccessRate.add(success);
+                // add only games of patients
+                } else if (!p.getPatientType().equals("tester") && !isTester) {
+                    g = connection.getGames(id);
+                    if (g == null) {
+                        continue;
+                    }
+                    double success = getGamesSuccessRate(g, gameType);
+                    personalSuccessRate.add(success);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

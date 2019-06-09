@@ -3,9 +3,9 @@ package GUI;
 import Resources.*;
 import Model.Connection;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -41,11 +40,17 @@ public class AdminWindow implements Initializable{
     @FXML
     private TableView<AdminTableInfoContainer> usersTable;
     @FXML
-    private JFXButton shapePieChart;
+    private JFXButton patientShapePieChart;
     @FXML
-    private JFXButton texturesPieChart;
+    private JFXButton patientTexturesPieChart;
     @FXML
-    private JFXButton bothPieChart;
+    private JFXButton patientBothPieChart;
+    @FXML
+    private JFXButton testerShapePieChart;
+    @FXML
+    private JFXButton testerTexturesPieChart;
+    @FXML
+    private JFXButton testerBothPieChart;
     @FXML
     private JFXButton exit;
     @FXML
@@ -185,6 +190,7 @@ public class AdminWindow implements Initializable{
     /******
      * In order to search for a certain patient the admin must ype a correct ID of a patient
      * (i.e 9 digits). After verifying the ID, the personal zone of the patient will be shown.
+     * @param p_id the id of the patient
      */
     private void submit(String p_id) {
         try {
@@ -245,12 +251,12 @@ public class AdminWindow implements Initializable{
      * the game type is chosen by clicking different buttons
      * @param gameType the game type (Shapes/ Textures/ Both).
      */
-    private void showPieChart(String gameType) {
+    private void showPieChart(Boolean isTester, String gameType) {
         Stage secondStage = new Stage();
         VBox vBox = new VBox();
         AnchorPane anchorPane = new AnchorPane();
         // create the bar chart
-        PieChart pieChart = PieChartBuilder.createChart(gameType);
+        PieChart pieChart = PieChartBuilder.createChart(isTester, gameType);
         // add a label for clicking - showing percentage
         final Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
@@ -303,18 +309,33 @@ public class AdminWindow implements Initializable{
      * game type), that represent the success/failure rate of all the patients.
      */
     @FXML
-    private void shapesPieChart() {
-        showPieChart("Shapes");
+    private void patientShapesPieChart() {
+        showPieChart(true, "Shapes");
     }
 
     @FXML
-    private void texturesPieChart() {
-        showPieChart("Textures");
+    private void patientTexturesPieChart() {
+        showPieChart(true, "Textures");
     }
 
     @FXML
-    private void bothPieChart() {
-        showPieChart("Both");
+    private void patientBothPieChart() {
+        showPieChart(true, "Both");
+    }
+
+    @FXML
+    private void testerShapesPieChart() {
+        showPieChart(false, "Shapes");
+    }
+
+    @FXML
+    private void testerTexturesPieChart() {
+        showPieChart(false, "Textures");
+    }
+
+    @FXML
+    private void testerBothPieChart() {
+        showPieChart(false, "Both");
     }
 
     /***

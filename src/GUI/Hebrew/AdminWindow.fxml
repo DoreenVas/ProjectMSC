@@ -7,10 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -35,39 +32,17 @@
                         <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </ImageView>
-                <GridPane alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label text="מעבר לאזור אישי של מטופל" GridPane.rowIndex="0">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </GridPane.margin>
-                        </Label>
-                        <TableView fx:id="usersTable" minHeight="100.0" GridPane.rowIndex="2">
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                            </columnResizePolicy>
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </GridPane.margin>
-                        </TableView>
-                    </children>
-                </GridPane>
+                  <TableView fx:id="usersTable">
+                      <columnResizePolicy>
+                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                      </columnResizePolicy>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+                  </TableView>
                 <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
                     <children>
-                        <JFXButton fx:id="shapesPieChart" buttonType="RAISED" onAction="#shapesPieChart" text="הצג גרף צורות">
+                        <JFXButton fx:id="patientShapePieChart" buttonType="RAISED" onAction="#patientShapesPieChart" text="הצג גרף צורות למטופלים">
                             <font>
                                 <Font size="17.0" />
                             </font>
@@ -75,7 +50,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="texturesPieChart" buttonType="RAISED" onAction="#texturesPieChart" text="הצג גרף מרקמים">
+                        <JFXButton fx:id="patientTexturesPieChart" buttonType="RAISED" onAction="#patientTexturesPieChart" text="הצג גרף מרקמים למטופלים">
                             <font>
                                 <Font size="17.0" />
                             </font>
@@ -83,7 +58,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="bothPieChart" buttonType="RAISED" onAction="#bothPieChart" text="הצג גרף משולב">
+                        <JFXButton fx:id="patientBothPieChart" buttonType="RAISED" onAction="#patientBothPieChart" text="הצג גרף משולב למטופלים">
                             <font>
                                 <Font size="17.0" />
                             </font>
@@ -93,6 +68,39 @@
                         </JFXButton>
                     </children>
                 </HBox>
+                <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <JFXButton fx:id="testerShapePieChart" buttonType="RAISED" onAction="#testerShapesPieChart" text="הצג גרף צורות לנסיינים">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="testerTexturesPieChart" buttonType="RAISED" onAction="#testerTexturesPieChart" text="הצג גרף מרקמים לנסיינים">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="testerBothPieChart" buttonType="RAISED" onAction="#testerBothPieChart" text="הצג גרף משולב לנסיינים">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+                  <Label text="לחיצה כפולה תעביר לאזור אישי של מטופל">
+                      <font>
+                          <Font name="System Bold" size="16.0" />
+                      </font>
+                  </Label>
                 <JFXButton fx:id="exit" buttonType="RAISED" onAction="#exit" text="יציאה">
                     <font>
                         <Font size="17.0" />
