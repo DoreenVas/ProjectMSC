@@ -567,9 +567,7 @@ public class GraphsWindow extends BasicWindow implements Initializable{
 
         // add file extensions
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
-                new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
-                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv")
+                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx")
         );
 
         File file = fileChooser.showSaveDialog(secondStage);
