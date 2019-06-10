@@ -101,6 +101,9 @@ public class AdminWindow implements Initializable{
             // go over the ids
             for(String id : ids) {
                 patient = conn.idQuery(id);
+                if(patient == null) {
+                    continue;
+                }
                 String[] info = new String[5];
                 info[0] = patient.getPatientID();
                 info[1] = patient.getPatientGender();
@@ -310,32 +313,32 @@ public class AdminWindow implements Initializable{
      */
     @FXML
     private void patientShapesPieChart() {
-        showPieChart(true, "Shapes");
-    }
-
-    @FXML
-    private void patientTexturesPieChart() {
-        showPieChart(true, "Textures");
-    }
-
-    @FXML
-    private void patientBothPieChart() {
-        showPieChart(true, "Both");
-    }
-
-    @FXML
-    private void testerShapesPieChart() {
         showPieChart(false, "Shapes");
     }
 
     @FXML
-    private void testerTexturesPieChart() {
+    private void patientTexturesPieChart() {
         showPieChart(false, "Textures");
     }
 
     @FXML
-    private void testerBothPieChart() {
+    private void patientBothPieChart() {
         showPieChart(false, "Both");
+    }
+
+    @FXML
+    private void testerShapesPieChart() {
+        showPieChart(true, "Shapes");
+    }
+
+    @FXML
+    private void testerTexturesPieChart() {
+        showPieChart(true, "Textures");
+    }
+
+    @FXML
+    private void testerBothPieChart() {
+        showPieChart(true, "Both");
     }
 
     /***

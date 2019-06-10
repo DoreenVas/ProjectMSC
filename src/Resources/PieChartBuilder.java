@@ -60,7 +60,7 @@ public class PieChartBuilder {
                 PatientContainer p = connection.idQuery(id);
                 // check if we want a tester or a patient
                 // add only the games of the type we want
-                if(p.getPatientType().equals("null")) {
+                if(p == null || p.getPatientType().equals("null")) {
                     continue;
                 }
                 if(p.getPatientType().equals("tester") && isTester) {
