@@ -32,7 +32,7 @@ import javafx.scene.image.Image;
  * to log in, sign up or use administrator log in.
  */
 public class MainWindow implements Initializable{
-    public static String language = "Hebrew";
+    public static String language = "English";
 
     @FXML
     private JFXButton submit;

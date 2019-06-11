@@ -30,7 +30,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Hebrew/MainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("English/MainWindow.fxml"));
         primaryStage.setTitle("MSC");
         setWindowSize();
         Scene main_window = new Scene(root,  this.window_width,  this.window_height);
