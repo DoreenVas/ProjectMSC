@@ -159,7 +159,7 @@
                         </VBox>
                     </children>
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets />
                </VBox.margin>
                 </HBox>
                 <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submit" text="submit">
@@ -167,7 +167,7 @@
                         <Font size="17.0" />
                     </font>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </VBox.margin></JFXButton>
             </children>
         </VBox>
